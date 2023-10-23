@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.util.nebulaHardware;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,7 +11,7 @@ public class NebulaServo {// Normal Servo
         Reverse //True to Inverted
     }
 //    private final SimpleServo servo;
-    private final ServoEx servo;
+    private final SimpleServo servo; //TODO: CAN Just make this be a simple servo
     private final Boolean isEnabled;
 
     /**

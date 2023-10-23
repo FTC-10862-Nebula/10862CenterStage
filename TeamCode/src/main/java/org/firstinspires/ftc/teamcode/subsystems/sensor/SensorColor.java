@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.subsystems.sensor;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class SensorColor extends SubsystemBase implements HardwareDevice {
+public class SensorColor extends SubsystemBase {
 
     private final ColorSensor colorSensor;
     private final Telemetry telemetry;
@@ -48,11 +47,4 @@ public class SensorColor extends SubsystemBase implements HardwareDevice {
 //        telemetry.addLine("Got Red Cone");
         return (colorSensor.red() > 500);
     }
-
-    @Override
-    public void disable() {colorSensor.close();}
-
-    @Override
-    public String getDeviceType() {return "Color Sensor";}
-
 }

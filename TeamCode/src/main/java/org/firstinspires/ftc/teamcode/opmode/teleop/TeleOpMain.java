@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultTankDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
+import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.CycleTracker.CycleTracker;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 
@@ -21,7 +22,7 @@ public class TeleOpMain extends MatchOpMode {
 
     // Subsystems
     private Drivetrain drivetrain;
-//    private Slide slide;
+    private Slide slide;
 //    private Intake intake;
 //    private Arm arm;
 //    private Claw claw;
@@ -39,7 +40,7 @@ public class TeleOpMain extends MatchOpMode {
 //        intake = new Intake(telemetry, hardwareMap, true);
 //        arm = new Arm (telemetry, hardwareMap, true);
 //        shooter = new Shooter(telemetry, hardwareMap, true);
-//        slide = new Slide(telemetry, hardwareMap, false);
+        slide = new Slide(telemetry, hardwareMap, false);
     }
 
 
@@ -106,6 +107,7 @@ public class TeleOpMain extends MatchOpMode {
 //         * OPERATOR
 //         */
 //
+        slide.setDefaultCommand(slide.slideMoveManual(operatorGamepad::getRightY));
 //        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
 //        pivot.setDefaultCommand(new PivotMoveManual(pivot, operatorGamepad::getLeftY));
     }

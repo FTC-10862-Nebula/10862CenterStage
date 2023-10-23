@@ -32,6 +32,17 @@ public class PowerIntake extends SubsystemBase {
             this.reset = reset;
         }
     }
+    
+    public enum IntakePos {
+        UP(0,0),
+        DOWN(0,0);
+        
+        public final double rPos, lPos;
+        IntakePos(double rPos, double lPos) {
+            this.rPos = rPos;
+            this.lPos = lPos;
+        }
+    }
     IntakePower shooterRPM = IntakePower.STOP;
     Telemetry telemetry;
     public final NebulaMotor motor;
@@ -89,5 +100,14 @@ public class PowerIntake extends SubsystemBase {
 //            return controller.getVelocityError()>100;//Whatever the Number is
         }
         return false;
+    }
+    
+    private void setDown(){
+        intakeServoR.setPosition(IntakePos.DOWN.rPos);
+        intakeServoL.setPosition(IntakePos.DOWN.lPos);
+    }
+    private void setUp(){
+        intakeServoR.setPosition(IntakePos.UP.rPos);
+        intakeServoL.setPosition(IntakePos.UP.lPos);
     }
 }

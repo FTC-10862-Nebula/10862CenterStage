@@ -11,14 +11,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.NebulaConstants;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaMotor;
 
+import java.util.function.Supplier;
+
 @Config
 public class Slide extends SubsystemBase {
-//    public final NebulaMotorGroup motorGroup;
     protected Telemetry telemetry;
     protected NebulaMotor slideR, slideL;
     protected PIDFController slideController;
     protected double output = 0;
-//    protected boolean dropBoolean = false;
 
     //TODO: Should the Slide even drop?
 
@@ -110,13 +110,13 @@ public class Slide extends SubsystemBase {
 
     public void setSetPoint(double setPoint) {
         //TODO: Maybe should remove all Safety Stuff
-        if(NebulaConstants.GamePad.overrideSafety){
-            if(setPoint>NebulaConstants.Slide.MAX_POSITION ||
-                setPoint<NebulaConstants.Slide.MIN_POSITION){
+//        if(NebulaConstants.GamePad.overrideSafety){
+//            if(setPoint>NebulaConstants.Slide.MAX_POSITION ||
+//                setPoint<NebulaConstants.Slide.MIN_POSITION){
 //                slideM1.stop();
-                return;
-            }
-        }
+//                return;
+//            }
+//        }
 
         slideController.setSetPoint(setPoint);
     }
@@ -132,5 +132,13 @@ public class Slide extends SubsystemBase {
 
     public double getSetPoint() {
         return slideController.getSetPoint();
+    }
+    
+    //TODO: test
+    public Command slideMoveManual(Supplier<Double> doubleSupplier) {
+        double position = doubleSupplier.get();
+//        if (Math.abs(position) > 0.1) {
+            return setSetPointCommand(getSetPoint() + position * -25);
+//        }
     }
 }

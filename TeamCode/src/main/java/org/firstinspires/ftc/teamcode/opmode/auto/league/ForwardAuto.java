@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
+import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
@@ -21,6 +22,7 @@ public class ForwardAuto extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
     private PowerIntake intake;
+    private PowerClimber climb;
     @Config
     private static class RedBackstageConstants {
         public static Path path;
@@ -41,6 +43,7 @@ public class ForwardAuto extends MatchOpMode {
         drivetrain = new Drivetrain(new SixWheel(hardwareMap), telemetry);
         drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
+        climb = new PowerClimber(telemetry, hardwareMap, true);
         while (!isStarted() && !isStopRequested()) {
             telemetry.update();
         }

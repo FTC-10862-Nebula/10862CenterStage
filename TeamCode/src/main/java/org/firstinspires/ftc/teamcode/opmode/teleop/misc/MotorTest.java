@@ -26,10 +26,10 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.set(1);
+            motor.set(0.25);
         }
         else if(gamepad1.dpad_up){
-            motor.set(-1);
+            motor.set(-0.25);
         }
 //        telemetry.addData("Motor: ", motor.getRate());
 //        telemetry.update();

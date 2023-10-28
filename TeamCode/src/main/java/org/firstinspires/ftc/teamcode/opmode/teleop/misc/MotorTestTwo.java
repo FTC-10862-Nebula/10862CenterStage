@@ -26,10 +26,10 @@ public class MotorTestTwo extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.set(1);
+            motor.set(0.5);
         }
         else if(gamepad1.dpad_up){
-            motor.set(-1);
+            motor.set(-0.5);
         }
         else{
             motor.stopMotor();

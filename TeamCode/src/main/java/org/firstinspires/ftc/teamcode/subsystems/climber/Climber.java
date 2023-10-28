@@ -20,8 +20,8 @@ public class Climber extends SubsystemBase {
 
     public enum ClimbEnum {
         CLIMB(0.0),
-        REST(0.0),
-        MANUAL(0.0);
+        REST(5),
+        MANUAL(10.0);
         public final double climbPos;
         ClimbEnum(double climbPos) {
             this.climbPos = climbPos;

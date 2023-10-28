@@ -7,6 +7,6 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 public class SlowTankDriveCommand extends DefaultTankDriveCommand {
     public SlowTankDriveCommand(Drivetrain drive, GamepadEx driverGamepad) {
         super(drive, driverGamepad);
-        this.multiplier = 0.5;
+        this.multiplier = 0.3; //Change in the TankModeCommand too; idk which one is working rn
     }
 }

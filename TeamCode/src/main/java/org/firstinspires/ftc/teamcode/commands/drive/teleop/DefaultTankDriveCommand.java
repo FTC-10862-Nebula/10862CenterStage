@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
 import org.firstinspires.ftc.teamcode.util.NebulaConstants;
@@ -20,7 +21,9 @@ public class DefaultTankDriveCommand extends CommandBase {
         this.drive = drive;
         this.driverGamepad = driverGamepad;
 
-        this.multiplier = 1;
+        if(driverGamepad.isDown(GamepadKeys.Button.LEFT_BUMPER)){
+            this.multiplier=0.3; //Change in the SlowModeCommand too; idk which one is working rn
+        } else {this.multiplier = 1;}
         addRequirements(this.drive);
     }
 

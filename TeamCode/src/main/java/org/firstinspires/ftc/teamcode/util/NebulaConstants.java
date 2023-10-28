@@ -69,18 +69,23 @@ public class NebulaConstants {
     /** Drive **/
     public static Drive drive;
     public static class Drive {//TODO:FIX CONSTANTS
-        public final static String leftFrontM = "leftFront",
-                leftRearM = "leftRear",
-                rightRearM = "rightRear",
-                rightFrontM = "rightFront";
+        public final static String leftFrontM = "FL",
+                leftRearM = "BL",
+                rightRearM = "BR",
+                rightFrontM = "FR";
+        //NOT BEING USEDA
         public static NebulaMotor.Direction leftFrontDir = NebulaMotor.Direction.Reverse,
                 leftRearDir = NebulaMotor.Direction.Reverse,
                 rightRearDir = NebulaMotor.Direction.Forward,
-                rightFrontDir = NebulaMotor.Direction.Forward;
+                rightFrontDir = NebulaMotor.Direction.Reverse;
+//        leftFront.setDirection(DcMotor.Direction.FORWARD);
+//        leftRear.setDirection(DcMotor.Direction.FORWARD);
+//        rightFront.setDirection(DcMotor.Direction.FORWARD);
+//        rightRear.setDirection(DcMotor.Direction.REVERSE);
         public static NebulaMotor.IdleMode driveIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType driveType = NebulaMotor.MotorType.RPM_435;
         public static boolean isSquaredInputs = true;
-        public static double tippingTolerance = 5;//This probably needs to be less
+        public static double tippingTolerance = 3;//This probably needs to be less
     }
 
     /** GamePad **/
@@ -110,10 +115,8 @@ public class NebulaConstants {
     /** Intake **/
     public static Intake intake;
     public static class Intake {
-        public final static String intakeMName = "intakeM",
-                intakeM2Name = "intakeM2";//TODO: Remove 2nd Intake Motor
-        public static NebulaMotor.Direction intakeDirection = NebulaMotor.Direction.Reverse,
-                intake2Direction = NebulaMotor.Direction.Reverse;
+        public final static String intakeMName = "intake";
+        public static NebulaMotor.Direction intakeDirection = NebulaMotor.Direction.Forward;
 //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
 
         public static NebulaMotor.IdleMode intakeIdleMode = NebulaMotor.IdleMode.Brake;
@@ -131,18 +134,18 @@ public class NebulaConstants {
         public final static NebulaServo.Direction intakeRDirection = NebulaServo.Direction.Reverse;
         public static double minAngle = 0, maxAngle = 360;
         public final static String intakeLName = "intakeL";  //
-        public final static NebulaServo.Direction intakeLDirection = NebulaServo.Direction.Reverse;
+        public final static NebulaServo.Direction intakeLDirection = NebulaServo.Direction.Forward;
     }
 
     /** Climber **/
     public static Climber climber;
     public static class Climber {
-        public final static String climberName = "climber";
+        public final static String climberName = "climb";
         public static NebulaMotor.Direction climberDirection = NebulaMotor.Direction.Reverse;
         public static int climberDistancePerPulse = 1;
         //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
         public static NebulaMotor.IdleMode climberIdleMode = NebulaMotor.IdleMode.Brake;
-        public final static NebulaMotor.MotorType climberType = NebulaMotor.MotorType.RPM_312;
+        public final static NebulaMotor.MotorType climberType = NebulaMotor.MotorType.RPM_117;
         public static PIDFCoefficients climberPID = new PIDFCoefficients(.005, 0.00, 0.0,0);
         public static int climberTolerance = 1;
         public static double ks=0,

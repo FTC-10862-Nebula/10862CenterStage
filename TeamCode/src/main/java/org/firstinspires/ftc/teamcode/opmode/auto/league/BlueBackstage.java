@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.auto.league;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.arm.position.LowCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
@@ -26,7 +27,7 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
-
+@Disabled
 @Autonomous
 public class BlueBackstage extends MatchOpMode {
     // Subsystems

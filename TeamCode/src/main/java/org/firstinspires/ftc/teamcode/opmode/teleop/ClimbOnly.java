@@ -1,18 +1,17 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ClimberMoveManual;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
-
-@Config
+@Disabled
 @TeleOp
 public class ClimbOnly extends MatchOpMode {
     private GamepadEx operatorGamepad;

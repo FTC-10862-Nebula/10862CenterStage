@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.NebulaConstants;
-
+@Deprecated
 public class ClimberFeedforward extends Climber {
     protected SimpleMotorFeedforward feedforward;
     protected TrapezoidProfile.State start = new TrapezoidProfile.State(getEncoderDistance(), climber.getVelocity());

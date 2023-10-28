@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //@Disabled
 @TeleOp(group = "Subsystem test")
 public class MotorTest extends OpMode {
-    private final MotorEx motor = new MotorEx(hardwareMap, "leftFront");
+    private final MotorEx motor = new MotorEx(hardwareMap, "climb");
 
     /**
      * User defined init method
@@ -32,7 +32,7 @@ public class MotorTest extends OpMode {
             motor.set(-1);
         }
 //        telemetry.addData("Motor: ", motor.getRate());
-        telemetry.update();
+//        telemetry.update();
 
     }
 }

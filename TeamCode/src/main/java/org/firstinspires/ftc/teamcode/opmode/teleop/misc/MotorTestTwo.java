@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.misc;
 
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
-//@Disabled
+
 @TeleOp
-public class ServoTest extends OpMode {
-    Servo servo2;
+public class MotorTestTwo extends OpMode {
+    private  MotorEx motor;
+
     /**
      * User defined init method
      * <p>
@@ -14,8 +15,7 @@ public class ServoTest extends OpMode {
      */
     @Override
     public void init() {
-        servo2 = hardwareMap.get(Servo.class, "intakeL");
-        servo2.setDirection(Servo.Direction.FORWARD);
+        motor = new MotorEx(hardwareMap, "climb");
     }
 
     /**
@@ -26,12 +26,16 @@ public class ServoTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            servo2.setPosition(servo2.getPosition()+ 0.001);
+            motor.set(1);
         }
         else if(gamepad1.dpad_up){
-            servo2.setPosition(servo2.getPosition()- 0.001);
+            motor.set(-1);
         }
-        telemetry.addData("Servo pos2: ",servo2.getPosition());
-        telemetry.update();
+        else{
+            motor.stopMotor();
+        }
+//        telemetry.addData("Motor: ", motor.getRate());
+//        telemetry.update();
+
     }
 }

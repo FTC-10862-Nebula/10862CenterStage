@@ -16,8 +16,8 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 @Config
 public class PowerIntake extends SubsystemBase {
     public enum IntakePower {
-        OUTTAKE(0.5),
-        INTAKE(-0.5,true),
+        OUTTAKE(-0.5),
+        INTAKE(0.7,true),
         STOP(0),
         OUTTAKE_YELLOW(0.1);
 
@@ -34,8 +34,8 @@ public class PowerIntake extends SubsystemBase {
     }
     
     public enum IntakePos {
-        UP(0,0),
-        DOWN(0,0);
+        UP(0.2,0),
+        DOWN(0.5,0.3);
         
         public final double rPos, lPos;
         IntakePos(double rPos, double lPos) {
@@ -43,7 +43,7 @@ public class PowerIntake extends SubsystemBase {
             this.lPos = lPos;
         }
     }
-    IntakePower shooterRPM = IntakePower.STOP;
+//    IntakePower shooterRPM = IntakePower.STOP;
     Telemetry telemetry;
     public final NebulaMotor motor;
     private final NebulaServo intakeServoR,intakeServoL;
@@ -52,7 +52,7 @@ public class PowerIntake extends SubsystemBase {
     public PowerIntake(Telemetry tl, HardwareMap hw, Boolean isEnabled) {
         motor = new NebulaMotor(hw, NebulaConstants.Intake.intakeMName,
             NebulaConstants.Intake.intakeType, NebulaConstants.Intake.intakeDirection,
-            NebulaMotor.IdleMode.Coast, isEnabled);
+            NebulaConstants.Intake.intakeIdleMode, isEnabled);
         intakeServoR = new NebulaServo(hw,
             NebulaConstants.Intake.intakeRName,
             NebulaConstants.Intake.intakeRDirection,
@@ -65,12 +65,13 @@ public class PowerIntake extends SubsystemBase {
             NebulaConstants.Intake.minAngle,
             NebulaConstants.Intake.maxAngle,
             isEnabled);
+        setUp();
         this.telemetry = tl;
     }
 
     @Override
     public void periodic() {
-        telemetry.addData("Intake Speed:", motor.getVelocity());
+//        telemetry.addData("Intake Speed:", motor.getVelocity());
     }
 
     public void setPower(double power, boolean reset) {
@@ -102,11 +103,11 @@ public class PowerIntake extends SubsystemBase {
         return false;
     }
     
-    private void setDown(){
+    public void setDown(){
         intakeServoR.setPosition(IntakePos.DOWN.rPos);
         intakeServoL.setPosition(IntakePos.DOWN.lPos);
     }
-    private void setUp(){
+    public void setUp(){
         intakeServoR.setPosition(IntakePos.UP.rPos);
         intakeServoL.setPosition(IntakePos.UP.lPos);
     }

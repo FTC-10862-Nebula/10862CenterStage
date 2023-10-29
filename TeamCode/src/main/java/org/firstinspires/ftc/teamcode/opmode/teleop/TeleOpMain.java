@@ -67,9 +67,12 @@ public class TeleOpMain extends MatchOpMode {
 
         //Climber
         Button moveUp  = (new GamepadButton(driverGamepad, GamepadKeys.Button.DPAD_UP))
-            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.UP));
+            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.UP))
+                .whenReleased(new InstantCommand(climb::stopSlide));
+
         Button moveDown  = (new GamepadButton(driverGamepad, GamepadKeys.Button.DPAD_DOWN))
-            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN));
+            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN))
+                    .whenReleased(new InstantCommand(climb::stopSlide));
 
         drivetrain.setDefaultCommand(new DefaultTankDriveCommand(drivetrain, driverGamepad));
         Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.auto.league;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
@@ -57,8 +58,19 @@ public class ForwardAuto extends MatchOpMode {
         schedule(
             new SequentialCommandGroup( //TODO:TEST!
                 new InstantCommand(intake::setDown),
-                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        RedBackstageConstants.Path.ForwardPath.preload),
+                new InstantCommand(()->drivetrain.arcadeDrive(0.5,0)),
+//                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
+                new WaitCommand(1500),
+                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE),
+                new InstantCommand(()->drivetrain.stop()),
+new WaitCommand(1000),
+intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
+                    new InstantCommand(()->drivetrain.arcadeDrive(-.05,0)),
+//                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
+                    new WaitCommand(150),
+                    new InstantCommand(()->drivetrain.stop()),
+//                new TrajectorySequenceContainerFollowCommand(drivetrain,
+//                        RedBackstageConstants.Path.ForwardPath.preload),
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
                 run(this::stop)

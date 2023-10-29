@@ -23,7 +23,7 @@ public class DefaultTankDriveCommand extends CommandBase {
 
         if(driverGamepad.isDown(GamepadKeys.Button.LEFT_BUMPER)){
             this.multiplier=0.3; //Change in the SlowModeCommand too; idk which one is working rn
-        } else {this.multiplier = 1;}
+        } else {this.multiplier = 0.7;}
         addRequirements(this.drive);
     }
 
@@ -41,6 +41,7 @@ public class DefaultTankDriveCommand extends CommandBase {
         drive.arcadeDrive(y*multiplier, rx*multiplier);
 //        drive.tankDrive(lY * multiplier, rY * multiplier);
     }
+
 
     @Override
     public void end(boolean interrupted) {

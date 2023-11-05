@@ -5,9 +5,9 @@ import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultTankDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
+import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 
 @Config
@@ -24,14 +24,14 @@ public class TeleOpDrivetrainOnly extends MatchOpMode {
     @Override
     public void robotInit() {
         driverGamepad = new GamepadEx(gamepad1);
-        drivetrain = new Drivetrain(new SixWheel(hardwareMap),telemetry);
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry),telemetry);
         drivetrain.init();
     }
 
 
     @Override
     public void configureButtons() {
-        drivetrain.setDefaultCommand(new DefaultTankDriveCommand(drivetrain, driverGamepad));
+        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));
     }
 
     @Override

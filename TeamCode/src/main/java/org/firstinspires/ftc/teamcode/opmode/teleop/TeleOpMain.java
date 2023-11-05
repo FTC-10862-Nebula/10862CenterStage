@@ -9,11 +9,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultTankDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlowTankDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
+import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -43,7 +43,7 @@ public class TeleOpMain extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
 
 //        claw = new Claw(telemetry, hardwareMap, true);
-        drivetrain = new Drivetrain(new SixWheel(hardwareMap), telemetry);  //Works
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
         climb = new PowerClimber(telemetry, hardwareMap, true);
@@ -74,9 +74,8 @@ public class TeleOpMain extends MatchOpMode {
             .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN))
                     .whenReleased(new InstantCommand(climb::stopSlide));
 
-        drivetrain.setDefaultCommand(new DefaultTankDriveCommand(drivetrain, driverGamepad));
-        Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
-            .whileHeld(new SlowTankDriveCommand(drivetrain, driverGamepad));
+        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));
+
         
         
         

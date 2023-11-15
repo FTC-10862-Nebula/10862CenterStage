@@ -35,21 +35,21 @@ public class NebulaConstants {
     /** Claw **/
     public static Claw claw;
     public static class Claw {
-        public final static String clawName = "clawS2";  //
+        public final static String clawName = "claw";  //
         public final static NebulaServo.Direction clawDirection = NebulaServo.Direction.Reverse;
         public static double minAngle = 0, maxAngle = 360;
-        public final static String clawLName = "clawS2";  //
-        public final static NebulaServo.Direction clawLDirection = NebulaServo.Direction.Reverse;
+//        public final static String clawLName = "clawS2";  //
+//        public final static NebulaServo.Direction clawLDirection = NebulaServo.Direction.Reverse;
     }
 
     /** Slide **/
     public static Slide slide;
     public static class Slide {
-        public final static String slideRName = "liftR";
-        public final static String slideLName = "liftL";
+        public final static String slideRName = "slideR";
+        public final static String slideLName = "slideL";
         public static NebulaMotor.Direction slideRDirection = NebulaMotor.Direction.Forward,
                 slideLDirection = NebulaMotor.Direction.Reverse;
-        public static PIDFCoefficients slidePID = new PIDFCoefficients(0.00, 0.00, 0,0);//.0075, 0., .003, 0)
+        public static PIDFCoefficients slidePID = new PIDFCoefficients(0.015, 0.00, 0,0);//.0075, 0., .003, 0)
         public static int slideTolerance = 10;
         //        public int slideDistancePerPulse = (COUNTS_PER_PULSE * GEAR_RATIO) / (GEAR_DIAMETER_INCHES * Math.PI);
 //        public int slideDistancePerPulse = (GEAR_DIAMETER_INCHES * Math.PI);
@@ -146,7 +146,7 @@ public class NebulaConstants {
         //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
         public static NebulaMotor.IdleMode climberIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType climberType = NebulaMotor.MotorType.RPM_117;
-        public static PIDFCoefficients climberPID = new PIDFCoefficients(.005, 0.00, 0.0,0);
+        public static PIDFCoefficients climberPID = new PIDFCoefficients(0.05, 0, 0.1,0);
         public static int climberTolerance = 1;
         public static double ks=0,
                 ka=0,

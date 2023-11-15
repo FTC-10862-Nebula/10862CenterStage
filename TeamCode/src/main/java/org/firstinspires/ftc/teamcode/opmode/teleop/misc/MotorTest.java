@@ -4,11 +4,9 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-//@Disabled
-@TeleOp(group = "Subsystem test")
+@TeleOp
 public class MotorTest extends OpMode {
-    private final MotorEx motor = new MotorEx(hardwareMap, "climb");
-
+    private  MotorEx motor;
     /**
      * User defined init method
      * <p>
@@ -16,6 +14,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
+        motor = new MotorEx(hardwareMap, "slideL");
     }
 
     /**
@@ -26,10 +25,13 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.set(0.25);
+            motor.set(0.1);
         }
         else if(gamepad1.dpad_up){
-            motor.set(-0.25);
+            motor.set(-0.1);
+        }
+        else{
+            motor.stopMotor();
         }
 //        telemetry.addData("Motor: ", motor.getRate());
 //        telemetry.update();

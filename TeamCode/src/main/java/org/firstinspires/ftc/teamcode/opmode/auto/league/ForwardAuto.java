@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.Traject
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
 import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
+import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -41,7 +41,7 @@ public class ForwardAuto extends MatchOpMode {
 
     @Override
     public void robotInit() {
-        drivetrain = new Drivetrain(new SixWheel(hardwareMap), telemetry);
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
         drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
         climb = new PowerClimber(telemetry, hardwareMap, true);
@@ -58,14 +58,14 @@ public class ForwardAuto extends MatchOpMode {
         schedule(
             new SequentialCommandGroup( //TODO:TEST!
                 new InstantCommand(intake::setDown),
-                new InstantCommand(()->drivetrain.arcadeDrive(0.5,0)),
+                //new InstantCommand(()->drivetrain.arcadeDrive(0.5,0)),
 //                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
                 new WaitCommand(1500),
                 intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE),
                 new InstantCommand(()->drivetrain.stop()),
 new WaitCommand(1000),
 intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
-                    new InstantCommand(()->drivetrain.arcadeDrive(-.05,0)),
+                   // new InstantCommand(()->drivetrain.arcadeDrive(-.05,0)),
 //                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
                     new WaitCommand(150),
                     new InstantCommand(()->drivetrain.stop()),

@@ -1,37 +1,155 @@
+
 package org.firstinspires.ftc.teamcode.subsystems.drive;
+
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.TrajectorySequence;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.TrajectorySequenceBuilder;
 
 import java.util.List;
 
 
 public class Drivetrain extends SubsystemBase {
 
-    private final SixWheel drive;
+    private final MecanumDrive drive;
     private Telemetry telemetry;
+//    private BNO055IMU imu;
+    private final int LFVal = 0,
+            LRVal = 1,
+            RFVal = 2,
+            RRVal = 3;
+    double[] powers = new double[4];
 
-    public Drivetrain(SixWheel drive, Telemetry tl) {
+
+
+    public Drivetrain(MecanumDrive drive, Telemetry tl) {
         this.drive = drive;
         this.telemetry = tl;
+//        imu = hardwareMap.get(BNO055IMU.class, "imu");
     }
 
     public void init() {
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        drive.setMotorPowers(0, 0);
-        drive.setPoseEstimate(new Pose2d());
+        new Pose2d(0,0,0);
+        drive.setMotorPowers(0, 0, 0, 0);
+        setPoseEstimate(new Pose2d(0, 0, Math.toRadians(0)));
+        PoseStorage.currentPose = (new Pose2d(0, 0, Math.toRadians(0)));
     }
+
+    public void reInitializeIMU() {
+        drive.resetImu();
+    }
+
+
+    public void setPowers(double leftF, double leftR, double rightR, double rightF) {
+        drive.setMotorPowers(leftF, leftR, rightR, rightF);
+    }
+
+    public void mecDrive(double y, double x, double rx) {
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
+        powers [LFVal] = (y + x + rx) / denominator;    //fLPower
+        powers [LRVal] = (y - x + rx) / denominator;    //bLPower
+        powers [RFVal] = (y - x - rx) / denominator;    //fRPower
+        powers [RRVal] = (y + x - rx) / denominator;    //bRPower
+        drive.setMotorPowers(powers[LFVal], powers[LRVal], powers[RFVal], powers[RRVal]);
+    }
+
+    public void  fieldCentric(double y, double x, double rx){
+//        double theta = -imu.getAngularOrientation().firstAngle;
+        double theta = -drive.getExternalHeading();//Ok?
+
+        double rotX = x * Math.cos(theta) - y * Math.sin(theta);
+        double rotY = x * Math.sin(theta) + y * Math.cos(theta);
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+
+        // ^^^^^^ Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]
+
+        powers [LFVal] = (rotY + rotX - rx) / denominator;
+        powers [LRVal] = (rotY - rotX - rx) / denominator;
+        powers [RFVal] = (rotY + rotX + rx) / denominator;
+        powers [RRVal] = (rotY - rotX + rx) / denominator;
+
+
+        if(Math.abs(powers[LFVal])<0.25&Math.abs(powers[LRVal])<0.25&Math.abs(powers[RFVal])<0.25&Math.abs(powers[RRVal])<0.25){
+            for (int i = 0; i <= 3; i++) {
+//                powers[i] = squareInput(powers[i]);
+                powers[i] = cubeInput(powers[i]);
+            }
+        }
+        drive.setMotorPowers(powers[LFVal], powers[LRVal], powers[RFVal], powers[RRVal]);
+    }
+
+    private double squareInput(double power) {
+        return power * Math.abs(power);
+    }
+    private double cubeInput(double power) {
+        return power*Math.abs(power)*Math.abs(power);
+    }
+
+    public double getHeading() {
+        return Math.toDegrees(drive.getExternalHeading());
+    }
+    /**
+     * Returns minimum range value if the given value is less than
+     * the set minimum. If the value is greater than the set maximum,
+     * then the method returns the maximum value.
+     *
+     * value - The value to clip.
+     */
+//    public double clipRange(double value) {
+//        return value <= -1 ? -1
+//                : value >= 1 ? 1
+//                : value;
+//    }
+
+    /*protected void normalize(double[] wheelSpeeds, double magnitude) {
+        double maxMagnitude = Math.abs(wheelSpeeds[0]);
+        for (int i = 1; i < wheelSpeeds.length; i++) {
+            double temp = Math.abs(wheelSpeeds[i]);
+            if (maxMagnitude < temp) {
+                maxMagnitude = temp;
+            }
+        }
+        for (int i = 0; i < wheelSpeeds.length; i++) {
+            wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude) * magnitude;
+        }
+
+    }
+
+//     Normalize the wheel speeds
+
+    protected void normalize(double[] wheelSpeeds) {
+        double maxMagnitude = Math.abs(wheelSpeeds[0]);
+        for (int i = 1; i < wheelSpeeds.length; i++) {
+            double temp = Math.abs(wheelSpeeds[i]);
+            if (maxMagnitude < temp) {
+                maxMagnitude = temp;
+            }
+        }
+        if(maxMagnitude > 1) {
+            for (int i = 0; i < wheelSpeeds.length; i++) {
+                wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude);
+            }
+        }
+    }*/
+
     @Override
     public void periodic() {
         update();
+//        drive.returnData();//TODO:What does this do?
     }
+
 
     public void setMode(DcMotor.RunMode mode) {
         drive.setMode(mode);
@@ -49,9 +167,6 @@ public class Drivetrain extends SubsystemBase {
         drive.update();
     }
 
-    public void tankDrive(double leftY, double rightY) {
-        drive.setMotorPowers(leftY, -rightY);
-    }
 
 
 
@@ -65,9 +180,6 @@ public class Drivetrain extends SubsystemBase {
 
     public Pose2d getPoseEstimate() {
         return drive.getPoseEstimate();
-    }
-    public double getHeading() {
-        return Math.toDegrees(drive.getExternalHeading());
     }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
@@ -99,7 +211,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void turnTo(double radians) {
-        drive.turnToAsync(radians);
+        drive.turnAsync(radians);
     }
 
     public void turnBlock(double radians) {
@@ -111,7 +223,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void stop() {
-        tankDrive(0, 0);
+        setPowers(0, 0, 0, 0);
     }
 
     public Pose2d getPoseVelocity() {
@@ -122,80 +234,79 @@ public class Drivetrain extends SubsystemBase {
         return Math.max(min, Math.min(max, val));
     }
 
-//    public ArcadeDrive arcadeDrive;
-//    public class ArcadeDrive{
-        public void arcadeDrive(double forward, double rotate) {
-            double maxInput = Math.copySign(Math.max(Math.abs(forward), Math.abs(rotate)), forward);
-            forward = clipRange(forward);
-            rotate = clipRange(rotate);
-
-            double[] wheelSpeeds = new double[2];
-            wheelSpeeds[0] = forward + rotate;
-            wheelSpeeds[1] = forward - rotate;
-
-            normalize(wheelSpeeds);
-
-            drive.setMotorPowers(wheelSpeeds[0], wheelSpeeds[1]);
-        }
-        /**
-         * Normalize the wheel speeds
-         */
-        protected void normalize(double[] wheelSpeeds, double magnitude) {
-            double maxMagnitude = Math.abs(wheelSpeeds[0]);
-            for (int i = 1; i < wheelSpeeds.length; i++) {
-                double temp = Math.abs(wheelSpeeds[i]);
-                if (maxMagnitude < temp) {
-                    maxMagnitude = temp;
-                }
-            }
-            for (int i = 0; i < wheelSpeeds.length; i++) {
-                wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude) * magnitude;
-            }
-
-        }
-
-        /**
-         * Normalize the wheel speeds
-         */
-        protected void normalize(double[] wheelSpeeds) {
-            double maxMagnitude = Math.abs(wheelSpeeds[0]);
-            for (int i = 1; i < wheelSpeeds.length; i++) {
-                double temp = Math.abs(wheelSpeeds[i]);
-                if (maxMagnitude < temp) {
-                    maxMagnitude = temp;
-                }
-            }
-            if(maxMagnitude > 1) {
-                for (int i = 0; i < wheelSpeeds.length; i++) {
-                    wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude);
-                }
-            }
-
-        }
-
-        /**
-         * Returns minimum range value if the given value is less than
-         * the set minimum. If the value is greater than the set maximum,
-         * then the method returns the maximum value.
-         *
-         * @param value The value to clip.
-         */
-        public double clipRange(double value) {
-            return value <= -1 ? -1
+    /**
+     * Returns minimum range value if the given value is less than
+     * the set minimum. If the value is greater than the set maximum,
+     * then the method returns the maximum value.
+     *
+     * @param value The value to clip.
+     */
+    public double clipRange(double value) {
+        return value <= -1 ? -1
                 : value >= 1 ? 1
                 : value;
+    }
+
+    /**
+     * Normalize the wheel speeds
+     */
+    protected void normalize(double[] wheelSpeeds, double magnitude) {
+        double maxMagnitude = Math.abs(wheelSpeeds[0]);
+        for (int i = 1; i < wheelSpeeds.length; i++) {
+            double temp = Math.abs(wheelSpeeds[i]);
+            if (maxMagnitude < temp) {
+                maxMagnitude = temp;
+            }
+        }
+        for (int i = 0; i < wheelSpeeds.length; i++) {
+            wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude) * magnitude;
         }
 
-//    }
-
-    public double getDegreePitch() {
-        return drive.getDegreePitch();
     }
-    public double getDegreeRoll() {
-        return drive.getDegreeRoll();
+
+    /**
+     * Normalize the wheel speeds
+     */
+    protected void normalize(double[] wheelSpeeds) {
+        double maxMagnitude = Math.abs(wheelSpeeds[0]);
+        for (int i = 1; i < wheelSpeeds.length; i++) {
+            double temp = Math.abs(wheelSpeeds[i]);
+            if (maxMagnitude < temp) {
+                maxMagnitude = temp;
+            }
+        }
+        if(maxMagnitude > 1) {
+            for (int i = 0; i < wheelSpeeds.length; i++) {
+                wheelSpeeds[i] = (wheelSpeeds[i] / maxMagnitude);
+            }
+        }
+    }
+
+    public void followTrajectoryAsync(Trajectory trajectory) {
+        drive.followTrajectoryAsync(trajectory);
     }
 
     public void followTrajectorySequenceAsync(TrajectorySequence trajectorySequence) {
         drive.followTrajectorySequenceAsync(trajectorySequence);
     }
+    public void turnAsync(double angle) {
+        drive.turnAsync(angle);
+    }
+
+    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d startPose){
+        return drive.trajectorySequenceBuilder(startPose);
+    }
+
+
+    public void followTrajectorySequence(TrajectorySequence trajectorySequence) {
+        drive.followTrajectorySequence(trajectorySequence);
+    }
+
+//    public int getRightAngle(){
+//        return drive.getRightAngle();
+//    }
+//    public int getLeftAngle(){
+//        return drive.getLeftAngle();
+//    }
+
 }

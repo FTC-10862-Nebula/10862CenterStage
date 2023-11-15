@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-import org.firstinspires.ftc.teamcode.subsystems.drive.SixWheel;
+import org.firstinspires.ftc.teamcode.subsystems.drive.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.shooter.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
@@ -110,7 +110,7 @@ public class BlueBackstage extends MatchOpMode {
 
     @Override
     public void robotInit() {
-        drivetrain = new Drivetrain(new SixWheel(hardwareMap), telemetry);
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
         drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);

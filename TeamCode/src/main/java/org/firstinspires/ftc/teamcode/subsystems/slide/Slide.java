@@ -23,11 +23,11 @@ public class Slide extends SubsystemBase {
     //TODO: Should the Slide even drop?
 
     public enum SlideEnum {
-        TRANSFER(0.0),
+        TRANSFER(10),
 
-        LOW(-150),
-        MID(-300),
-        HIGH(-400),
+        LOW(-400),
+        MID(-800),
+        HIGH(-1025),
 
         MANUAL(0.0);
         public final double slidePos;
@@ -67,6 +67,7 @@ public class Slide extends SubsystemBase {
 
         this.telemetry = tl;
         slidePos = SlideEnum.TRANSFER;
+        
     }
 
     @Override
@@ -134,8 +135,9 @@ public class Slide extends SubsystemBase {
         return slideController.getSetPoint();
     }
     
-    //TODO: test
-    public Command slideMoveManual(Supplier<Double> doubleSupplier) {
+    //TODO: test - does not work
+    public Command slideMoveManual(Slide slide, Supplier<Double> doubleSupplier) {
+//        addRequirements(slide);
         double position = doubleSupplier.get();
 //        if (Math.abs(position) > 0.1) {
             return setSetPointCommand(getSetPoint() + position * -25);

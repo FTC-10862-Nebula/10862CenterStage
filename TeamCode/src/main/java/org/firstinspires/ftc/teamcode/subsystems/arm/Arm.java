@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 public class Arm extends SubsystemBase
 {
     public enum ArmPos {
-        TRANSFER(0,0),
+        TRANSFER(1,1),
         OUTTAKE(0,0);
 
         public final double armRPos, armLPos;

@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.commands.drive.teleop;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
-
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
+@Disabled
+@Deprecated
 public class DefaultDriveCommand extends CommandBase {
     private Drivetrain drive;
     private GamepadEx driverGamepad;

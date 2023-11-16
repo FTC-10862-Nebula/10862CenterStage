@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.util.trajectorysequence;
 
 
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.NOMINAL_VOLTAGE;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.NOMINAL_VOLTAGE;
 
 import androidx.annotation.Nullable;
 
@@ -19,7 +19,7 @@ import com.acmerobotics.roadrunner.trajectory.TrajectoryMarker;
 import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants;
 import org.firstinspires.ftc.teamcode.util.misc.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.misc.LogFiles;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.sequencesegment.SequenceSegment;

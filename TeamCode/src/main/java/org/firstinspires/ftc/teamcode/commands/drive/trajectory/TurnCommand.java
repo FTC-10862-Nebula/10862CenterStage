@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.commands.drive.trajectory;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 
 public class TurnCommand extends CommandBase {
 

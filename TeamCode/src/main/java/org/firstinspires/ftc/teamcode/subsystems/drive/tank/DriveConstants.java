@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems.drive;
+package org.firstinspires.ftc.teamcode.subsystems.drive.tank;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -23,8 +23,8 @@ public class DriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 384.5;
-    public static final double MAX_RPM = 425;   //435 Motors - Changed from 430
+    public static final double TICKS_PER_REV = 537.6;
+    public static final double MAX_RPM = 312;
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
@@ -46,23 +46,19 @@ public class DriveConstants {
      * angular distances although most angular parameters are wrapped in Math.toRadians() for
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
-    public static double WHEEL_RADIUS = 1.889;  //(96/25.4)/2; // in  (96mm/25.4) = in
-    public static double GEAR_RATIO = 1.112;    // 28/25 - output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 14.6;    // in - 10.5Tuner Track Width = 8.55
+    public static double WHEEL_RADIUS = 1.8898; // in
+    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 14.5; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
-     * the built-in velocity PID,
-     * *these values are fine as is*. However, if you do not have drive
+     * the built-in velocity PID, *these values are fine as is*. However, if you do not have drive
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-//    public static double kV = 0.011; //1.0 / rpmToVelocity(MAX_RPM);
-//    public static double kA = 0.0025;
-//    public static double kStatic = 0.01;
-    public static double kV = 0.0105;//0.0185
-    public static double kA = 0.0023; //0.01610 //0.0030
-    public static double kStatic = 0.06; //0.00013 //0.009
+    public static double kV = 0.017;//0.01633
+    public static double kA = 0.0030; //0.01610
+    public static double kStatic = 0.009; //0.00013
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -92,20 +88,10 @@ public class DriveConstants {
      * You are free to raise this on your own if you would like. It is best determined through experimentation.
 
      */
-    public static double MAX_VEL = 32;  //57-54
-    public static double MAX_ACCEL = 32;    //57-54
-    public static double MAX_ANG_VEL = Math.toRadians(300.704976);  //According to guide make 180 deg - 300.704976 // were did this 300 number come from? can it really turn that fast?
-    public static double MAX_ANG_ACCEL = Math.toRadians(300.704976);  //According to guide make 180 deg - 300.704976
-
-    /*
-     * Adjust the orientations here to match your robot. See the FTC SDK documentation for details.
-     */
-    public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
-            RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
-    public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
-            RevHubOrientationOnRobot.UsbFacingDirection.UP;
-
-    public static double NOMINAL_VOLTAGE = 12.0;
+    public static double MAX_VEL = 57;  //57
+    public static double MAX_ACCEL = 57;    //57
+    public static double MAX_ANG_VEL = Math.toRadians(300.704976);
+    public static double MAX_ANG_ACCEL = Math.toRadians(300.704976);
 
 
     public static double encoderTicksToInches(double ticks) {
@@ -120,4 +106,9 @@ public class DriveConstants {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 / ticksPerSecond;
     }
+    
+    public static RevHubOrientationOnRobot.LogoFacingDirection LOGO_FACING_DIR =
+        RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+    public static RevHubOrientationOnRobot.UsbFacingDirection USB_FACING_DIR =
+        RevHubOrientationOnRobot.UsbFacingDirection.UP;
 }

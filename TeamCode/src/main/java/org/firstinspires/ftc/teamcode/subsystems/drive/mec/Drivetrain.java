@@ -1,5 +1,5 @@
 
-package org.firstinspires.ftc.teamcode.subsystems.drive;
+package org.firstinspires.ftc.teamcode.subsystems.drive.mec;
 
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -7,7 +7,6 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -17,7 +16,7 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.TrajectorySequence
 
 import java.util.List;
 
-
+@Deprecated
 public class Drivetrain extends SubsystemBase {
 
     private final MecanumDrive drive;

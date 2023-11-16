@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
 
-import org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceConstraints;
 
 public class Speed {

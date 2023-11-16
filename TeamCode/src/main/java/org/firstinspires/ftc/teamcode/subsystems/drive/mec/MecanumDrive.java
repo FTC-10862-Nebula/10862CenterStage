@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcode.subsystems.drive;
+package org.firstinspires.ftc.teamcode.subsystems.drive.mec;
 
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.REVERSE;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.MAX_ACCEL;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.MAX_ANG_ACCEL;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.MAX_ANG_VEL;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.MAX_VEL;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.MOTOR_VELO_PID;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.RUN_USING_ENCODER;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.encoderTicksToInches;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.kA;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.subsystems.drive.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ANG_ACCEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ANG_VEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.TRACK_WIDTH;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.kA;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.kStatic;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.kV;
 
 import androidx.annotation.NonNull;
 
@@ -57,6 +57,7 @@ import java.util.List;
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
+@Deprecated
 public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive {
 
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(15, 0, 0); //6,1,0

@@ -187,4 +187,7 @@ public class NebulaMotor{
     public Motor getMotor(){
         return motor;
     }
+    public Motor.Encoder getEncoder(){
+        return motor.encoder;
+    }
 }

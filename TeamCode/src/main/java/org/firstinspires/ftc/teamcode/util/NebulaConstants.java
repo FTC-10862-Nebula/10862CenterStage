@@ -36,7 +36,7 @@ public class NebulaConstants {
     public static Claw claw;
     public static class Claw {
         public final static String clawName = "claw";  //
-        public final static NebulaServo.Direction clawDirection = NebulaServo.Direction.Reverse;
+        public final static NebulaServo.Direction clawDirection = NebulaServo.Direction.Forward;
         public static double minAngle = 0, maxAngle = 360;
 //        public final static String clawLName = "clawS2";  //
 //        public final static NebulaServo.Direction clawLDirection = NebulaServo.Direction.Reverse;
@@ -53,7 +53,7 @@ public class NebulaConstants {
         public static int slideTolerance = 10;
         //        public int slideDistancePerPulse = (COUNTS_PER_PULSE * GEAR_RATIO) / (GEAR_DIAMETER_INCHES * Math.PI);
 //        public int slideDistancePerPulse = (GEAR_DIAMETER_INCHES * Math.PI);
-        public static double slideDistancePerPulse = (365/751.8);
+        public static double slideDistancePerPulse = 1;//(365/751.8)
         public static NebulaMotor.IdleMode slideIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType slideType = NebulaMotor.MotorType.RPM_312;
         public static double ks=0,

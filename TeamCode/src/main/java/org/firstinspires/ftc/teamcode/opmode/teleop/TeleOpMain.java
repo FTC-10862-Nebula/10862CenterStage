@@ -9,12 +9,17 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultTankDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.SlowTankDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.LowCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.MiddleCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.tank.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.tank.SlowDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
-import org.firstinspires.ftc.teamcode.subsystems.drive.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
@@ -47,12 +52,12 @@ public class TeleOpMain extends MatchOpMode {
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
 
-//        claw = new Claw(telemetry, hardwareMap, true);
-//        drivetrain = new Drivetrain(new SixWheel(hardwareMap), telemetry);  //Works
+        claw = new Claw(telemetry, hardwareMap, true);
+        drivetrain = new Drivetrain(hardwareMap, true);  //Works
 //        drivetrain.init();
-//        intake = new PowerIntake(telemetry, hardwareMap, false);
-//        climb = new PowerClimber(telemetry, hardwareMap, false);
-//        arm = new Arm (telemetry, hardwareMap, true);
+        intake = new PowerIntake(telemetry, hardwareMap, true);
+        climb = new PowerClimber(telemetry, hardwareMap, true);
+        arm = new Arm (telemetry, hardwareMap, true);
 //        shooter = new Shooter(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
     }
@@ -61,10 +66,10 @@ public class TeleOpMain extends MatchOpMode {
     @Override
     public void configureButtons() {
         //        //Claw
-//        Button up = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
-//                .whenPressed(claw.setClawPos(Claw.ClawPos.OPEN_POS)));
-//        Button close= (new GamepadButton(driverGamepad,  Button.DPAD_DOWN)
-//                .whenPressed(claw.setClawPos(Claw.ClawPos.CLOSE_POS)));
+        Button up = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
+                .whenPressed(claw.setClawPos(Claw.ClawPos.OPEN_POS)));
+        Button close= (new GamepadTrigger(operatorGamepad,  GamepadKeys.Trigger.RIGHT_TRIGGER)
+                .whenPressed(claw.setClawPos(Claw.ClawPos.CLOSE_POS)));
 //
 //        //Arm
 //        Button armTransfer = (new GamepadButton(operatorGamepad, Button.DPAD_DOWN))
@@ -77,6 +82,7 @@ public class TeleOpMain extends MatchOpMode {
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)))
             .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP));
+        
         Trigger outtake = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE)))
 //                .whenPressed(cycleTracker.trackCycle())
@@ -88,29 +94,47 @@ public class TeleOpMain extends MatchOpMode {
 //                .whenPressed(shooter.shoot());
     
         //Climber
-        Button moveUp  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
-            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.UP));
-        Button moveDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
-            .whenPressed(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN));
+        Button moveUp  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+            .whileHeld(climb.setPowerCommand(PowerClimber.ClimbPower.UP))
+            .whenReleased(climb.setPowerCommand(0));
+        Button moveDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
+            .whileHeld(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN))
+            .whenReleased(climb.setPowerCommand(0));
     
         //Slide
+        //TODO m ake the commands close the claw and stuff
+//        Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.TRANSFER))
+//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
+//        Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.LOW))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
+//        Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.MID))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
+//        Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.HIGH))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE))
+//            .whenPressed(claw.setClawPos(Claw.ClawPos.INTAKE_OPEN));
+    
+    
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
-                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.TRANSFER));
+            .whenPressed(new ResetCommand(slide, arm, claw));
         Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
-                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.LOW));
+            .whenPressed(new LowCommand(slide,arm,claw));
         Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
-                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.MID));
+            .whenPressed(new MiddleCommand(slide,arm, claw));
         Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
-                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.HIGH));
+            .whenPressed(new HighCommand(slide,arm, claw));
 
 
         /*
          *  DRIVER
          */
     
-        drivetrain.setDefaultCommand(new DefaultTankDriveCommand(drivetrain, driverGamepad));
+        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
         Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
-            .whileHeld(new SlowTankDriveCommand(drivetrain, driverGamepad));
+            .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
 
 //
 //        /*
@@ -118,7 +142,7 @@ public class TeleOpMain extends MatchOpMode {
 //         */
 //
 //        slide.setDefaultCommand(slide.slideMoveManual(operatorGamepad::getRightY));
-//        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
+        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
 //        pivot.setDefaultCommand(new PivotMoveManual(pivot, operatorGamepad::getLeftY));
     }
 

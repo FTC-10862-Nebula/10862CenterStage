@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDFController;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -17,17 +18,18 @@ import java.util.function.Supplier;
 public class Slide extends SubsystemBase {
     protected Telemetry telemetry;
     protected NebulaMotor slideR, slideL;
+    
     protected PIDFController slideController;
     protected double output = 0;
 
     //TODO: Should the Slide even drop?
-
+//Left is POstiive up; right is negative up
     public enum SlideEnum {
-        TRANSFER(10),
+        TRANSFER(-10),
 
-        LOW(-400),
-        MID(-800),
-        HIGH(-1025),
+        LOW(850),
+        MID(1700),
+        HIGH(2400),
 
         MANUAL(0.0);
         public final double slidePos;
@@ -52,7 +54,8 @@ public class Slide extends SubsystemBase {
             NebulaConstants.Slide.slideLDirection,
             NebulaConstants.Slide.slideIdleMode,
             isEnabled);
-
+        slideL.getEncoder().setDirection(Motor.Direction.FORWARD);//TODO:Test!!
+        slideR.getEncoder().setDirection(Motor.Direction.FORWARD);
 //        motorGroup = new NebulaMotorGroup(slideR, slideL);
         slideR.setDistancePerPulse(NebulaConstants.Slide.slideDistancePerPulse);
 
@@ -64,6 +67,8 @@ public class Slide extends SubsystemBase {
             getEncoderDistance(),
             getEncoderDistance());
         slideController.setTolerance(NebulaConstants.Slide.slideTolerance);
+        resetEncoder();
+        setSetPointCommand(0);
 
         this.telemetry = tl;
         slidePos = SlideEnum.TRANSFER;
@@ -72,18 +77,20 @@ public class Slide extends SubsystemBase {
 
     @Override
     public void periodic() {
-        slideController.setF(NebulaConstants.Slide.slidePID.f * Math.cos(Math.toRadians(slideController.getSetPoint())));
+        slideController.setF(NebulaConstants.Slide.slidePID.f *
+            Math.cos(Math.toRadians(slideController.getSetPoint())));
         output = slideController.calculate(getEncoderDistance());
         setPower(output);//TODO: Probably shouldn't be like this
 
         telemetry.addData("Slide Motor Output:", output);
-        telemetry.addData("Slide1 Encoder: ", slideR.getPosition());
-        telemetry.addData("Slide2 Encoder: ", slideL.getPosition());
+        telemetry.addData("SlideR Encoder: ", slideR.getPosition());
+        telemetry.addData("SlideL Encoder: ", slideL.getPosition());
         telemetry.addData("Slide Pos:", getSetPoint());
     }
 
     public double getEncoderDistance() {
-        return slideR.getDistance();
+//        return slideR.getDistance();
+        return slideL.getPosition();
 //        return slideR.getPosition();
         //TODO:Does this work?
     }
@@ -91,13 +98,14 @@ public class Slide extends SubsystemBase {
 
     public void setPower(double power) {
         slideR.setPower(power);
-        slideL.setPower(-power);
+        slideL.setPower(power);
 //        slideM1.setPower(power);
 //        slideM2.setPower(power);//Instead of putting -power, maybe reverse the motor
     }
 
     public void stopSlide() {
         slideR.stop();
+        slideL.stop();
         slideController.setSetPoint(getEncoderDistance());
     }
     /****************************************************************************************/

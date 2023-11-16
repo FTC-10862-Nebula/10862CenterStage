@@ -42,8 +42,8 @@ public class Arm extends SubsystemBase
                 NebulaConstants.Arm.minAngle,
                 NebulaConstants.Arm.maxAngle,
                 isEnabled);
-        armSetPositionCommand(ArmPos.TRANSFER);
-
+//        armSetPositionCommand(ArmPos.TRANSFER);
+        armSetPosition(ArmPos.TRANSFER.armRPos,ArmPos.TRANSFER.armLPos );
         this.telemetry = tl;
     }
 

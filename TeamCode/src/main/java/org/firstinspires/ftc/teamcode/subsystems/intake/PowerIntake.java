@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class PowerIntake extends SubsystemBase {
     public enum IntakePower {
         OUTTAKE(-0.7),
-        INTAKE(0.7,true),
+        INTAKE(.5,true),//0.7 --.75
         STOP(0),
         OUTTAKE_YELLOW(0.1);
 

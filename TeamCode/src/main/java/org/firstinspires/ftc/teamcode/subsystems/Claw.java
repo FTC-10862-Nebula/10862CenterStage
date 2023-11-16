@@ -17,8 +17,8 @@ public class Claw extends SubsystemBase
     public enum ClawPos {
         CLOSE_POS(0.12),
 //        AUTO_CLOSE (0.5),
-//        AUTO_OPEN(0.24),
-        OPEN_POS(0.21);
+        INTAKE_OPEN(0.13),
+        OPEN_POS(0.18);
 
         public final double clawPos;
         ClawPos(double clawPos) {
@@ -36,7 +36,7 @@ public class Claw extends SubsystemBase
             NebulaConstants.Claw.minAngle,
             NebulaConstants.Claw.maxAngle,
             isEnabled);
-        setClawPos(ClawPos.CLOSE_POS);
+        setClawPos(ClawPos.OPEN_POS);
 
         this.telemetry = tl;
     }

@@ -22,10 +22,7 @@ public class DropYellowPixel extends SequentialCommandGroup {
                            //    private AprilTagVision aprilTagVision;
                            Vision vision,
                            PowerIntake intake,
-                           Climber climber,
-                           Arm arm,
-                           Slide slide,
-                           Claw claw){
+                           Climber climber){
         //declare variables here
         addCommands(
             new SelectCommand(new HashMap<Object, Command>() {{

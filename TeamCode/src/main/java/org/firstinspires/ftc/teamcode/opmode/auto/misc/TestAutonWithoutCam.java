@@ -66,7 +66,7 @@ public class TestAutonWithoutCam extends MatchOpMode {
     
         new DriveForwardCommand(drivetrain, 3),
     
-        new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
+        new DropYellowPixel(drivetrain,vision,intake,climber),
     
         new TurnToCommand(drivetrain, 270),
         new DriveForwardCommand(drivetrain, -15),

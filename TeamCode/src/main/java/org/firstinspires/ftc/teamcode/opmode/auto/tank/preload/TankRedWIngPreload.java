@@ -23,7 +23,7 @@ public class TankRedWIngPreload extends MatchOpMode {
     //    private AprilTagVision aprilTagVision;
     private Vision vision;
     private PowerIntake intake;
-    private Climber climber;
+//    private Climber climber;
     private Arm arm;
 //    private Shooter shooter;
     private Slide slide;
@@ -35,13 +35,13 @@ public class TankRedWIngPreload extends MatchOpMode {
 //        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, true);
-        climber = new Climber(telemetry, hardwareMap, true);
-        claw = new Claw(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, true);
+//        arm = new Arm(telemetry, hardwareMap, true);
+//        climber = new Climber(telemetry, hardwareMap, true);
+//        claw = new Claw(telemetry, hardwareMap, true);
+//        slide = new Slide(telemetry, hardwareMap, true);
 //        shooter = new Shooter(telemetry, hardwareMap, true);
     
-        climber.setSetPointCommand(Climber.ClimbEnum.REST);
+//        climber.setSetPointCommand(Climber.ClimbEnum.REST);
 //        shooter.ready();
 //        while (!isStarted() && !isStopRequested()) {
 //
@@ -60,10 +60,10 @@ public void disabledPeriodic() {
 public void matchStart() {
     schedule(
         new SequentialCommandGroup(
-            new DropPurplePixel(drivetrain, vision,intake,climber, arm,slide,claw),
+            new DropPurplePixel(drivetrain, vision,intake),
             new DriveForwardCommand(drivetrain, -20),
             new TurnCommand(drivetrain, 90),
-            new DriveForwardCommand(drivetrain, -50)
+            new DriveForwardCommand(drivetrain, -80)
     
     
             )

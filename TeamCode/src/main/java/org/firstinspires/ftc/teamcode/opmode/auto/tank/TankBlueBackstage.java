@@ -39,10 +39,10 @@ public class TankBlueBackstage extends MatchOpMode {
 //        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, true);
+//        arm = new Arm(telemetry, hardwareMap, true);
         climber = new Climber(telemetry, hardwareMap, true);
-        claw = new Claw(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, true);
+//        claw = new Claw(telemetry, hardwareMap, true);
+//        slide = new Slide(telemetry, hardwareMap, true);
 //        shooter = new Shooter(telemetry, hardwareMap, true);
     
         climber.setSetPointCommand(Climber.ClimbEnum.REST);
@@ -67,8 +67,8 @@ public void disabledPeriodic() {
 public void matchStart() {
     schedule(
         new DriveForwardCommand(drivetrain, 20),
-        new DropPurplePixel(drivetrain, vision,intake,climber, arm,slide,claw),
-        new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
+        new DropPurplePixel(drivetrain, vision,intake),
+        new DropYellowPixel(drivetrain,vision,intake,climber),
         
         new TurnToCommand(drivetrain, 270),
         new DriveForwardCommand(drivetrain, -20),

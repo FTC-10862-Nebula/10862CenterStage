@@ -30,6 +30,7 @@ import com.acmerobotics.roadrunner.profile.MotionState;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.MecanumVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TankVelocityConstraint;
@@ -53,6 +54,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.tank.rrExt.ImprovedRamset
 import org.firstinspires.ftc.teamcode.subsystems.drive.tank.rrExt.ImprovedTankDrive;
 import org.firstinspires.ftc.teamcode.util.misc.DashboardUtil;
 import org.firstinspires.ftc.teamcode.util.misc.LynxModuleUtil;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.TrajectorySequenceBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,8 +73,11 @@ public class Drivetrain extends ImprovedTankDrive implements Subsystem {
         public static PIDCoefficients LEFT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
         public static PIDCoefficients RIGHT_DRIVE_PID = new PIDCoefficients(0.01, 0, 0);
      */
+//    private TrajectorySequenceRunner trajectorySequenceRunner;
     private PIDController leftDriveVeloPID;
     private PIDController rightDriveVeloPID;
+    private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.TRACK_WIDTH);
+    private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(DriveConstants.MAX_ACCEL);
 
     public static double VX_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
@@ -185,6 +190,11 @@ public class Drivetrain extends ImprovedTankDrive implements Subsystem {
 
         // TODO: if desired, use setLocalizer() to change the localization method
         // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
+    
+//        trajectorySequenceRunner = new TrajectorySequenceRunner(
+//            follower, HEADING_PID, batteryVoltageSensor,
+//            lastEncPositions, lastEncVels, lastTrackingEncPositions, lastTrackingEncVels
+//        );
     }
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
@@ -452,4 +462,24 @@ public class Drivetrain extends ImprovedTankDrive implements Subsystem {
     public void stop(){
         arcadeDrive(0,0);
     }
+    
+    public TrajectorySequenceBuilder trajectorySequenceBuilder(Pose2d startPose) {
+        return new TrajectorySequenceBuilder(
+            startPose,
+            VEL_CONSTRAINT, ACCEL_CONSTRAINT,
+            org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ANG_VEL, org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ANG_ACCEL
+        );
+    }
+    public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {
+        return new MinVelocityConstraint(Arrays.asList(
+            new AngularVelocityConstraint(maxAngularVel),
+            new MecanumVelocityConstraint(maxVel, trackWidth)
+        ));
+    }
+    public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
+        return new ProfileAccelerationConstraint(maxAccel);
+    }
+//    public void followTrajectorySequenceAsync(TrajectorySequence trajectorySequence) {
+//        drivetrain.followTrajectorySequenceAsync(trajectorySequence);
+//    }
 }

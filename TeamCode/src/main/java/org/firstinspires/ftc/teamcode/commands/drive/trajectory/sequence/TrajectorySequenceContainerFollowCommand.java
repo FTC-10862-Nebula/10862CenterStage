@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrajectorySequenceContainerFollowCommand extends CommandBase implements Command {
-    private final Drivetrain drivetrain;
+    private final org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain drivetrain;
     private final TrajectorySequence trajectorySequence;
     private final List<MarkerCommand> markerCommands = new ArrayList<>();
 

@@ -30,7 +30,11 @@ public class Vision extends SubsystemBase {
     @Override
     public void periodic() {
 //        currentPos = duckDetector.getPosition();
-        telemetry.addData("Position", duckDetector.getPosition());
+//        telemetry.addData("Position", duckDetector.getPosition());
+        
+        telemetry.addData("Current Position", getPosition());
+        telemetry.addData("Final Position", getFinalPosition());
+        
     }
 
     public TeamMarkerPipeline.FFPosition getPosition() {

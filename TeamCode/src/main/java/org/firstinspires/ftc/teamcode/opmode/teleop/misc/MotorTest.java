@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.misc;
 
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
+@Disabled
 @TeleOp
 public class MotorTest extends OpMode {
     private  MotorEx motor;

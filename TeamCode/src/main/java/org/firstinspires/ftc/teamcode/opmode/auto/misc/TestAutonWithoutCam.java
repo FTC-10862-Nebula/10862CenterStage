@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode.opmode.auto.misc;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnToCommand;
-import org.firstinspires.ftc.teamcode.opmode.auto.tank.DropYellowPixel;
+import org.firstinspires.ftc.teamcode.opmode.auto.tank.paths.DropYellowPixel;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -17,7 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
-
+@Disabled
 @Autonomous
 public class TestAutonWithoutCam extends MatchOpMode {
     private Drivetrain drivetrain;

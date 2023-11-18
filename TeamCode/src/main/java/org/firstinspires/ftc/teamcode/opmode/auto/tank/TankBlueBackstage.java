@@ -2,11 +2,14 @@ package org.firstinspires.ftc.teamcode.opmode.auto.tank;
 
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnToCommand;
+import org.firstinspires.ftc.teamcode.opmode.auto.tank.paths.DropPurplePixel;
+import org.firstinspires.ftc.teamcode.opmode.auto.tank.paths.DropYellowPixel;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -14,11 +17,8 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
-import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
-
-import java.util.logging.Level;
-
+@Disabled //NOT DONE
 @Autonomous(preselectTeleOp = "TeleOpMain")
 public class TankBlueBackstage extends MatchOpMode {
     
@@ -47,18 +47,20 @@ public class TankBlueBackstage extends MatchOpMode {
     
         climber.setSetPointCommand(Climber.ClimbEnum.REST);
 //        shooter.ready();
-        while (!isStarted() && !isStopRequested()) {
-            vision.periodic();
-            telemetry.update();
-        }
-        this.matchStart(); }
+//        while (!isStarted() && !isStopRequested()) {
+//            vision.periodic();
+//            telemetry.update();
+//        }
+//        this.matchStart();
+    }
 
 @Override
 public void disabledPeriodic() {
-    Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getPosition());
+//    Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getPosition());
+//    vision.setPosition(vision.getPosition());
     vision.setPosition(vision.getPosition());
-    
     vision.periodic();
+            telemetry.update();
 }
 
 @Override

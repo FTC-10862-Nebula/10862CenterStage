@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.tank;
+package org.firstinspires.ftc.teamcode.opmode.auto.tank.paths;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.SelectCommand;
@@ -30,13 +30,13 @@ public class DropYellowPixel extends SequentialCommandGroup {
         addCommands(
             new SelectCommand(new HashMap<Object, Command>() {{
                 put(TeamMarkerPipeline.FFPosition.LEFT, new SequentialCommandGroup(
-                    new DriveForwardCommand(drivetrain, -0.1)
+                    new DriveForwardCommand(drivetrain, 7.8)
                 ));
                 put(TeamMarkerPipeline.FFPosition.MIDDLE, new SequentialCommandGroup(
-                    new DriveForwardCommand(drivetrain, -4)
+                    new DriveForwardCommand(drivetrain, 3.6)
                 ));
                 put(TeamMarkerPipeline.FFPosition.RIGHT, new SequentialCommandGroup(
-                    new DriveForwardCommand(drivetrain, -5)
+                    new DriveForwardCommand(drivetrain, -3)
                 ));
             }}, vision::getPosition)
         );

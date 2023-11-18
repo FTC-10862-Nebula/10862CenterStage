@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.tank;
+package org.firstinspires.ftc.teamcode.opmode.auto.tank.paths;
 
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
@@ -8,7 +8,6 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnToCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -31,24 +30,24 @@ public class DropPurplePixel extends SequentialCommandGroup {
                            Slide slide,
                            Claw claw){
         addCommands(
-            new SelectCommand(
-                new HashMap<Object, Command>() {{
+            new DriveForwardCommand(drivetrain, 28),
+            new SelectCommand(new HashMap<Object, Command>() {{
                 put(TeamMarkerPipeline.FFPosition.LEFT, new SequentialCommandGroup(
-                    new TurnCommand(drivetrain, -90),
-                    new DriveForwardCommand(drivetrain, 1)
+                    new TurnCommand(drivetrain, 90),
+                    new DriveForwardCommand(drivetrain, 3.5)
                 ));
                 put(TeamMarkerPipeline.FFPosition.MIDDLE, new SequentialCommandGroup(
-                    new DriveForwardCommand(drivetrain, -4)
+                    new DriveForwardCommand(drivetrain, 3.9)
                 ));
                 put(TeamMarkerPipeline.FFPosition.RIGHT, new SequentialCommandGroup(
-                    new TurnCommand(drivetrain, 90),
-                    new DriveForwardCommand(drivetrain, 1)
+                    new TurnCommand(drivetrain, -90),
+                    new DriveForwardCommand(drivetrain, 2.7)
                 ));
             }}, vision::getFinalPosition),
             
             
-            new TurnCommand(drivetrain, 90),
-            new DriveForwardCommand(drivetrain, 1),
+//            new TurnCommand(drivetrain, 90),
+//            new DriveForwardCommand(drivetrain, 1),
             
             
             new ParallelCommandGroup(
@@ -60,18 +59,18 @@ public class DropPurplePixel extends SequentialCommandGroup {
 
             new SelectCommand(new HashMap<Object, Command>() {{
                 put(TeamMarkerPipeline.FFPosition.LEFT, new SequentialCommandGroup(
-                    new TurnCommand(drivetrain, 90)
-                ));
-                put(TeamMarkerPipeline.FFPosition.MIDDLE, new SequentialCommandGroup(
-                    new TurnCommand(drivetrain, 0.1)
-                ));
-                put(TeamMarkerPipeline.FFPosition.RIGHT, new SequentialCommandGroup(
                     new TurnCommand(drivetrain, -90)
                 ));
-            }}, vision::getFinalPosition),
+                put(TeamMarkerPipeline.FFPosition.MIDDLE, new SequentialCommandGroup(
+                    new TurnCommand(drivetrain, 0.01)
+                ));
+                put(TeamMarkerPipeline.FFPosition.RIGHT, new SequentialCommandGroup(
+                    new TurnCommand(drivetrain, 90)
+                ));
+            }}, vision::getFinalPosition)
     
-            new TurnToCommand(drivetrain, 0),
-            new DriveForwardCommand(drivetrain, -15)
+//            new TurnToCommand(drivetrain, 0),
+//            new DriveForwardCommand(drivetrain, -15)
         );
     }
 }

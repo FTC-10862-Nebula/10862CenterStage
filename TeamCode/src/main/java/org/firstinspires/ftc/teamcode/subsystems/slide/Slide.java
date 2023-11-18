@@ -20,7 +20,7 @@ public class Slide extends SubsystemBase {
     protected NebulaMotor slideR, slideL;
     
     protected PIDFController slideController;
-    protected double output = 0;
+    protected double output = 0, mulitplier=1;
 
     //TODO: Should the Slide even drop?
 //Left is POstiive up; right is negative up
@@ -80,9 +80,9 @@ public class Slide extends SubsystemBase {
         slideController.setF(NebulaConstants.Slide.slidePID.f *
             Math.cos(Math.toRadians(slideController.getSetPoint())));
         output = slideController.calculate(getEncoderDistance());
-        setPower(output);//TODO: Probably shouldn't be like this
+        setPower(output* mulitplier);//TODO: Probably shouldn't be like this
 
-        telemetry.addData("Slide Motor Output:", output);
+        telemetry.addData("Slide Motor Output:", output* mulitplier);
         telemetry.addData("SlideR Encoder: ", slideR.getPosition());
         telemetry.addData("SlideL Encoder: ", slideL.getPosition());
         telemetry.addData("Slide Pos:", getSetPoint());
@@ -126,7 +126,13 @@ public class Slide extends SubsystemBase {
 //                return;
 //            }
 //        }
-
+        if (getEncoderDistance()>setPoint){
+            mulitplier =0.8;
+            slideController.setP(NebulaConstants.Slide.slidePID.p*0.8);//TODO:Test
+        } else {
+          mulitplier =1;
+            slideController.setP(NebulaConstants.Slide.slidePID.p*1);//TODO:Test
+        }
         slideController.setSetPoint(setPoint);
     }
 

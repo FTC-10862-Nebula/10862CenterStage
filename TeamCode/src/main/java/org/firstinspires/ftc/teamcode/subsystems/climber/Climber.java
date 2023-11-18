@@ -48,7 +48,8 @@ public class Climber extends SubsystemBase {
             getEncoderDistance(),
             getEncoderDistance());
         climberController.setTolerance(NebulaConstants.Climber.climberTolerance);
-
+    
+        setSetPointCommand(Climber.ClimbEnum.REST);
         this.telemetry = tl;
         climbPos = ClimbEnum.REST;
     }

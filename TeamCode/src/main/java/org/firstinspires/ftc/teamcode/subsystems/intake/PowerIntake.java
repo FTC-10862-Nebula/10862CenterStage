@@ -11,7 +11,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.NebulaConstants;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaMotor;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
-
 //@Deprecated
 @Config
 public class PowerIntake extends SubsystemBase {
@@ -19,7 +18,7 @@ public class PowerIntake extends SubsystemBase {
         OUTTAKE(-0.7),
         INTAKE(.5,true),//0.7 --.75
         STOP(0),
-        OUTTAKE_YELLOW(0.1);
+        OUTTAKE_PURPLE(-0.4);
 
         public final double power;
         public final boolean reset;

@@ -104,7 +104,7 @@ public class DropSpikeMarkAuto extends MatchOpMode {
                         RedBackstageConstants.Path.DropSpikeMark.preload),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     RedBackstageConstants.Path.DropSpikeMark.getTurn(position)),
-                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_YELLOW),
+                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
 
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),

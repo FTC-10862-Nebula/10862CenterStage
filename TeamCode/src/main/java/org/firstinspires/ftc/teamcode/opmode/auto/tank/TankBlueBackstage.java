@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.misc;
+package org.firstinspires.ftc.teamcode.opmode.auto.tank;
 
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -8,7 +7,6 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnToCommand;
-import org.firstinspires.ftc.teamcode.opmode.auto.tank.DropYellowPixel;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -16,22 +14,27 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
+import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 
-@Autonomous
-public class TestAutonWithoutCam extends MatchOpMode {
+import java.util.logging.Level;
+
+@Autonomous(preselectTeleOp = "TeleOpMain")
+public class TankBlueBackstage extends MatchOpMode {
+    
+    // Subsystems
     private Drivetrain drivetrain;
     //    private AprilTagVision aprilTagVision;
     private Vision vision;
     private PowerIntake intake;
     private Climber climber;
     private Arm arm;
-    //    private Shooter shooter;
+//    private Shooter shooter;
     private Slide slide;
     private Claw claw;
+
     @Override
     public void robotInit() {
-    
         drivetrain = new Drivetrain(hardwareMap, true);
 //        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
@@ -48,27 +51,25 @@ public class TestAutonWithoutCam extends MatchOpMode {
             vision.periodic();
             telemetry.update();
         }
-        this.matchStart();
-    }
+        this.matchStart(); }
 
+@Override
+public void disabledPeriodic() {
+    Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getPosition());
+    vision.setPosition(vision.getPosition());
+    
+    vision.periodic();
+}
 
-    public void matchStart() {new SequentialCommandGroup(
+@Override
+public void matchStart() {
+    schedule(
         new DriveForwardCommand(drivetrain, 20),
-    
-        new TurnToCommand(drivetrain, 90, true),
-        new DriveForwardCommand(drivetrain, 1),
-    
-        intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
-        new WaitCommand(2000),
-        intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
-    
-    
-        new DriveForwardCommand(drivetrain, 3),
-    
+        new DropPurplePixel(drivetrain, vision,intake,climber, arm,slide,claw),
         new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
-    
+        
         new TurnToCommand(drivetrain, 270),
-        new DriveForwardCommand(drivetrain, -15),
+        new DriveForwardCommand(drivetrain, -20),
     
         new HighCommand(slide, arm, claw),
         new DriveForwardCommand(drivetrain, -2),
@@ -77,8 +78,5 @@ public class TestAutonWithoutCam extends MatchOpMode {
     
         new ResetCommand(slide, arm, claw)
     );
-    
     }
-
-
-};
+}

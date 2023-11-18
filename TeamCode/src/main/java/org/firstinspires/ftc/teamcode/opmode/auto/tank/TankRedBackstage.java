@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.misc;
+package org.firstinspires.ftc.teamcode.opmode.auto.tank;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -7,8 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnToCommand;
-import org.firstinspires.ftc.teamcode.opmode.auto.tank.DropYellowPixel;
+import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -16,22 +15,27 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
+import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 
-@Autonomous
-public class TestAutonWithoutCam extends MatchOpMode {
+import java.util.logging.Level;
+
+@Autonomous//(preselectTeleOp = "TeleOpMain")
+public class TankRedBackstage extends MatchOpMode {
+    
+    // Subsystems
     private Drivetrain drivetrain;
     //    private AprilTagVision aprilTagVision;
     private Vision vision;
     private PowerIntake intake;
     private Climber climber;
     private Arm arm;
-    //    private Shooter shooter;
+//    private Shooter shooter;
     private Slide slide;
     private Claw claw;
+
     @Override
     public void robotInit() {
-    
         drivetrain = new Drivetrain(hardwareMap, true);
 //        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
@@ -51,34 +55,37 @@ public class TestAutonWithoutCam extends MatchOpMode {
         this.matchStart();
     }
 
+@Override
+public void disabledPeriodic() {
+    vision.setPosition(vision.getPosition());
+    Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
+}
 
-    public void matchStart() {new SequentialCommandGroup(
-        new DriveForwardCommand(drivetrain, 20),
-    
-        new TurnToCommand(drivetrain, 90, true),
-        new DriveForwardCommand(drivetrain, 1),
-    
-        intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
-        new WaitCommand(2000),
-        intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
-    
-    
-        new DriveForwardCommand(drivetrain, 3),
-    
-        new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
-    
-        new TurnToCommand(drivetrain, 270),
-        new DriveForwardCommand(drivetrain, -15),
-    
-        new HighCommand(slide, arm, claw),
-        new DriveForwardCommand(drivetrain, -2),
-        claw.setClawPos(Claw.ClawPos.OPEN_POS),
-        new WaitCommand(1000),
-    
-        new ResetCommand(slide, arm, claw)
+@Override
+public void matchStart() {
+    schedule(
+        new SequentialCommandGroup(
+        
+//            new SelectOwnCommand(vision.getFinalPosition(),new SequentialCommandGroup(new DriveForwardCommand(drivetrain, 3)),
+//                new SequentialCommandGroup(new DriveForwardCommand(drivetrain, -3)), new SequentialCommandGroup(new TurnCommand(drivetrain, 69)))
+
+
+            new DriveForwardCommand(drivetrain, 14),
+            new DropPurplePixel(drivetrain, vision,intake,climber, arm,slide,claw),
+            new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
+
+            new TurnCommand(drivetrain, 90),
+            new DriveForwardCommand(drivetrain, -6),
+
+            new HighCommand(slide, arm, claw),
+            new DriveForwardCommand(drivetrain, -2),
+            claw.setClawPos(Claw.ClawPos.OPEN_POS),
+            new WaitCommand(1000),
+
+            new ResetCommand(slide, arm, claw),
+            new DriveForwardCommand(drivetrain, -8)
+        )
+        
     );
-    
     }
-
-
-};
+}

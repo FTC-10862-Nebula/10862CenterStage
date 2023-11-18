@@ -143,7 +143,7 @@ public class BlueBackstage extends MatchOpMode {
                 BlueBackstageConstants.Path.DropSpikeMark.preload),
             new TrajectorySequenceContainerFollowCommand(drivetrain,
                 BlueBackstageConstants.Path.DropSpikeMark.getTurn(position)),
-            intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_YELLOW),
+            intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
     
             /* PurplePixel/Drop */
             new SequentialCommandGroup(//Y is this not working...

@@ -80,9 +80,8 @@ public class RedBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new Turn(90),
                                     new Forward(3),
-                                    new Turn(90),
+                                    new Turn(-90),
                                     new Back(20)
                             );
                         case MIDDLE:
@@ -96,8 +95,7 @@ public class RedBackstage extends MatchOpMode {
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new Turn(90),
-                                    new Forward(-3),
+                                    new Forward(3),
                                     new Turn(90),
                                     new Back(20)
                                     );
@@ -110,7 +108,7 @@ public class RedBackstage extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
-        drivetrain.init();
+//        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
@@ -141,7 +139,7 @@ public class RedBackstage extends MatchOpMode {
                         RedBackstageConstants.Path.DropSpikeMark.preload),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     RedBackstageConstants.Path.DropSpikeMark.getTurn(position)),
-                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_YELLOW),
+                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
 
                 /* PurplePixel/Drop */
                 new SequentialCommandGroup(//Y is this not working...

@@ -43,10 +43,16 @@ public class TeamMarkerPipeline extends FFRectMarkerPipeline {
         }
     }
 
-    public enum FFPosition {
+    public enum FFPosition  {
         LEFT,
         MIDDLE,
         RIGHT,
+        ;
+    
+//        @Override
+//        public FFPosition get() {
+//            return TeamMarkerPipeline.FFPosition;
+//        }
     }
 
 }

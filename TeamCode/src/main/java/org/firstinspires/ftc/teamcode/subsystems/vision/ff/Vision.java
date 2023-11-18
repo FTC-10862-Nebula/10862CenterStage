@@ -9,16 +9,19 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Vision extends SubsystemBase {
     private final Telemetry telemetry;
     private final FFRectDetector duckDetector;
-//    private TeamMarkerPipeline.Position currentPos;
+    private TeamMarkerPipeline.FFPosition finalPos;
 
     public Vision(HardwareMap hw, Telemetry tl) {
         duckDetector = new FFRectDetector(hw, tl);
         duckDetector.init();
-
-        duckDetector.setLeftRectangle(.4, .5);
-        duckDetector.setCenterRectangle(.3, .2);
-        duckDetector.setRightRectangle(.8, .5);
-        duckDetector.setRectangleSize(50,50);
+//y-
+//y+
+        
+        //x- <---> x+
+        duckDetector.setLeftRectangle(.05, .48);
+        duckDetector.setCenterRectangle(.5, .44);
+        duckDetector.setRightRectangle(0.9, .48);
+        duckDetector.setRectangleSize(40,40);
         telemetry = tl;
 //        currentPos = duckDetector.getPosition();
     }
@@ -33,4 +36,12 @@ public class Vision extends SubsystemBase {
     public TeamMarkerPipeline.FFPosition getPosition() {
         return duckDetector.getPosition();
     }
+    public void setPosition(TeamMarkerPipeline.FFPosition position) {
+        finalPos = position;
+    }
+    
+    public TeamMarkerPipeline.FFPosition getFinalPosition() {
+        return finalPos;
+    }
+    
 }

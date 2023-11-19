@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
-@Disabled
+//@Disabled
 @TeleOp
 public class ServoTest extends OpMode {
     Servo servo1;
@@ -15,7 +15,7 @@ public class ServoTest extends OpMode {
      */
     @Override
     public void init() {
-        servo1 = hardwareMap.get(Servo.class, "armR");
+        servo1 = hardwareMap.get(Servo.class, "claw");
         servo1.setDirection(Servo.Direction.FORWARD);
 //        servo1.setPosition(0);
     }

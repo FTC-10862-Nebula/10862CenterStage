@@ -18,9 +18,9 @@ public class Vision extends SubsystemBase {
 //y+
         
         //x- <---> x+
-        duckDetector.setLeftRectangle(.05, .48);
-        duckDetector.setCenterRectangle(.5, .44);
-        duckDetector.setRightRectangle(0.9, .48);
+        duckDetector.setLeftRectangle(.05, .42);
+        duckDetector.setCenterRectangle(.5, .40);
+        duckDetector.setRightRectangle(0.9, .45);
         duckDetector.setRectangleSize(40,40);
         telemetry = tl;
 //        currentPos = duckDetector.getPosition();

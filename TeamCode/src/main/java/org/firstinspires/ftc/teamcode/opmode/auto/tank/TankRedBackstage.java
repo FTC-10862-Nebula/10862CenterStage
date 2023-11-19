@@ -8,6 +8,8 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.DriveCommands.TurnCommand;
+import org.firstinspires.ftc.teamcode.opmode.auto.tank.paths.DropPurplePixel;
+import org.firstinspires.ftc.teamcode.opmode.auto.tank.paths.DropYellowPixel;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -71,8 +73,8 @@ public void matchStart() {
 
 
             new DriveForwardCommand(drivetrain, 14),
-            new DropPurplePixel(drivetrain, vision,intake,climber, arm,slide,claw),
-            new DropYellowPixel(drivetrain,vision,intake,climber, arm,slide,claw),
+            new DropPurplePixel(drivetrain, vision,intake),
+            new DropYellowPixel(drivetrain,vision,intake,climber),
 
             new TurnCommand(drivetrain, 90),
             new DriveForwardCommand(drivetrain, -6),

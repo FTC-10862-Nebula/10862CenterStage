@@ -36,10 +36,10 @@ public class TeleOpMain extends MatchOpMode {
 
     // Subsystems
     private Drivetrain drivetrain;
-//    private Slide slide;
+    private Slide slide;
     private PowerIntake intake;
-//    private Arm arm;
-//    private Claw claw;
+    private Arm arm;
+    private Claw claw;
 //    private Shooter shooter;
     private PowerClimber climb;
     
@@ -52,24 +52,24 @@ public class TeleOpMain extends MatchOpMode {
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
 
-//        claw = new Claw(telemetry, hardwareMap, true);
+        claw = new Claw(telemetry, hardwareMap, true);
         drivetrain = new Drivetrain(hardwareMap, true);  //Works
 //        drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
         climb = new PowerClimber(telemetry, hardwareMap, true);
-//        arm = new Arm (telemetry, hardwareMap, true);
+        arm = new Arm (telemetry, hardwareMap, true);
 //        shooter = new Shooter(telemetry, hardwareMap, true);
-//        slide = new Slide(telemetry, hardwareMap, true);
+        slide = new Slide(telemetry, hardwareMap, true);
     }
 
 
     @Override
     public void configureButtons() {
         //        //Claw
-//        Button up = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
-//                .whenPressed(claw.setClawPos(Claw.ClawPos.OPEN_POS)));
-//        Button close= (new GamepadTrigger(operatorGamepad,  GamepadKeys.Trigger.RIGHT_TRIGGER)
-//                .whenPressed(claw.setClawPos(Claw.ClawPos.CLOSE_POS)));
+        Button up = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
+                .whenPressed(claw.setClawPos(Claw.ClawPos.OPEN_POS)));
+        Button close= (new GamepadTrigger(operatorGamepad,  GamepadKeys.Trigger.RIGHT_TRIGGER)
+                .whenPressed(claw.setClawPos(Claw.ClawPos.CLOSE_POS)));
 //
 //        //Arm
 //        Button armTransfer = (new GamepadButton(operatorGamepad, Button.DPAD_DOWN))
@@ -103,16 +103,29 @@ public class TeleOpMain extends MatchOpMode {
     
         //Slide
         //TODO m ake the commands close the claw and stuff
-    
-    
 //        Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
-//            .whenPressed(new ResetCommand(slide, arm, claw));
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.TRANSFER))
+//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
 //        Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
-//            .whenPressed(new LowCommand(slide,arm,claw));
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.LOW))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
 //        Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
-//            .whenPressed(new MiddleCommand(slide,arm, claw));
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.MID))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
 //        Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
-//            .whenPressed(new HighCommand(slide,arm, claw));
+//                .whenPressed(slide.setSetPointCommand(Slide.SlideEnum.HIGH))
+//            .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE))
+//            .whenPressed(claw.setClawPos(Claw.ClawPos.INTAKE_OPEN));
+    
+    
+        Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
+            .whenPressed(new ResetCommand(slide, arm, claw));
+        Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
+            .whenPressed(new LowCommand(slide,arm,claw));
+        Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
+            .whenPressed(new MiddleCommand(slide,arm, claw));
+        Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
+            .whenPressed(new HighCommand(slide,arm, claw));
 
 
         /*
@@ -123,9 +136,14 @@ public class TeleOpMain extends MatchOpMode {
         Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
             .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
 
-////        slide.setDefaultCommand(slide.slideMoveManual(operatorGamepad::getRightY));
-//        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
-////        pivot.setDefaultCommand(new PivotMoveManual(pivot, operatorGamepad::getLeftY));
+//
+//        /*
+//         * OPERATOR
+//         */
+//
+//        slide.setDefaultCommand(slide.slideMoveManual(operatorGamepad::getRightY));
+        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
+//        pivot.setDefaultCommand(new PivotMoveManual(pivot, operatorGamepad::getLeftY));
     }
 
     @Override

@@ -18,7 +18,6 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
  * and op modes themselves.
  */
 @Config
-@Deprecated
 public class DriveConstants {
 
     /*

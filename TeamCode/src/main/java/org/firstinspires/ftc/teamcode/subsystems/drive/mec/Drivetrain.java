@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.TrajectorySequence
 
 import java.util.List;
 
-@Deprecated
 public class Drivetrain extends SubsystemBase {
 
     private final MecanumDrive drive;

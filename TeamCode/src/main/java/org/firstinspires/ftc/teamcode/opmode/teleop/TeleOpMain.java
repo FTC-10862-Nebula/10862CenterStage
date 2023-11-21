@@ -8,18 +8,20 @@ import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.LowCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.MiddleCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.tank.DefaultDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.teleop.tank.SlowDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
-import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
@@ -32,6 +34,7 @@ public class TeleOpMain extends MatchOpMode {
     // Gamepad
     private GamepadEx driverGamepad;
     private GamepadEx operatorGamepad;
+//    private DcMotorEx dcMotorEx = hardwareMap.get(DcMotorEx.class, "dcMotor");
 
 
     // Subsystems
@@ -42,7 +45,8 @@ public class TeleOpMain extends MatchOpMode {
     private Claw claw;
 //    private Shooter shooter;
     private PowerClimber climb;
-    
+//    private HardwareMap hardwareMap;
+
     public TeleOpMain() {
     }
 //    private CycleTracker cycleTracker;
@@ -53,7 +57,7 @@ public class TeleOpMain extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
 
         claw = new Claw(telemetry, hardwareMap, true);
-        drivetrain = new Drivetrain(hardwareMap, true);  //Works
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
 //        drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
         climb = new PowerClimber(telemetry, hardwareMap, true);
@@ -132,9 +136,9 @@ public class TeleOpMain extends MatchOpMode {
          *  DRIVER
          */
     
-        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad));
-        Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
-            .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
+        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));
+        //Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
+           // .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
 
 //
 //        /*

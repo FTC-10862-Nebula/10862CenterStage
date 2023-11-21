@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
+
 
 /**
  * This is a simple teleop routine for debugging your motor configuration.
@@ -47,8 +48,8 @@ public class MotorDirectionDebugger extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
-    
-        Drivetrain drive = new Drivetrain(hardwareMap, true);
+
+        MecanumDrive drive = new MecanumDrive(hardwareMap, telemetry);
 
         telemetry.addLine("Press play to begin the debugging opmode");
         telemetry.update();

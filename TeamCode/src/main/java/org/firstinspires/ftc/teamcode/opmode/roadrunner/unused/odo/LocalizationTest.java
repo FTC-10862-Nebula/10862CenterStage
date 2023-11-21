@@ -4,7 +4,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
+
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal
@@ -19,7 +20,7 @@ public class LocalizationTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 //        MecanumDrive drive = new MecanumDrive(hardwareMap, telemetry);
-        Drivetrain drive = new Drivetrain(hardwareMap, true);
+        MecanumDrive drive = new MecanumDrive(hardwareMap, telemetry);
 //        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         waitForStart();

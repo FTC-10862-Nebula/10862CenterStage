@@ -57,7 +57,6 @@ import java.util.List;
  * Simple mecanum drive hardware implementation for REV hardware.
  */
 @Config
-@Deprecated
 public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive {
 
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(15, 0, 0); //6,1,0

@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.roadrunner.unused;
 
-import static org.firstinspires.ftc.teamcode.subsystems.drive.tank.DriveConstants.*;
+
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_ACCEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MAX_VEL;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.MOTOR_VELO_PID;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.RUN_USING_ENCODER;
+import static org.firstinspires.ftc.teamcode.subsystems.drive.mec.DriveConstants.kV;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
@@ -17,7 +22,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.drive.tank.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 
 import java.util.List;
 
@@ -71,7 +76,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
         Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        Drivetrain drive = new Drivetrain(hardwareMap, true);
+        MecanumDrive drive = new MecanumDrive(hardwareMap, telemetry);
 
         Mode mode = Mode.TUNING_MODE;
 

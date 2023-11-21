@@ -1,10 +1,13 @@
 package com.example.meepmeep;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 import com.noahbres.meepmeep.roadrunner.entity.TrajectorySequenceEntity;
+
+import java.util.Vector;
 
 public class RedBackStage {
     public static void main(String[] args) {
@@ -15,10 +18,17 @@ public class RedBackStage {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(10, -65, Math.toRadians(90)))
-                                .forward(20)
+                                .splineTo(new Vector2d(22, -34), Math.toRadians(45))
                                 //Drop Pixel
-                                .turn(Math.toRadians(90))
-                                .forward(-43)
+                                .setReversed(true)
+                                .splineToLinearHeading(new Pose2d(56, -40), Math.toRadians(-180))
+                                //Drop Pixel on  backboard
+                                .splineTo(new Vector2d(0, -12), Math.toRadians(360))
+                                .setReversed(false)
+                                .forward(55)
+                                //intake
+                                .forward(-55)
+                                .splineTo(new Vector2d(56, -40), Math.toRadians(360))
                                 .build()
                 );
 

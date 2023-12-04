@@ -19,8 +19,8 @@ public class Climber extends SubsystemBase {
     protected double output = 0;
 
     public enum ClimbEnum {
-        CLIMB(0.0),
-        REST(5),
+        CLIMB(-200),
+        REST(0),
         MANUAL(10.0);
         public final double climbPos;
         ClimbEnum(double climbPos) {

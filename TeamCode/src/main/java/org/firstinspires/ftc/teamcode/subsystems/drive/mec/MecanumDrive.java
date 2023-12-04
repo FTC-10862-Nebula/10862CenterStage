@@ -105,10 +105,10 @@ public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive
                 DriveConstants.LOGO_FACING_DIR, DriveConstants.USB_FACING_DIR));
         imu.initialize(parameters);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, "FL");
+        leftRear = hardwareMap.get(DcMotorEx.class, "BL");
+        rightRear = hardwareMap.get(DcMotorEx.class, "BR");
+        rightFront = hardwareMap.get(DcMotorEx.class, "FR");
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
@@ -130,8 +130,8 @@ public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive
 
         //Motor Direction
         leftFront.setDirection(REVERSE);
-        leftRear.setDirection(REVERSE);
-        rightFront.setDirection(FORWARD);
+        leftRear.setDirection(FORWARD);
+        rightFront.setDirection(REVERSE);
         rightRear.setDirection(FORWARD);
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();

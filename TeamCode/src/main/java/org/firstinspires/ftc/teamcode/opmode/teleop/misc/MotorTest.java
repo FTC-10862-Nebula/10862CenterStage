@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.misc;
 
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-@Disabled
+//@Disabled
 @TeleOp
 public class MotorTest extends OpMode {
     private  MotorEx motor;
@@ -15,7 +14,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = new MotorEx(hardwareMap, "slideL");
+        motor = new MotorEx(hardwareMap, "e1");
     }
 
     /**
@@ -26,10 +25,10 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.set(0.1);
+            motor.set(0.5);
         }
         else if(gamepad1.dpad_up){
-            motor.set(-0.1);
+            motor.set(-0.5);
         }
         else{
             motor.stopMotor();

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.misc;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,8 +14,8 @@ public class ServoTest extends OpMode {
      */
     @Override
     public void init() {
-        servo1 = hardwareMap.get(Servo.class, "claw");
-        servo1.setDirection(Servo.Direction.FORWARD);
+        servo1 = hardwareMap.get(Servo.class, "intakeR");
+        servo1.setDirection(Servo.Direction.REVERSE);
 //        servo1.setPosition(0);
     }
 

@@ -56,7 +56,7 @@ public class ForwardAuto extends MatchOpMode {
 
         schedule(
             new SequentialCommandGroup( //TODO:TEST!
-                new InstantCommand(intake::setDown),
+                new InstantCommand(intake::setUp),
                 //new InstantCommand(()->drivetrain.arcadeDrive(0.5,0)),
 //                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
                 new WaitCommand(1500),

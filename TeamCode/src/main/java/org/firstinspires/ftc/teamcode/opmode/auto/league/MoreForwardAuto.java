@@ -57,7 +57,7 @@ public class MoreForwardAuto extends MatchOpMode {
 
         schedule(
             new SequentialCommandGroup( //TODO:TEST!
-                new InstantCommand(intake::setDown),
+                new InstantCommand(intake::setUp),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         RedBackstageConstants.Path.ForwardPath.preload),
                 /* Save Pose and end opmode*/

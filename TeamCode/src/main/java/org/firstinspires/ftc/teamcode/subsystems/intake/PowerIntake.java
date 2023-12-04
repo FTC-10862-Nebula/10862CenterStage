@@ -33,8 +33,8 @@ public class PowerIntake extends SubsystemBase {
     }
     
     public enum IntakePos {
-        UP(0.2,0),
-        DOWN(0.5,0.3);
+        DOWN(1,1),
+        UP(0.73,0.73);
         
         public final double rPos, lPos;
         IntakePos(double rPos, double lPos) {
@@ -102,12 +102,12 @@ public class PowerIntake extends SubsystemBase {
         return false;
     }
     
-    public void setDown(){
-        intakeServoR.setPosition(IntakePos.DOWN.rPos);
-        intakeServoL.setPosition(IntakePos.DOWN.lPos);
-    }
     public void setUp(){
         intakeServoR.setPosition(IntakePos.UP.rPos);
         intakeServoL.setPosition(IntakePos.UP.lPos);
+    }
+    public void setDown(){
+        intakeServoR.setPosition(IntakePos.DOWN.rPos);
+        intakeServoL.setPosition(IntakePos.DOWN.lPos);
     }
 }

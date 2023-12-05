@@ -47,7 +47,7 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
          *For all the color spaces go to
          *https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html
          */
-        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_RGB2HSV);//Maybe here
 
         Mat display = new Mat();
         Core.extractChannel(matHSV, display, 1);

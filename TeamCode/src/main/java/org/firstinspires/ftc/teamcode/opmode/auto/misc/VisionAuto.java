@@ -7,28 +7,20 @@ import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 @Autonomous
 public class VisionAuto extends MatchOpMode {
     private Vision vision;
-
-@Override
-public void robotInit() {
-    vision = new Vision(hardwareMap,  telemetry);
-}
-
-@Override
-public void disabledPeriodic() {
-    vision.periodic();
-}
-
-@Override
-public void matchStart() {
-    schedule(
-//            new SelectCommand(new HashMap<Object, Command>() {{
-//                put(TeamMarkerPipeline.Position.LEFT, new SequentialCommandGroup(
-//                );
-//                put(TeamMarkerPipeline.Position.MIDDLE, new SequentialCommandGroup(
-//                );
-//                put(TeamMarkerPipeline.Position.RIGHT, new SequentialCommandGroup(
-//                );
-//            }}, vision::getCurrentPosition)
-    );
+    
+    @Override
+    public void robotInit() {
+        vision = new Vision(hardwareMap, telemetry);
+    }
+    
+    @Override
+    public void disabledPeriodic() {
+        vision.setPosition(vision.getPosition());
+        vision.periodic();
+        telemetry.update();
+    }
+    
+    public void matchStart() {
+//        TeamMarkerPipeline.FFPosition position = vision.getPosition();
     }
 }

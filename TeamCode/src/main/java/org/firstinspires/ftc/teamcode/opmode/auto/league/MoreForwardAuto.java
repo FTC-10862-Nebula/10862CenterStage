@@ -42,13 +42,8 @@ public class MoreForwardAuto extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
-        drivetrain.init();
+//        drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        climb = new PowerClimber(telemetry, hardwareMap, true);
-        while (!isStarted() && !isStopRequested()) {
-            telemetry.update();
-        }
-        this.matchStart();
     }
 
     public void matchStart() {

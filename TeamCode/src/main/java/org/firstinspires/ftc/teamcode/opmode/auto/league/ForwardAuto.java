@@ -41,13 +41,8 @@ public class ForwardAuto extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
-        drivetrain.init();
+//        drivetrain.init();
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        climb = new PowerClimber(telemetry, hardwareMap, true);
-        while (!isStarted() && !isStopRequested()) {
-            telemetry.update();
-        }
-        this.matchStart();
     }
 
     public void matchStart() {
@@ -62,8 +57,8 @@ public class ForwardAuto extends MatchOpMode {
                 new WaitCommand(1500),
                 intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE),
                 new InstantCommand(()->drivetrain.stop()),
-new WaitCommand(1000),
-intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
+                new WaitCommand(1000),
+                intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
                    // new InstantCommand(()->drivetrain.arcadeDrive(-.05,0)),
 //                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
                     new WaitCommand(150),

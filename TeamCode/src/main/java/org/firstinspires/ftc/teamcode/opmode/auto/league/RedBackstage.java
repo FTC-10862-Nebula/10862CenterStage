@@ -115,15 +115,7 @@ public class RedBackstage extends MatchOpMode {
         climber = new Climber(telemetry, hardwareMap, true);
         claw = new Claw(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
-        shooter = new Shooter(telemetry, hardwareMap, true);
-
         climber.setSetPointCommand(Climber.ClimbEnum.REST);
-        shooter.ready();
-        while (!isStarted() && !isStopRequested()) {
-            vision.periodic();
-            telemetry.update();
-        }
-        this.matchStart();
     }
 
     public void matchStart() {

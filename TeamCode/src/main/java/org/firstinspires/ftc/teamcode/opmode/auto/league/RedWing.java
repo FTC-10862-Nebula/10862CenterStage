@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.Traject
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystems.vision.aprilTag.AprilTagVision;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
@@ -23,7 +22,6 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
 public class RedWing extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
-    private AprilTagVision aprilTagVision;
     @Config
     private static class RedWingConstants {
         private static Path path;
@@ -53,14 +51,6 @@ public class RedWing extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
-        drivetrain.init();
-        aprilTagVision = new AprilTagVision(hardwareMap, telemetry);
-        while (!isStarted() && !isStopRequested()) {
-            aprilTagVision.updateTagOfInterest();
-            aprilTagVision.tagToTelemetry();
-            telemetry.update();
-        }
-        this.matchStart();
     }
 
     public void matchStart() {

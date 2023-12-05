@@ -56,22 +56,14 @@ public class BlueWing extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
-        drivetrain.init();
+//        drivetrain.init();
         vision = new Vision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
         climber = new Climber(telemetry, hardwareMap, true);
         claw = new Claw(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
-        shooter = new Shooter(telemetry, hardwareMap, true);
-    
         climber.setSetPointCommand(Climber.ClimbEnum.REST);
-        shooter.ready();
-        while (!isStarted() && !isStopRequested()) {
-            vision.periodic();
-            telemetry.update();
-        }
-        this.matchStart();
     }
 
     public void matchStart() {

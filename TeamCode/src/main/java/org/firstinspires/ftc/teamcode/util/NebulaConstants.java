@@ -49,7 +49,7 @@ public class NebulaConstants {
         public static final String slideLName = "slideL";
         public static final NebulaMotor.Direction slideRDirection = NebulaMotor.Direction.Forward,
                 slideLDirection = NebulaMotor.Direction.Reverse;
-        public static final PIDFCoefficients slidePID = new PIDFCoefficients(0.015, 0.00, 0,0);//.0075, 0., .003, 0)
+        public static final PIDFCoefficients slidePID = new PIDFCoefficients(0.005, 0.00, 0,0);//.0075, 0., .003, 0)
         public static final int slideTolerance = 10;
         //        public int slideDistancePerPulse = (COUNTS_PER_PULSE * GEAR_RATIO) / (GEAR_DIAMETER_INCHES * Math.PI);
 //        public int slideDistancePerPulse = (GEAR_DIAMETER_INCHES * Math.PI);

@@ -128,6 +128,8 @@ public class Slide extends SubsystemBase {
 //                return;
 //            }
 //        }
+        
+        /**Not Necessary**/
 //        if (getEncoderDistance()>setPoint){
 //            mulitplier =0.8;
 //            slideController.setP(NebulaConstants.Slide.slidePID.p*0.8);//TODO:Test

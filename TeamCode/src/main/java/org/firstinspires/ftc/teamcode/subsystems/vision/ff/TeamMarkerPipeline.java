@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems.vision.ff;
 
-import org.firstinspires.ftc.teamcode.util.misc.Util;
-
-import java.util.logging.Level;
-
 public class TeamMarkerPipeline extends FFRectMarkerPipeline {
 
-    public static double MIN = 105;
-    public static double MAX = 110;
+//    public static double MIN = 105;
+//    public static double MAX = 110;
 
     public void setLeftRectangle(double x, double y) {
         setLeftRectHeightPercentage(y);
@@ -27,7 +23,7 @@ public class TeamMarkerPipeline extends FFRectMarkerPipeline {
     }
 
     public FFPosition getPosition() {
-        Util.logger(this, Level.INFO, "Left Avg: ", getLeftAverage());
+//        Util.logger(this, Level.INFO, "Left Avg: ", getLeftAverage());
 
         if(getLeftAverage() > getCenterAverage() && getLeftAverage() > getRightAverage()){
             return FFPosition.LEFT;
@@ -47,7 +43,6 @@ public class TeamMarkerPipeline extends FFRectMarkerPipeline {
         LEFT,
         MIDDLE,
         RIGHT;
-    
     }
 
 }

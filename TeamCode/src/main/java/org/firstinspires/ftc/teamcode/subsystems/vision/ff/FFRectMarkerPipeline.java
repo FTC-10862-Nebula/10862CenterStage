@@ -37,6 +37,8 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
     //The width and height of the rectangles in terms of pixels
     public int rectangleWidth = 10;
     public int rectangleHeight = 10;
+    
+    private final int thickness = 2;//Thickness of Line for Rectangles
 
     @Override
     public Mat processFrame(Mat input) {
@@ -47,7 +49,14 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
          *For all the color spaces go to
          *https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html
          */
-        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_RGB2HSV);//Maybe here
+        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_BGR2HSV);
+        //^^Change this for different image
+        //COLOR_RGB2HSV
+        //CV_CHAIN_CODE
+        //COLOR_COLORCVT_MAX - no work
+        //COLOR_GRAY2RGB - no work
+        //COLOR_RGBA2GRAY no work
+        //COLOR_BGR2HSV - Works well for red and blue
 
         Mat display = new Mat();
         Core.extractChannel(matHSV, display, 1);
@@ -75,11 +84,14 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
                 rectangleHeight
         );
 
-        drawRectOnToMat(display, leftRect, new Scalar(255, 255, 255));
+        
+        drawRectOnToMat(display, leftRect, new Scalar(255, 255, 225));
         drawRectOnToMat(display, centerRect, new Scalar(255, 225, 255));
         drawRectOnToMat(display, rightRect, new Scalar(255, 255, 225));
 
-        //We crop the image so it is only everything inside the rectangles and find the cb value inside of them
+        //We crop the image so it is only everything inside the rectangles
+        // and find the cb value inside of them
+        //Hmm, what is the cb value
         leftBlock = matHSV.submat(leftRect);
         centerBlock = matHSV.submat(centerRect);
         rightBlock = matHSV.submat(rightRect);
@@ -108,7 +120,7 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
      * @param color The color the rectangle will be
      */
     private void drawRectOnToMat(Mat mat, Rect rect, Scalar color) {
-        Imgproc.rectangle(mat, rect, color, 1);
+        Imgproc.rectangle(mat, rect, color, thickness); //Thickness of Line
     }
 
     public double getLeftAverage() {

@@ -141,7 +141,7 @@ public class NebulaConstants {
     public static Climber climber;
     public static class Climber {
         public final static String climberName = "climb";
-        public static NebulaMotor.Direction climberDirection = NebulaMotor.Direction.Reverse;
+        public static NebulaMotor.Direction climberDirection = NebulaMotor.Direction.Forward;
         public static int climberDistancePerPulse = 1;
         //1, 1425, 360/1425
         //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder

@@ -14,7 +14,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = new MotorEx(hardwareMap, "e1");
+        motor = new MotorEx(hardwareMap, "climb");
     }
 
     /**

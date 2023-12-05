@@ -66,6 +66,9 @@ public class TeleOpMain extends MatchOpMode {
 
     @Override
     public void configureButtons() {
+        //Claw Open/Close
+        //todo: how to do the  clawa
+        
         //        //Claw
 //        Button up = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
 //                .whenPressed(claw.setClawPos(Claw.ClawPos.OPEN_POS)));
@@ -105,14 +108,7 @@ public class TeleOpMain extends MatchOpMode {
 //        Button moveDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
 //            .whileHeld(climb.setPowerCommand(PowerClimber.ClimbPower.DOWN))
 //            .whenReleased(climb.setPowerCommand(0));
-    
-        Button climbbu  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
-            .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
-        Button restbut  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
-            .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
-        
         //Slide
-    
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
             .whenPressed(new ResetCommand(slide, arm, claw));
         Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
@@ -143,6 +139,17 @@ public class TeleOpMain extends MatchOpMode {
 //        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
 //        pivot.setDefaultCommand(new PivotMoveManual(pivot, operatorGamepad::getRightX));
         climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getLeftY));//works
+        
+        //Manual
+//        Arm
+//        Button armTransfer = (new GamepadButton(operatorGamepad, Button.DPAD_DOWN))
+//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
+//        Button armOuttake = (new GamepadButton(operatorGamepad, Button.DPAD_UP))
+//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
+        Button climbUp  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+            .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
+        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
+            .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
     }
 
     @Override

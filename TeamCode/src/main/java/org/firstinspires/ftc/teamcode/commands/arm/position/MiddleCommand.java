@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 public class MiddleCommand extends SequentialCommandGroup {
     public MiddleCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
-            claw.setClawPos(Claw.ClawPos.CLOSE_POS),
+            claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
             new ParallelCommandGroup(
                 arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
                 slide.setSetPointCommand(Slide.SlideEnum.MID)

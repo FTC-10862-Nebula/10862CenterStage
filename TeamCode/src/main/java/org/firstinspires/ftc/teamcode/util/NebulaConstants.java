@@ -35,11 +35,11 @@ public class NebulaConstants {
     /** Claw **/
     public static Claw claw;
     public static class Claw {
-        public static final String clawName = "claw";  //
-        public static final NebulaServo.Direction clawDirection = NebulaServo.Direction.Forward;
+        public static final String clawFName = "clawF";  //
+        public static final NebulaServo.Direction clawFDirection = NebulaServo.Direction.Forward;
         public static double minAngle = 0, maxAngle = 360;
-//        public final static String clawLName = "clawS2";  //
-//        public final static NebulaServo.Direction clawLDirection = NebulaServo.Direction.Reverse;
+        public final static String clawBName = "clawB";
+        public final static NebulaServo.Direction clawBDirection = NebulaServo.Direction.Reverse;
     }
 
     /** Slide **/
@@ -49,7 +49,7 @@ public class NebulaConstants {
         public static final String slideLName = "slideL";
         public static final NebulaMotor.Direction slideRDirection = NebulaMotor.Direction.Forward,
                 slideLDirection = NebulaMotor.Direction.Reverse;
-        public static final PIDFCoefficients slidePID = new PIDFCoefficients(0.005, 0.00, 0,0);//.0075, 0., .003, 0)
+        public static final PIDFCoefficients slidePID = new PIDFCoefficients(0.01, 0.00, 0,0);//.0075, 0., .003, 0)
         public static final int slideTolerance = 10;
         //        public int slideDistancePerPulse = (COUNTS_PER_PULSE * GEAR_RATIO) / (GEAR_DIAMETER_INCHES * Math.PI);
 //        public int slideDistancePerPulse = (GEAR_DIAMETER_INCHES * Math.PI);

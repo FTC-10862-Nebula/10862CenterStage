@@ -29,7 +29,7 @@ public class Slide extends SubsystemBase {
 
         LOW(650),
         MID(1200),
-        HIGH(1400),
+        HIGH(2000),
 
         MANUAL(0.0);
         public final double slidePos;

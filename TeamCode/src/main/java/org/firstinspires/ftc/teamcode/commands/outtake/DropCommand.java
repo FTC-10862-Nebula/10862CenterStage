@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
 public class DropCommand extends SequentialCommandGroup  {
-
+//DON"T USE!!!
     public DropCommand(Arm arm, Claw claw){
         addCommands(
                 arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
-                claw.setClawPos(Claw.ClawPos.OPEN_POS)
+                claw.setBothClaw(Claw.ClawPos.OPEN_POS)
         );
     }
 

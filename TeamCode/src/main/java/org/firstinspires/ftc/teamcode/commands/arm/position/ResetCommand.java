@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
-            claw.setClawPos(Claw.ClawPos.CLOSE_POS),
+            claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
             new WaitCommand(1200),
             slide.setSetPointCommand(Slide.SlideEnum.TRANSFER),
 //            new ParallelCommandGroup(

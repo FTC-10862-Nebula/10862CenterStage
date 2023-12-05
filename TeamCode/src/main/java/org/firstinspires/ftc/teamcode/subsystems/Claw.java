@@ -15,46 +15,62 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class Claw extends SubsystemBase
 {
     public enum ClawPos {
-        CLOSE_POS(0.12),
+        CLOSE_POS(0.12,0),
 //        AUTO_CLOSE (0.5),
-        INTAKE_OPEN(0.13),
-        OPEN_POS(0.18);
+        INTAKE_OPEN(0.13,0),
+        OPEN_POS(0.18,0);
 
-        public final double clawPos;
-        ClawPos(double clawPos) {
-            this.clawPos = clawPos;
+        public final double clawPosF, clawPosB;
+        ClawPos(double clawPosF,double clawPosB) {
+            this.clawPosF = clawPosF;
+            this.clawPosB = clawPosB;
         }
     }
 
     Telemetry telemetry;
-    private final NebulaServo claw;     //Claw
+    private final NebulaServo clawF, clawB;     //Claw
 
     public Claw(Telemetry tl, HardwareMap hw, boolean isEnabled) {
-        claw = new NebulaServo(hw,
-            NebulaConstants.Claw.clawName,
-            NebulaConstants.Claw.clawDirection,
+        clawF = new NebulaServo(hw,
+            NebulaConstants.Claw.clawFName,
+            NebulaConstants.Claw.clawFDirection,
             NebulaConstants.Claw.minAngle,
             NebulaConstants.Claw.maxAngle,
             isEnabled);
-        setClawPos(ClawPos.OPEN_POS);
+        clawB = new NebulaServo(hw,
+            NebulaConstants.Claw.clawBName,
+            NebulaConstants.Claw.clawBDirection,
+            NebulaConstants.Claw.minAngle,
+            NebulaConstants.Claw.maxAngle,
+            isEnabled);
+        setBothClaw(ClawPos.OPEN_POS);
 
         this.telemetry = tl;
     }
 
     @Override
     public void periodic() {
-        telemetry.addData("Claw Servo 1 Pos: ", claw.getPosition());
+        telemetry.addData("Claw Servo 1 Pos: ", clawF.getPosition());
     }
 
-    public Command setClawPos(ClawPos pos){
+//    public Command setClawPos(ClawPos pos){
+//        return new InstantCommand(()->{
+//            clawF.setPosition(pos.clawPos);});
+//    }
+    public Command setFClaw(ClawPos pos){
         return new InstantCommand(()->{
-            claw.setPosition(pos.clawPos);});
+            clawF.setPosition(pos.clawPosF);
+        });
     }
-//    public void clawClose() {
-//        claw.setPosition(ClawPos.CLOSE_POS.clawPos);
-//    }
-//    public void clawOpen() {
-//        claw.setPosition(ClawPos.OPEN_POS.clawPos);
-//    }
-
+    public Command setBClaw(ClawPos pos){
+        return new InstantCommand(()->{
+            clawB.setPosition(pos.clawPosB);
+        });
+    }
+    public Command setBothClaw(ClawPos pos){
+        return new InstantCommand(()->{
+            clawB.setPosition(pos.clawPosB);
+            clawF.setPosition(pos.clawPosF);
+        });
+    }
 }

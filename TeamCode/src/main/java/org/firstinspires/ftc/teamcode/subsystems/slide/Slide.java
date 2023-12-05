@@ -27,9 +27,9 @@ public class Slide extends SubsystemBase {
     public enum SlideEnum {
         TRANSFER(-10),
 
-        LOW(850),
-        MID(1700),
-        HIGH(2400),
+        LOW(650),
+        MID(1200),
+        HIGH(1400),
 
         MANUAL(0.0);
         public final double slidePos;
@@ -81,11 +81,13 @@ public class Slide extends SubsystemBase {
             Math.cos(Math.toRadians(slideController.getSetPoint())));
         output = slideController.calculate(getEncoderDistance());
         setPower(output* mulitplier);//TODO: Probably shouldn't be like this
-
+    
+        telemetry.addData("Slide SetPoint:", getSetPoint());
+        telemetry.addData("Slide Position Word:", slidePos.name());
         telemetry.addData("Slide Motor Output:", output* mulitplier);
         telemetry.addData("SlideR Encoder: ", slideR.getPosition());
         telemetry.addData("SlideL Encoder: ", slideL.getPosition());
-        telemetry.addData("Slide Pos:", getSetPoint());
+        
     }
 
     public double getEncoderDistance() {
@@ -126,23 +128,26 @@ public class Slide extends SubsystemBase {
 //                return;
 //            }
 //        }
-        if (getEncoderDistance()>setPoint){
-            mulitplier =0.8;
-            slideController.setP(NebulaConstants.Slide.slidePID.p*0.8);//TODO:Test
-        } else {
-          mulitplier =1;
-            slideController.setP(NebulaConstants.Slide.slidePID.p*1);//TODO:Test
-        }
+//        if (getEncoderDistance()>setPoint){
+//            mulitplier =0.8;
+//            slideController.setP(NebulaConstants.Slide.slidePID.p*0.8);//TODO:Test
+//        } else {
+//          mulitplier =1;
+//            slideController.setP(NebulaConstants.Slide.slidePID.p*1);//TODO:Test
+//        }
+        mulitplier =1;
         slideController.setSetPoint(setPoint);
     }
 
     //TODO: Test!
     public Command setSetPointCommand(double setPoint) {
-        slidePos = SlideEnum.MANUAL;    //WTH is this; The booleans don't match
-        return new InstantCommand(()->{this.setSetPoint(setPoint);});
+//        slidePos = SlideEnum.MANUAL;    //WTH is this; The booleans don't match
+        return new InstantCommand(()->{setSetPoint(setPoint);});
     }
     public Command setSetPointCommand(SlideEnum pos) {
-        return new InstantCommand(()->{setSetPoint(pos.slidePos);});
+        slidePos = pos;
+        return  setSetPointCommand(pos.slidePos);
+//        return new InstantCommand(()->{setSetPoint(pos.slidePos);});
     }
 
     public double getSetPoint() {

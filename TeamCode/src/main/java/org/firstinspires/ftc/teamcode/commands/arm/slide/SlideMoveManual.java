@@ -17,7 +17,7 @@ public class SlideMoveManual extends CommandBase {
     @Override
     public void execute() {
         double position = doubleSupplier.get();
-        if (Math.abs(position) > 0.1) {
+        if (Math.abs(position) > 0.05) {
             slide.setSetPointCommand(slide.getSetPoint() + (position * 40));
         }
     }

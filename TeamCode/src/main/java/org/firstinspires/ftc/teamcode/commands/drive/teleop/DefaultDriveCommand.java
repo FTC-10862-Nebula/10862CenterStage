@@ -26,10 +26,13 @@ public class DefaultDriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+        if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {   //TODO:Test
             multiplier = 0.3;
         } else {
             multiplier = 1;
+        }
+        if(driverGamepad.getButton(GamepadKeys.Button.A)) {   //TODO:Test
+            drive.reInitializeIMU();
         }
         if(isFieldCentric) {
             drive.fieldCentric(
@@ -39,9 +42,9 @@ public class DefaultDriveCommand extends CommandBase {
             );
         } else {
             drive.mecDrive(
-                    driverGamepad.getLeftY() * multiplier, //Removed - from drivergamepad
+                    driverGamepad.getLeftY() * multiplier,
                     driverGamepad.getLeftX() * multiplier,
-                    driverGamepad.getRightX() * multiplier //Changed from -driverGamepad.getLeftY(), so the drive mturns right
+                    driverGamepad.getRightX() * multiplier
             );
         }
     }

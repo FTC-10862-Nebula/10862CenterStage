@@ -71,4 +71,11 @@ public class Arm extends SubsystemBase
         }
         return armSetPositionCommand(armR.getPosition()+position, armL.getPosition()+position);
     }
+    public double getRPosition(){
+        return armR.getPosition();
+    }
+    public double getLPosition(){
+        return armL.getPosition();
+    }
+
 }

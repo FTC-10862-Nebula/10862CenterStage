@@ -22,8 +22,6 @@ public class Slide extends SubsystemBase {
     protected PIDFController slideController;
     protected double output = 0, mulitplier=1;
 
-    //TODO: Should the Slide even drop?
-//Left is POstiive up; right is negative up
     public enum SlideEnum {
         TRANSFER(-10),
 
@@ -54,7 +52,7 @@ public class Slide extends SubsystemBase {
             NebulaConstants.Slide.slideLDirection,
             NebulaConstants.Slide.slideIdleMode,
             isEnabled);
-        slideL.getEncoder().setDirection(Motor.Direction.FORWARD);//TODO:Test!!
+        slideL.getEncoder().setDirection(Motor.Direction.FORWARD);
         slideR.getEncoder().setDirection(Motor.Direction.FORWARD);
 //        motorGroup = new NebulaMotorGroup(slideR, slideL);
         slideR.setDistancePerPulse(NebulaConstants.Slide.slideDistancePerPulse);
@@ -94,15 +92,12 @@ public class Slide extends SubsystemBase {
 //        return slideR.getDistance();
         return slideL.getPosition();
 //        return slideR.getPosition();
-        //TODO:Does this work?
     }
 
 
     public void setPower(double power) {
         slideR.setPower(power);
         slideL.setPower(power);
-//        slideM1.setPower(power);
-//        slideM2.setPower(power);//Instead of putting -power, maybe reverse the motor
     }
 
     public void stopSlide() {
@@ -154,14 +149,5 @@ public class Slide extends SubsystemBase {
 
     public double getSetPoint() {
         return slideController.getSetPoint();
-    }
-    
-    //TODO: test - does not work
-    public Command slideMoveManual(Slide slide, Supplier<Double> doubleSupplier) {
-//        addRequirements(slide);
-        double position = doubleSupplier.get();
-//        if (Math.abs(position) > 0.1) {
-            return setSetPointCommand(getSetPoint() + position * -25);
-//        }
     }
 }

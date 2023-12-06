@@ -14,9 +14,12 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.LowCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.MiddleCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
@@ -32,8 +35,8 @@ public class TeleOpMain extends MatchOpMode {
 //    private DcMotorEx dcMotorEx = hardwareMap.get(DcMotorEx.class, "dcMotor");
 
 
-    // Subsystems
-//    private Drivetrain drivetrain;
+   //  Subsystems
+        private Drivetrain drivetrain;
     private Slide slide;
     private PowerIntake intake;
     private Arm arm;
@@ -53,8 +56,7 @@ public class TeleOpMain extends MatchOpMode {
         operatorGamepad = new GamepadEx(gamepad2);
 
         claw = new Claw(telemetry, hardwareMap, false);
-//        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
-//        drivetrain.init();
+        drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         intake = new PowerIntake(telemetry, hardwareMap, false);
 //        climb = new PowerClimber(telemetry, hardwareMap, true);
         climb = new Climber(telemetry,hardwareMap, false);
@@ -123,7 +125,7 @@ public class TeleOpMain extends MatchOpMode {
          *  DRIVER
          */
     
-//        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));
+        drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));
         
         //Button slowModeBumper = (new GamepadButton(driverGamepad, GamepadKeys.Button.LEFT_BUMPER))
            // .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));

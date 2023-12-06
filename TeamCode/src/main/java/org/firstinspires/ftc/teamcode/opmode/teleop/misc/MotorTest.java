@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.misc;
 
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-//@Disabled
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 @TeleOp
 public class MotorTest extends OpMode {
-    private  MotorEx motor;
+    private DcMotorEx motor;
     /**
      * User defined init method
      * <p>
@@ -14,7 +17,9 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = new MotorEx(hardwareMap, "climb");
+        motor = hardwareMap.get(DcMotorEx.class, "BR");
+        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
     }
 
     /**
@@ -25,13 +30,13 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.set(0.5);
+            motor.setPower(-0.1);
         }
         else if(gamepad1.dpad_up){
-            motor.set(-0.5);
+            motor.setPower(0.1);
         }
         else{
-            motor.stopMotor();
+            motor.setPower(0);
         }
 //        telemetry.addData("Motor: ", motor.getRate());
 //        telemetry.update();

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 @Disabled
 @Config
-@TeleOp(group = "Subsystem test")
+@TeleOp
 public class TeleOpDrivetrainOnly extends MatchOpMode {
 
     // Gamepad

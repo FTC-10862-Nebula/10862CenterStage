@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands.example;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+@Deprecated
 
 public class ParallelExCommand extends ParallelCommandGroup{
     public ParallelExCommand(){

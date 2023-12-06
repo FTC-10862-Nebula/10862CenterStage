@@ -8,7 +8,7 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.old.SensorColor;
-
+@Deprecated
 public class ColorSensorCommand extends SequentialCommandGroup{
     public ColorSensorCommand(Drivetrain drive, SensorColor sensorColor){
         addRequirements(drive, sensorColor);    //Add Subsystems that you need to run this Command - not necessary

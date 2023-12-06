@@ -1,8 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands.example;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-
-
+@Deprecated
 public class SelectCommand extends SequentialCommandGroup{
     public SelectCommand(){
         addRequirements();    //Add Subsystems that you need to run this Command - not necessary

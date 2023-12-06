@@ -60,9 +60,9 @@ public class TeleOpMain extends MatchOpMode {
         intake = new PowerIntake(telemetry, hardwareMap, false);
 //        climb = new PowerClimber(telemetry, hardwareMap, true);
         climb = new Climber(telemetry,hardwareMap, false);
-        arm = new Arm(telemetry, hardwareMap, false);
+        arm = new Arm(telemetry, hardwareMap, true);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, true);
+        slide = new Slide(telemetry, hardwareMap, false);
     }
 
 
@@ -78,10 +78,10 @@ public class TeleOpMain extends MatchOpMode {
 //                .whenPressed(claw.setClawPos(Claw.ClawPos.CLOSE_POS)));
 //
 //        //Arm
-//        Button armTransfer = (new GamepadButton(operatorGamepad, Button.DPAD_DOWN))
-//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
-//        Button armOuttake = (new GamepadButton(operatorGamepad, Button.DPAD_UP))
-//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
+        Button armTransfer = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
+                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
+        Button armOuttake = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
 //
 //        //Intake
         Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)

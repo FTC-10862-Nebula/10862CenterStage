@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaCRServo;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaMotor;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 
@@ -118,7 +119,6 @@ public class NebulaConstants {
         public final static String intakeMName = "intake";
         public static NebulaMotor.Direction intakeDirection = NebulaMotor.Direction.Reverse;
 //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
-
         public static NebulaMotor.IdleMode intakeIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType intakeType = NebulaMotor.MotorType.RPM_312;
         public static PIDFCoefficients intakePID = new PIDFCoefficients(.005, 0.00, 0.0,0);
@@ -135,6 +135,10 @@ public class NebulaConstants {
         public static double minAngle = 0, maxAngle = 360;
         public final static String intakeLName = "intakeL";  //
         public final static NebulaServo.Direction intakeLDirection = NebulaServo.Direction.Forward;
+    
+        public final static String rollerName = "intakeR";
+        public static NebulaMotor.Direction rollerDirection = NebulaMotor.Direction.Reverse;
+        public static NebulaMotor.IdleMode rollerIdleMode = NebulaMotor.IdleMode.Brake;
     }
 
     /** Climber **/

@@ -9,25 +9,28 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.NebulaConstants;
+import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaCRServo;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaMotor;
 import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 //@Deprecated
 @Config
 public class PowerIntake extends SubsystemBase {
     public enum IntakePower {
-        OUTTAKE(-0.7),
-        INTAKE(.7,true),//0.7 --.75
-        STOP(0),
-        OUTTAKE_PURPLE(-0.4);
+        OUTTAKE(-0.7, -0.3),
+        INTAKE(.7, 0.3,true),//0.7 --.75
+        STOP(0,0),
+        OUTTAKE_PURPLE(-0.4, -0.3);
 
-        public final double power;
+        public final double power, rollerPower;
         public final boolean reset;
-        IntakePower(double power) {
+        IntakePower(double power, double rollerPower) {
             this.power = power;
+            this.rollerPower = rollerPower;
             this.reset = false;
         }
-        IntakePower(double power, boolean reset) {
+        IntakePower(double power, double rollerPower, boolean reset) {
             this.power = power;
+            this.rollerPower = rollerPower;
             this.reset = reset;
         }
     }
@@ -46,6 +49,7 @@ public class PowerIntake extends SubsystemBase {
     Telemetry telemetry;
     public final NebulaMotor motor;
     private final NebulaServo intakeServoR,intakeServoL;
+    private final NebulaCRServo rollerServo;
     
 
     public PowerIntake(Telemetry tl, HardwareMap hw, Boolean isEnabled) {
@@ -64,6 +68,11 @@ public class PowerIntake extends SubsystemBase {
             NebulaConstants.Intake.minAngle,
             NebulaConstants.Intake.maxAngle,
             isEnabled);
+        rollerServo = new NebulaCRServo(hw,
+            NebulaConstants.Intake.rollerName,
+            NebulaConstants.Intake.rollerDirection,
+            NebulaConstants.Intake.rollerIdleMode,
+            isEnabled);
         setUp();
         this.telemetry = tl;
     }
@@ -73,20 +82,21 @@ public class PowerIntake extends SubsystemBase {
 //        telemetry.addData("Intake Speed:", motor.getVelocity());
     }
 
-    public void setPower(double power, boolean reset) {
+    public void setPower(double power, double rollerPower, boolean reset) {
         motor.setPower(power);
+        rollerServo.setPower(rollerPower);
         if(reset){
             NebulaConstants.Intake.intakeTime.reset();
         }
     }
 
     //TODO: Test!
-    public Command setSetPointCommand(double power, boolean reset) {
+    public Command setSetPointCommand(double power, double rollerPower, boolean reset) {
         return new InstantCommand(()->{
-            setPower(power, reset);});
+            setPower(power, rollerPower, reset);});
     }
     public Command setSetPointCommand(IntakePower pos) {
-        return setSetPointCommand(pos.power, pos.reset);
+        return setSetPointCommand(pos.power, pos.rollerPower,pos.reset);
 //        return new InstantCommand(()->{setSetPoint(pos);});
     }
 

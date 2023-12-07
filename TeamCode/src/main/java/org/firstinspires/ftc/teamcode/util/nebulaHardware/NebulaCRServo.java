@@ -5,10 +5,6 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class NebulaCRServo {// Continuous Rotation Servo
-    public enum Direction {
-        Forward, //False to Inverted
-        Reverse //True to Inverted
-    }
     private final CRServo servo;
     private final Boolean isEnabled;
 
@@ -20,7 +16,7 @@ public class NebulaCRServo {// Continuous Rotation Servo
      * @param isEnabled On or Off
      */
     public NebulaCRServo(HardwareMap hM, String deviceId,
-                         Direction direction,
+                         NebulaMotor.Direction direction,
                          NebulaMotor.IdleMode behavior,
                          Boolean isEnabled){
         servo = new CRServo(hM, deviceId);
@@ -66,7 +62,7 @@ public class NebulaCRServo {// Continuous Rotation Servo
         }
     }
 
-    public static NebulaCRServo create(HardwareMap hM, String deviceId, Direction direction,
+    public static NebulaCRServo create(HardwareMap hM, String deviceId, NebulaMotor.Direction direction,
                                        NebulaMotor.IdleMode behavior, Boolean isEnabled){
         return new NebulaCRServo(hM, deviceId, direction, behavior, isEnabled);
     }

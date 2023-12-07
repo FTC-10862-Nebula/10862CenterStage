@@ -136,7 +136,7 @@ public class NebulaConstants {
         public final static String intakeLName = "intakeL";  //
         public final static NebulaServo.Direction intakeLDirection = NebulaServo.Direction.Forward;
     
-        public final static String rollerName = "intakeR";
+        public final static String rollerName = "roller";
         public static NebulaMotor.Direction rollerDirection = NebulaMotor.Direction.Reverse;
         public static NebulaMotor.IdleMode rollerIdleMode = NebulaMotor.IdleMode.Coast;
     }

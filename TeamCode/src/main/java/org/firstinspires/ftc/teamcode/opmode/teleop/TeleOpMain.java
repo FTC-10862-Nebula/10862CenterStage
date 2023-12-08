@@ -30,6 +30,7 @@ import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 @Config
 @TeleOp
 public class TeleOpMain extends MatchOpMode {
+    //TODO: Add a on/off switch for drivetrain
     private GamepadEx driverGamepad, operatorGamepad;
 
 
@@ -53,11 +54,11 @@ public class TeleOpMain extends MatchOpMode {
         claw = new Claw(telemetry, hardwareMap, false);
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         intake = new PowerIntake(telemetry, hardwareMap, false);
-//        climb = new PowerClimber(telemetry, hardwareMap, true);
-        climb = new Climber(telemetry,hardwareMap, false);
+      //  climb = new PowerClimber(telemetry, hardwareMap, true);
+        climb = new Climber(telemetry,hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, false);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, true);
+        slide = new Slide(telemetry, hardwareMap, false);
     }
 
 
@@ -65,33 +66,34 @@ public class TeleOpMain extends MatchOpMode {
     public void configureButtons() {
         //Claw
         Button closeF = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
-                .whenPressed(claw.setFClaw(Claw.ClawPos.CLOSE_POS)));
+                .whenPressed(claw.setBothClaw(Claw.ClawPos.CLOSE_POS)));
         Button closeB= (new GamepadTrigger(operatorGamepad,  GamepadKeys.Trigger.RIGHT_TRIGGER)
-                .whenPressed(claw.setBClaw(Claw.ClawPos.CLOSE_POS)));
-        Button openF = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(claw.setFClaw(Claw.ClawPos.OPEN_POS)));
-        Button openB= (new GamepadButton(operatorGamepad,  GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(claw.setBClaw(Claw.ClawPos.OPEN_POS)));
+                .whenPressed(claw.setBothClaw(Claw.ClawPos.OPEN_POS)));
+
+//        Button openF = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
+//               .whenPressed(claw.setFClaw(Claw.ClawPos.OPEN_POS)));
+//       Button openB= (new GamepadButton(operatorGamepad,  GamepadKeys.Button.RIGHT_BUMPER)
+//               .whenPressed(claw.setBClaw(Claw.ClawPos.OPEN_POS)));
 
         //Arm
-//        Button armTransfer = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
-//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
+ //       Button armTransfer = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
+//               .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
 //        Button armOuttake = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
 //                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE));
-        arm.setDefaultCommand(new ArmMoveManual(arm, operatorGamepad::getLeftX));//TODO:Test
+//        arm.setDefaultCommand(new ArmMoveManual(arm, operatorGamepad::getLeftX));//TODO:Test
 
         //Intake
-        Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
+        Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)))
             .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP))
             .whenReleased(new InstantCommand(intake::setUp));
-        Trigger OUTTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
+        Trigger OUTTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
+            .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE)))
 //                .whenPressed(cycleTracker.trackCycle())
-//            .whenPressed(new InstantCommand(intake::setDown))
-            .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP));
-//            .whenReleased(new InstantCommand(intake::setUp));
+            .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP))
+            .whenReleased(new InstantCommand(intake::setUp));
 
         //Shooter
 //        Button shoot = (new GamepadButton(operatorGamepad, Button.RIGHT_BUMPER))

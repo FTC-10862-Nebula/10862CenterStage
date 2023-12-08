@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.commands.arm.position;
 
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
@@ -11,6 +12,7 @@ public class LowCommand extends SequentialCommandGroup {
     public LowCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
             claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
+            new WaitCommand(1200),
             new ParallelCommandGroup(
                 arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
                 slide.setSetPointCommand(Slide.SlideEnum.LOW)

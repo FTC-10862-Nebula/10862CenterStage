@@ -16,10 +16,10 @@ public class Climber extends SubsystemBase {
     protected Telemetry telemetry;
     protected NebulaMotor climber;
     protected PIDFController climberController;
-    protected double output = 0;
+    protected double output = 0, multiplier = 2;
 
     public enum ClimbEnum {
-        CLIMB(2050),
+        CLIMB(1600),
         REST(0),
         MANUAL(10.0);
         public final double climbPos;
@@ -58,15 +58,15 @@ public class Climber extends SubsystemBase {
     public void periodic() {
 //        slideController.setF(NebulaConstants.Slide.slidePID.f * Math.cos(Math.toRadians(slideController.getSetPoint())));
         output = climberController.calculate(getEncoderDistance());
-        setPower(output);//TODO: Probably shouldn't be like this
+        setPower(output*multiplier);
 
-        telemetry.addData("Slide Motor Output:", output);
+        telemetry.addData("Climb Motor Output:", output);
         telemetry.addData("Climber Encoder: ", climber.getPosition());
-        telemetry.addData("Slide Pos:", getSetPoint());
+        telemetry.addData("Climb SetPoint:", getSetPoint());
     }
 
     public double getEncoderDistance() {
-//        return slideM1.getDistance();
+//        return climber.getDistance();
         return climber.getPosition();
         //TODO:Does this work?
     }
@@ -103,10 +103,15 @@ public class Climber extends SubsystemBase {
 
     //TODO: Test!
     public Command setSetPointCommand(double setPoint) {
-        climbPos = ClimbEnum.MANUAL;    //WTH is this; The booleans don't match
+//        climbPos = ClimbEnum.MANUAL;    //WTH is this; The booleans don't match
         return new InstantCommand(()->{this.setSetPoint(setPoint);});
     }
     public Command setSetPointCommand(ClimbEnum pos) {
+        if(pos==ClimbEnum.CLIMB){
+            multiplier=2;
+        } else if(pos==ClimbEnum.REST){
+            multiplier=1;
+        }
         return new InstantCommand(()->{setSetPoint(pos.climbPos);});
     }
 

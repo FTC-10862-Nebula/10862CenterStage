@@ -40,7 +40,7 @@ public class NebulaConstants {
         public static final NebulaServo.Direction clawFDirection = NebulaServo.Direction.Forward;
         public static double minAngle = 0, maxAngle = 360;
         public final static String clawBName = "clawB";
-        public final static NebulaServo.Direction clawBDirection = NebulaServo.Direction.Reverse;
+        public final static NebulaServo.Direction clawBDirection = NebulaServo.Direction.Forward;
     }
 
     /** Slide **/
@@ -48,8 +48,8 @@ public class NebulaConstants {
     public static class Slide {
         public static final String slideRName = "slideR";
         public static final String slideLName = "slideL";
-        public static final NebulaMotor.Direction slideRDirection = NebulaMotor.Direction.Forward,
-                slideLDirection = NebulaMotor.Direction.Reverse;
+        public static final NebulaMotor.Direction slideRDirection = NebulaMotor.Direction.Reverse,
+                slideLDirection = NebulaMotor.Direction.Forward;
         public static final PIDFCoefficients slidePID = new PIDFCoefficients(0.01, 0.00, 0,0);//.0075, 0., .003, 0)
         public static final int slideTolerance = 10;
         //        public int slideDistancePerPulse = (COUNTS_PER_PULSE * GEAR_RATIO) / (GEAR_DIAMETER_INCHES * Math.PI);
@@ -137,7 +137,7 @@ public class NebulaConstants {
         public final static NebulaServo.Direction intakeLDirection = NebulaServo.Direction.Forward;
     
         public final static String rollerName = "roller";
-        public static NebulaMotor.Direction rollerDirection = NebulaMotor.Direction.Reverse;
+        public static NebulaMotor.Direction rollerDirection = NebulaMotor.Direction.Forward;
         public static NebulaMotor.IdleMode rollerIdleMode = NebulaMotor.IdleMode.Coast;
     }
 
@@ -151,8 +151,8 @@ public class NebulaConstants {
         //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
         public static NebulaMotor.IdleMode climberIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType climberType = NebulaMotor.MotorType.RPM_117;
-        public static PIDFCoefficients climberPID = new PIDFCoefficients(0.025, 0.01, 0.0,0);
-        public static int climberTolerance = 1;
+        public static PIDFCoefficients climberPID = new PIDFCoefficients(0.02, 0.015, 0.0,0);
+        public static int climberTolerance = 2;
         public static double ks=0,
                 ka=0,
                 kv=0;

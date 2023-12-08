@@ -11,10 +11,10 @@ public class MiddleCommand extends SequentialCommandGroup {
     public MiddleCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
             claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
-            new ParallelCommandGroup(
-                arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
-                slide.setSetPointCommand(Slide.SlideEnum.MID)
-            )
+//            new ParallelCommandGroup(
+                slide.setSetPointCommand(Slide.SlideEnum.MID),
+                arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE)
+//            )
         );
     }
 }

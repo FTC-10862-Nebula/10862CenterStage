@@ -11,10 +11,10 @@ public class ResetCommand extends SequentialCommandGroup {
     public ResetCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
             claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
-            new WaitCommand(1000),
+//            new WaitCommand(200),
             arm.armSetPositionCommand(Arm.ArmPos.TRANSFER),
 //            new ParallelCommandGroup(
-            new WaitCommand(1000),
+            new WaitCommand(300),
             slide.setSetPointCommand(Slide.SlideEnum.TRANSFER)
 
 //            )

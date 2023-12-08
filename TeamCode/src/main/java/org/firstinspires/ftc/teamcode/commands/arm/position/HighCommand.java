@@ -11,10 +11,10 @@ public class HighCommand extends SequentialCommandGroup {
     public HighCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
             claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
-            new ParallelCommandGroup(
-                arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
-                slide.setSetPointCommand(Slide.SlideEnum.HIGH)
-            )
+//            new ParallelCommandGroup(
+            slide.setSetPointCommand(Slide.SlideEnum.HIGH),
+            arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE)
+//            )
         );
     }
 }

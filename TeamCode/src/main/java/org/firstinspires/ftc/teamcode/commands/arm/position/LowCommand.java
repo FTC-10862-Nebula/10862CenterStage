@@ -12,11 +12,10 @@ public class LowCommand extends SequentialCommandGroup {
     public LowCommand(Slide slide, Arm arm, Claw claw) {
         addCommands(
             claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
-            new WaitCommand(1200),
-            new ParallelCommandGroup(
-                arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE),
-                slide.setSetPointCommand(Slide.SlideEnum.LOW)
-            )
+//            new ParallelCommandGroup(
+            slide.setSetPointCommand(Slide.SlideEnum.LOW),
+            arm.armSetPositionCommand(Arm.ArmPos.OUTTAKE)
+//            )
         );
     }
 }

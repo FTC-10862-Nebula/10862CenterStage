@@ -36,8 +36,8 @@ public class PowerIntake extends SubsystemBase {
     }
     
     public enum IntakePos {
-        DOWN(0.98,0.98),
-        UP(0.73,0.73);
+        DOWN(0.965,0.965),
+        UP(0.76,0.76);
         
         public final double rPos, lPos;
         IntakePos(double rPos, double lPos) {
@@ -104,7 +104,7 @@ public class PowerIntake extends SubsystemBase {
         motor.resetEncoder();
     }
 
-    @Deprecated //To FInd Alternative or Not Use
+//    @Deprecated //To FInd Alternative or Not Use
     public boolean isIntaked(){//TODO:Needs to have something where it times
         if(NebulaConstants.Intake.intakeTime.seconds()>2){
 //            return controller.getVelocityError()>100;//Whatever the Number is

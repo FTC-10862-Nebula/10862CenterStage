@@ -51,14 +51,14 @@ public class TeleOpMain extends MatchOpMode {
         driverGamepad = new GamepadEx(gamepad1);
         operatorGamepad = new GamepadEx(gamepad2);
 
-        claw = new Claw(telemetry, hardwareMap, false);
+        claw = new Claw(telemetry, hardwareMap, true);
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
-        intake = new PowerIntake(telemetry, hardwareMap, false);
+        intake = new PowerIntake(telemetry, hardwareMap, true);
       //  climb = new PowerClimber(telemetry, hardwareMap, true);
         climb = new Climber(telemetry,hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, false);
+        arm = new Arm(telemetry, hardwareMap, true);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, false);
+        slide = new Slide(telemetry, hardwareMap, true);
     }
 
 
@@ -107,7 +107,9 @@ public class TeleOpMain extends MatchOpMode {
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
 //        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
-        climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getRightY));//works
+        climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getRightY));
+        Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
+                .whenPressed(new InstantCommand(()->climb.resetEncoder()));
 
         //Slide
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
@@ -119,6 +121,8 @@ public class TeleOpMain extends MatchOpMode {
         Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
             .whenPressed(new HighCommand(slide,arm, claw));
         slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getLeftY));
+        Button resetSlide  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
+                .whenPressed(new InstantCommand(()->slide.resetEncoder()));
 
         //Driver
         drivetrain.setDefaultCommand(new DefaultDriveCommand(drivetrain, driverGamepad, true));

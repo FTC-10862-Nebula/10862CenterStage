@@ -23,7 +23,7 @@ public class Slide extends SubsystemBase {
     protected double output = 0, mulitplier=1;
 
     public enum SlideEnum {
-        TRANSFER(-10),
+        TRANSFER(-5),
 
         LOW(650),
         MID(1200),

@@ -15,7 +15,9 @@ public class ResetCommand extends SequentialCommandGroup {
             arm.armSetPositionCommand(Arm.ArmPos.TRANSFER),
 //            new ParallelCommandGroup(
             new WaitCommand(300),
-            slide.setSetPointCommand(Slide.SlideEnum.TRANSFER)
+            slide.setSetPointCommand(Slide.SlideEnum.TRANSFER),
+            new WaitCommand(800),
+            claw.setBothClaw(Claw.ClawPos.OPEN_POS)
 
 //            )
 //            new WaitCommand(2500),

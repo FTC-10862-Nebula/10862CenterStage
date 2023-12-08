@@ -29,7 +29,7 @@ public class NebulaCRServo {// Continuous Rotation Servo
                 setInverted(true);
                 break;
         }
-        setIdleMode(behavior);
+//        setIdleMode(behavior);
     }
 
     public void setPower(double power) {
@@ -53,14 +53,14 @@ public class NebulaCRServo {// Continuous Rotation Servo
     public void close() {//How does it disable, Restart Teleop or robot
         servo.disable();
     }
-    public void setIdleMode(NebulaMotor.IdleMode behavior) {
-        switch(behavior){
-            case Coast: servo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.FLOAT);
-                break;
-            case Brake: servo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-                break;
-        }
-    }
+//    public void setIdleMode(NebulaMotor.IdleMode behavior) {
+//        switch(behavior){
+//            case Coast: servo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.FLOAT);
+//                break;
+//            case Brake: servo.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+//                break;
+//        }
+//    }
 
     public static NebulaCRServo create(HardwareMap hM, String deviceId, NebulaMotor.Direction direction,
                                        NebulaMotor.IdleMode behavior, Boolean isEnabled){

@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.arcrobotics.ftclib.command.Command;
+import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.SelectCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
@@ -17,6 +21,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.MiddleCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.trajectory.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -83,12 +88,19 @@ public class TeleOpMain extends MatchOpMode {
 //        arm.setDefaultCommand(new ArmMoveManual(arm, operatorGamepad::getLeftX));//TODO:Test
 
         //Intake
-        Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
+        Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)))
-            .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP))
-            .whenReleased(new InstantCommand(intake::setUp));
-        Trigger OUTTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
+            .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP)
+//            .whenReleased(new ConditionalCommand(
+//                    new SequentialCommandGroup(//On True
+//                            new InstantCommand(intake::setUp)
+//                    ),
+//                    new InstantCommand(),//On False
+//                    intake::isIntaked//Condition that is tested
+//            )
+        );
+        Trigger OUTTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE)))
 //                .whenPressed(cycleTracker.trackCycle())
@@ -107,8 +119,8 @@ public class TeleOpMain extends MatchOpMode {
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
 //        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
-        climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getRightY));
-        Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
+        climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getLeftY));
+        Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
                 .whenPressed(new InstantCommand(()->climb.resetEncoder()));
 
         //Slide
@@ -120,8 +132,8 @@ public class TeleOpMain extends MatchOpMode {
             .whenPressed(new MiddleCommand(slide,arm, claw));
         Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
             .whenPressed(new HighCommand(slide,arm, claw));
-        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getLeftY));
-        Button resetSlide  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
+        slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
+        Button resetSlide  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
                 .whenPressed(new InstantCommand(()->slide.resetEncoder()));
 
         //Driver

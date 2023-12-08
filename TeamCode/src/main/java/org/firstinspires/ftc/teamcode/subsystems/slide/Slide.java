@@ -125,14 +125,14 @@ public class Slide extends SubsystemBase {
 //        }
         
         /**Not Necessary**/
-//        if (getEncoderDistance()>setPoint){
-//            mulitplier =0.8;
-//            slideController.setP(NebulaConstants.Slide.slidePID.p*0.8);//TODO:Test
-//        } else {
-//          mulitplier =1;
-//            slideController.setP(NebulaConstants.Slide.slidePID.p*1);//TODO:Test
-//        }
-        mulitplier =1;
+        if (getEncoderDistance()>setPoint){
+            mulitplier =0.8;
+            slideController.setP(NebulaConstants.Slide.slidePID.p*0.6);//TODO:Test
+       } else {
+          mulitplier =1;
+            slideController.setP(NebulaConstants.Slide.slidePID.p*1);//TODO:Test
+        }
+//        mulitplier =1;
         slideController.setSetPoint(setPoint);
     }
 

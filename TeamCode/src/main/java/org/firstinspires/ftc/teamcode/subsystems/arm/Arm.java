@@ -18,7 +18,7 @@ public class Arm extends SubsystemBase
 {
     public enum ArmPos {
         TRANSFER(0,0),
-        OUTTAKE(0.41,0.41);
+        OUTTAKE(0.42,0.42);
 
         public final double armRPos, armLPos;
         ArmPos(double armRPos, double armLPos) {
@@ -35,7 +35,7 @@ public class Arm extends SubsystemBase
                 NebulaConstants.Arm.armRDirection,
                 NebulaConstants.Arm.minAngle,
                 NebulaConstants.Arm.maxAngle,
-                isEnabled);
+                false);
         armL = new NebulaServo(hw,
                 NebulaConstants.Arm.armLName,
                 NebulaConstants.Arm.armLDirection,
@@ -61,15 +61,6 @@ public class Arm extends SubsystemBase
     }
     public Command armSetPositionCommand(double rNum, double lNum) {
         return new InstantCommand(()->{armSetPosition(rNum, lNum);});
-    }
-    //TODO:Test
-    public Command armMoveManual(Supplier<Double> doubleSupplier){
-        double position = doubleSupplier.get();
-        if(armR.getPosition()+position>1 || armR.getPosition()+position<0 ||
-            armL.getPosition()+position>1 || armL.getPosition()+position<0){
-            return new InstantCommand();
-        }
-        return armSetPositionCommand(armR.getPosition()+position, armL.getPosition()+position);
     }
     public double getRPosition(){
         return armR.getPosition();

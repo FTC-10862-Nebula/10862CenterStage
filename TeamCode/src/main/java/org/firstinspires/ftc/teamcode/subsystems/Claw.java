@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class Claw extends SubsystemBase
 {
     public enum ClawPos {
-        CLOSE_POS(0.23,0.77),
+        CLOSE_POS(0.23,0.735),
 //        AUTO_CLOSE (0.5),
 //        INTAKE_OPEN(0.13,0),
         OPEN_POS(0.37,0.45);

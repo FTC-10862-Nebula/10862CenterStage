@@ -27,6 +27,7 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeLeft;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRight;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
 
@@ -63,24 +64,24 @@ public class BlueBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(3),
+                                    new Forward(1.5),
                                     new Turn(90),
-                                    new Forward(3)
+                                    new Back(0.8)
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
                                     new Forward(4),
-                                    new Back(4)
+                                    new Back(4.5)
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(1.5),
+                                    new Forward(0.8),
                                     new Turn(-90),
                                     new Forward(8),
-                                    new Back(6)
+                                    new Back(7)
 //                                    new Back(2)
                             );
                     }
@@ -93,9 +94,11 @@ public class BlueBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(4),
+                                    new StrafeLeft(2),
+                                    new Back(4.1),
                                     new Turn(-90),
-                                    new Back(3)
+                                    new Back(2.5),
+                                    new StrafeRight(2)
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
@@ -107,7 +110,8 @@ public class BlueBackstage extends MatchOpMode {
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(1.5),
+                                    new StrafeRight(.5),
+                                    new Back(3.8),
                                     new Turn(90),
                                     new Back(3.5)
                             );
@@ -127,12 +131,12 @@ public class BlueBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new StrafeLeft(16.5 )
+                                    new StrafeLeft(18 )
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new StrafeLeft(32)
+                                    new StrafeLeft(30.5)
                             );
                         default:
                         case RIGHT:
@@ -210,7 +214,7 @@ public class BlueBackstage extends MatchOpMode {
                         new SequentialCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         Path.DropPurplePixel.getDrop(position)),
-                                new DisplacementCommand(5,
+                                new DisplacementCommand(3.5,
                                         new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,

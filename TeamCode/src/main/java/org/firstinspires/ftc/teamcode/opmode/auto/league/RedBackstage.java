@@ -70,13 +70,13 @@ public class RedBackstage extends MatchOpMode {
                                     Speed::getBaseConstraints,
                                     new Back(-0.5),
                                     new Forward(3),
-                                    new Back(3)
+                                    new Back(3.5)
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(3.5),
+                                    new Forward(1.5),
                                     new Turn(-90),
                                     new Forward(2),
                                     new Forward(3),
@@ -92,7 +92,7 @@ public class RedBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(3.),
+                                    new Back(3.8),
                                     new Turn(-90)
                             );
                         case MIDDLE:
@@ -105,7 +105,8 @@ public class RedBackstage extends MatchOpMode {
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(2.2),
+                                    new StrafeRight(2.5),
+                                    new Back(4.6),
                                     new Turn(90),
                                     new Back(3.5)
                             );
@@ -130,18 +131,18 @@ public class RedBackstage extends MatchOpMode {
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new StrafeRight(32)
+                                    new StrafeRight(30)
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getParkConstraint,
-                                    new StrafeRight(25.5)
+                                    new StrafeRight(24.5)
                             );
                     }
                 }
-                public static Back d =  new Back(7);
-                public static Forward e = new Forward(4);
+                public static Back d =  new Back(9);
+                public static Forward e = new Forward(5.5);
                 static TrajectorySequenceContainer dropPurplePixel =
                         new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a,b,c);
             }
@@ -207,7 +208,7 @@ public class RedBackstage extends MatchOpMode {
                 new SequentialCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
                             Path.DropPurplePixel.getDrop(position)),
-                    new DisplacementCommand(5,
+                    new DisplacementCommand(3.5,
                             new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
                 ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,

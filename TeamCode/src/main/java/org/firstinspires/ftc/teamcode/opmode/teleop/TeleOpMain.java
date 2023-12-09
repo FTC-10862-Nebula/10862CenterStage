@@ -1,11 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.ConditionalCommand;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SelectCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
@@ -14,14 +10,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ClimberMoveManual;
-import org.firstinspires.ftc.teamcode.commands.arm.ArmMoveManual;
-import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
-import org.firstinspires.ftc.teamcode.commands.arm.position.LowCommand;
-import org.firstinspires.ftc.teamcode.commands.arm.position.MiddleCommand;
-import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
-import org.firstinspires.ftc.teamcode.commands.drive.trajectory.DriveForwardCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
@@ -125,13 +116,13 @@ public class TeleOpMain extends MatchOpMode {
 
         //Slide
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
-            .whenPressed(new ResetCommand(slide, arm, claw));
+            .whenPressed(new SlideCommand(slide, arm, claw, Slide.SlideEnum.TRANSFER));
         Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
-            .whenPressed(new LowCommand(slide,arm,claw));
+            .whenPressed(new SlideCommand(slide,arm,claw, Slide.SlideEnum.LOW));
         Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))
-            .whenPressed(new MiddleCommand(slide,arm, claw));
+            .whenPressed(new SlideCommand(slide,arm, claw, Slide.SlideEnum.MID));
         Button slideHigh  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.Y))
-            .whenPressed(new HighCommand(slide,arm, claw));
+            .whenPressed(new SlideCommand(slide,arm, claw, Slide.SlideEnum.HIGH));
         slide.setDefaultCommand(new SlideMoveManual(slide, operatorGamepad::getRightY));
         Button resetSlide  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.START))
                 .whenPressed(new InstantCommand(()->slide.resetEncoder()));

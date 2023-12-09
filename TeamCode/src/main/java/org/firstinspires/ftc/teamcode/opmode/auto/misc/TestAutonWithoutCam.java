@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.misc;
 
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.commands.arm.position.HighCommand;
-import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;

@@ -18,7 +18,7 @@ public class Vision extends SubsystemBase {
 //y+
         
         //x- <---> x+
-        duckDetector.setLeftRectangle(.05, .42);
+        duckDetector.setLeftRectangle(.04999, .42);
         duckDetector.setCenterRectangle(.5, .40);
         duckDetector.setRightRectangle(0.9, .45);
         duckDetector.setRectangleSize(40,40);

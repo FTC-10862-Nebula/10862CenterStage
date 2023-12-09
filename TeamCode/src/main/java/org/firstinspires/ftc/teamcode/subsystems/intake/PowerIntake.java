@@ -19,7 +19,7 @@ public class PowerIntake extends SubsystemBase {
         OUTTAKE(-0.7, -0.3),
         INTAKE(.5, 0.3,true),//0.7 --.75
         STOP(0,0),
-        OUTTAKE_PURPLE(-0.4, -0.3);
+        OUTTAKE_PURPLE(0, -0.4);//-0.4
 
         public final double power, rollerPower;
         public final boolean reset;

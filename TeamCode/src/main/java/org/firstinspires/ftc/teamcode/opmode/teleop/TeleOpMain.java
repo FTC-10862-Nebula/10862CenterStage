@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.commands.ClimberMoveManual;
+import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
@@ -116,7 +117,8 @@ public class TeleOpMain extends MatchOpMode {
 
         //Slide
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))
-            .whenPressed(new SlideCommand(slide, arm, claw, Slide.SlideEnum.TRANSFER));
+            .whenPressed(new ResetCommand(slide, arm, claw));
+//                .whenPressed(arm.armSetPositionCommand(Arm.ArmPos.TRANSFER));
         Button slideLow  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.X))
             .whenPressed(new SlideCommand(slide,arm,claw, Slide.SlideEnum.LOW));
         Button slideMid  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.B))

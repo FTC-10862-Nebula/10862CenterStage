@@ -50,7 +50,7 @@ public class Claw extends SubsystemBase
 
     @Override
     public void periodic() {
-        telemetry.addData("Claw Servo 1 Pos: ", clawF.getPosition());
+    //    telemetry.addData("Claw Servo 1 Pos: ", clawF.getPosition());
     }
 
 //    public Command setClawPos(ClawPos pos){

@@ -17,7 +17,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = hardwareMap.get(DcMotorEx.class, "FL");
+        motor = hardwareMap.get(DcMotorEx.class, "slideL");
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
@@ -30,10 +30,10 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpad_down){
-            motor.setPower(-0.1);
+            motor.setPower(-0.4);
         }
         else if(gamepad1.dpad_up){
-            motor.setPower(0.1);
+            motor.setPower(0.4);
         }
         else{
             motor.setPower(0);

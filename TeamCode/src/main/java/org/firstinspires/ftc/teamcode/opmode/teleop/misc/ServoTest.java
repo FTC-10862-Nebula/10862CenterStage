@@ -15,7 +15,7 @@ public class ServoTest extends OpMode {
      */
     @Override
     public void init() {
-        servo1 = hardwareMap.get(Servo.class, "armL");
+        servo1 = hardwareMap.get(Servo.class, "clawF");
 //        servo1.setDirection(Servo.Direction.REVERSE);
         servo1.setDirection(Servo.Direction.FORWARD);
 

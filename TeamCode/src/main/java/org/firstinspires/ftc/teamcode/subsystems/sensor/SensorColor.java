@@ -12,7 +12,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class SensorColor extends SubsystemBase {
 
     private final ColorSensor colorSensor;
-    CalendarContract.Colors
     private final Telemetry telemetry;
 
     public SensorColor(HardwareMap hardwareMap , Telemetry tl) {

@@ -35,7 +35,7 @@ public class Arm extends SubsystemBase
                 NebulaConstants.Arm.armRDirection,
                 NebulaConstants.Arm.minAngle,
                 NebulaConstants.Arm.maxAngle,
-                false);
+                isEnabled);
         armL = new NebulaServo(hw,
                 NebulaConstants.Arm.armLName,
                 NebulaConstants.Arm.armLDirection,

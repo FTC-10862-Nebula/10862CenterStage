@@ -55,7 +55,7 @@ public class BlueBackstage extends MatchOpMode {
 
             public static class DropSpikeMark {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
-                public static Forward a = new Forward(33);
+                public static Back a = new Back(33);
                 static TrajectorySequenceContainer preload =
                         new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a);
 
@@ -147,7 +147,7 @@ public class BlueBackstage extends MatchOpMode {
                     }
                 }
 
-                public static Back d = new Back(7);
+                public static Back d = new Back (7);
                 public static Forward e = new Forward(5);
                 static TrajectorySequenceContainer dropPurplePixel =
                         new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a, b, c);

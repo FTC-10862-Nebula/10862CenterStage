@@ -20,7 +20,7 @@ public class SensorTouch extends SubsystemBase {
 
     public boolean isPressed(){
         return touchSensor.isPressed();
-        //true if the touch sensor is being presse
+        //true if the touch sensor is being pressed
         //false if not being pressed
     }
 }

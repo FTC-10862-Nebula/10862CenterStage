@@ -13,6 +13,16 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 public class AprilTagVision extends SubsystemBase {
+    public enum AprilTag {
+        TWO(2),
+        ONE(1),
+        ZERO(0);
+        
+        public final int tagNum;
+        AprilTag(int tagNum) {
+            this.tagNum = tagNum;
+        }
+    }
     OpenCvCamera camera;
     private Telemetry telemetry;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -32,11 +42,13 @@ public class AprilTagVision extends SubsystemBase {
     double tagsize = 0.4;
 
     // Tag ID 1,2,3 from the 36h11 family
-    int LEFT = 1;
-    int MIDDLE = 2;
-    int RIGHT = 3;
+    int LEFT = 1,
+        MIDDLE = 2,
+        RIGHT = 3,
+    tx,ty,rx;
+    public AprilTag tagOfInterest = AprilTag.ZERO;
 
-    AprilTagDetection tagOfInterest = null;
+//    AprilTagDetection tagOfInterest = null;
     boolean tagFound = false;
     int tagFoundNum = 0;
 
@@ -69,59 +81,64 @@ public class AprilTagVision extends SubsystemBase {
     @Override
     public void periodic()
     {
-        updateTagOfInterest();
-        tagToTelemetry();
+    
+    }
+    public void moveBot(){
+    
     }
 
-    public int getTag() {
-//        return tagFoundNum;
+//    public int getTag() {
+////        return tagFoundNum;
+//
+//        if (tagFoundNum == 1) {
+//            telemetry.addLine("Found 1 - Left");
+//            return 1;
+//
+//        } else if (tagFoundNum == 2) {
+//            telemetry.addLine("Found 2 - Mid");
+//            return 2;
+//        } else if (tagFoundNum == 3) {
+//            telemetry.addLine("Found 3 - Right");
+//            return 3;
+//        } else {
+//            telemetry.addLine("Returning 1 - Left (Not Found)");
+//            return 1;
+//        }
+//    }
 
-        if (tagFoundNum == 1) {
-            telemetry.addLine("Found 1 - Left");
-            return 1;
+//    public void updateTagOfInterest() {
+//        ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
+//        tagFound = false;
+//        if (currentDetections.size() == 0 || tagFoundNum == 0) {
+//            telemetry.addLine("Tag In Sight: Not Found :( ");
+//            return;
+//        }
+//
+//        for(AprilTagDetection tag : currentDetections) {
+//            if(tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
+//                tagFound = true;
+//                tagFoundNum = tag.id;
+//            }
+//            telemetry.addData("Tag In Sight: ", tagFoundNum);
+//        }
+//    }
 
-        } else if (tagFoundNum == 2) {
-            telemetry.addLine("Found 2 - Mid");
-            return 2;
-        } else if (tagFoundNum == 3) {
-            telemetry.addLine("Found 3 - Right");
-            return 3;
-        } else {
-            telemetry.addLine("Returning 1 - Left (Not Found)");
-            return 1;
-        }
+
+    public void stopTagVision() {
+        camera.closeCameraDevice();
     }
-
-    public void updateTagOfInterest() {
-
+    public void changeTagOfInterest(AprilTag tagOfInterest){
+        this.tagOfInterest = tagOfInterest;
         ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
-
-        tagFound = false;
-        if (currentDetections.size() == 0) return;
-
+        
         for(AprilTagDetection tag : currentDetections) {
             if(tag.id == LEFT || tag.id == MIDDLE || tag.id == RIGHT) {
                 tagFound = true;
                 tagFoundNum = tag.id;
             }
-        }
-    }
-
-    public void tagToTelemetry()
-    {
-        if (tagFoundNum == 0) {
-            telemetry.addLine("Tag In Sight: Not Found :( ");
-            return;
-        }
-        else {
             telemetry.addData("Tag In Sight: ", tagFoundNum);
         }
-        telemetry.addLine();
-    }
-
-
-    public void stopTagVision() {
-        camera.closeCameraDevice();
+    
     }
 
 }

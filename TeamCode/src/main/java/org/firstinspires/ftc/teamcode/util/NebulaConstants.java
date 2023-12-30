@@ -32,6 +32,13 @@ public class NebulaConstants {
         public static final NebulaServo.Direction armLDirection = NebulaServo.Direction.Forward;
     }
 
+    /** AutoDropper **/
+    public static AutoDropper autoDropper;
+    public static class AutoDropper {
+        public static final  String dropperName = "dropper";  //
+        public static final NebulaServo.Direction dropperDirection = NebulaServo.Direction.Forward;
+        public static double minAngle = 0, maxAngle = 360;
+    }
 
     /** Claw **/
     public static Claw claw;

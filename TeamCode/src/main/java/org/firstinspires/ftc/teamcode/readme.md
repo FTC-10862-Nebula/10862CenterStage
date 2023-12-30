@@ -25,6 +25,6 @@ Checking if sensors work
 
      for(String s : bot.claw.brokenSensors()){
             telemetry.addData("Broken: ", s);
-
+Commit Test
 
 Ideas:

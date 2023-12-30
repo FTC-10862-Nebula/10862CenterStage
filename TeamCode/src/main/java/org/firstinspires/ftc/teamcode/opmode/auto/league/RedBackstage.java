@@ -14,13 +14,12 @@ import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
 import org.firstinspires.ftc.teamcode.subsystems.AutoDropper;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
-import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.TeamMarkerPipeline;
-import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
+import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -40,7 +39,7 @@ public class RedBackstage extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
 //    private AprilTagVision aprilTagVision;
-    private Vision vision;
+    private FFVision FFVision;
     private PowerIntake intake;
 //    private Climber climber;
     private Arm arm;
@@ -153,7 +152,7 @@ public class RedBackstage extends MatchOpMode {
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
 //        drivetrain.init();
-        vision = new Vision(hardwareMap, telemetry);
+        FFVision = new FFVision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
 //        climber = new Climber(telemetry, hardwareMap, true);
@@ -165,11 +164,11 @@ public class RedBackstage extends MatchOpMode {
 
     @Override
     public void disabledPeriodic() {
-        vision.setPosition(vision.getPosition());
-        Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
+        FFVision.setPosition(FFVision.getPosition());
+        Util.logger(this, telemetry, Level.INFO, "Current Position", FFVision.getFinalPosition());
     }
     public void matchStart() {
-        TeamMarkerPipeline.FFPosition position = vision.getPosition();
+        TeamMarkerPipeline.FFPosition position = FFVision.getPosition();
 
         drivetrain.setPoseEstimate(Path.DropSpikeMark.startPose.getPose());
         PoseStorage.trajectoryPose = Path.DropSpikeMark.startPose.getPose();

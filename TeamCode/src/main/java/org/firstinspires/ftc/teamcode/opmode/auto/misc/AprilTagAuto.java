@@ -4,8 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
+
 @Autonomous
-public class VisionAuto extends MatchOpMode {
+public class AprilTagAuto extends MatchOpMode {
     private FFVision FFVision;
     
     @Override

@@ -57,7 +57,7 @@ public class BlueBackstage extends MatchOpMode {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
                 public static Back a = new Back(33);
                 static TrajectorySequenceContainer preload =
-                        new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a);
+                        new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
 
                 static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
@@ -119,9 +119,9 @@ public class BlueBackstage extends MatchOpMode {
                 }
             }
 
-            public static DropPurplePixel dropPurplePixel;
+            public static DropYellowPixel dropYellowPixel;
 
-            public static class DropPurplePixel {
+            public static class DropYellowPixel {
                 public static Back a = new Back(27);
                 public static Turn b = new Turn(-90);
                 public static Back c = new Back(38);
@@ -130,18 +130,18 @@ public class BlueBackstage extends MatchOpMode {
                     switch (position) {
                         case LEFT:
                             return new TrajectorySequenceContainer(
-                                    Speed::getParkConstraint,
+                                    Speed::getBaseConstraints,
                                     new StrafeLeft(18 )
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
-                                    Speed::getParkConstraint,
+                                    Speed::getBaseConstraints,
                                     new StrafeLeft(30.5)
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
-                                    Speed::getParkConstraint,
+                                    Speed::getBaseConstraints,
                                     new StrafeLeft(41)
                             );
                     }
@@ -150,7 +150,7 @@ public class BlueBackstage extends MatchOpMode {
                 public static Back d = new Back (7);
                 public static Forward e = new Forward(5);
                 static TrajectorySequenceContainer dropPurplePixel =
-                        new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a, b, c);
+                        new TrajectorySequenceContainer(Speed::getBaseConstraints, a, b, c);
             }
         }
 
@@ -208,24 +208,24 @@ public class BlueBackstage extends MatchOpMode {
                         /* PurplePixel/Drop */
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                        Path.DropPurplePixel.dropPurplePixel),
+                                        Path.DropYellowPixel.dropPurplePixel),
                                 claw.setBClaw(Claw.ClawPos.CLOSE_POS)
                         ),
                         new SequentialCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                        Path.DropPurplePixel.getDrop(position)),
+                                        Path.DropYellowPixel.getDrop(position)),
                                 new DisplacementCommand(3.5,
                                         new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints,
-                                        Path.DropPurplePixel.d)),
+                                new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                        Path.DropYellowPixel.d)),
                         new WaitCommand(500),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new WaitCommand(2000),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints,
-                                        Path.DropPurplePixel.e)),
+                                new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                        Path.DropYellowPixel.e)),
                         new ResetCommand(slide,arm, claw),
 
                         /* Save Pose and end opmode*/

@@ -44,7 +44,7 @@ public class DropSpikeMarkAuto extends MatchOpMode {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, -65, (90));
                 public static Forward a = new Forward(20);
                 static TrajectorySequenceContainer preload =
-                    new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a);
+                    new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
                 
                 static TrajectorySequenceContainer getTurn(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {

@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.league;
+package org.firstinspires.ftc.teamcode.opmode.auto.old;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
 import org.firstinspires.ftc.teamcode.subsystems.climber.PowerClimber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
@@ -17,9 +16,9 @@ import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
-@Disabled
+//@Disabled
 @Autonomous
-public class MoreForwardAuto extends MatchOpMode {
+public class ForwardAuto extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
     private PowerIntake intake;
@@ -32,9 +31,9 @@ public class MoreForwardAuto extends MatchOpMode {
             public static class ForwardPath {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, -65, (90));
                 public static Forward a =
-                    new Forward(-60);
+                    new Forward(-20);
                 static TrajectorySequenceContainer preload =
-                    new TrajectorySequenceContainer(Speed::getPreLoadDropConstraints, a);
+                    new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
             }
         }
     }
@@ -53,8 +52,19 @@ public class MoreForwardAuto extends MatchOpMode {
         schedule(
             new SequentialCommandGroup( //TODO:TEST!
                 new InstantCommand(intake::setUp),
-                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        RedBackstageConstants.Path.ForwardPath.preload),
+                //new InstantCommand(()->drivetrain.arcadeDrive(0.5,0)),
+//                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
+                new WaitCommand(1500),
+                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE),
+                new InstantCommand(()->drivetrain.stop()),
+                new WaitCommand(1000),
+                intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
+                   // new InstantCommand(()->drivetrain.arcadeDrive(-.05,0)),
+//                    new InstantCommand(()->drivetrain.tankDrive(1,1)),
+                    new WaitCommand(150),
+                    new InstantCommand(()->drivetrain.stop()),
+//                new TrajectorySequenceContainerFollowCommand(drivetrain,
+//                        RedBackstageConstants.Path.ForwardPath.preload),
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
                 run(this::stop)

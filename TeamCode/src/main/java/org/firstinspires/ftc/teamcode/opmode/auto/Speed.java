@@ -44,28 +44,28 @@ public class Speed {
             turnAccel
         );
     }
-    public static TrajectorySequenceConstraints getPreLoadDropConstraints() {
-        return new TrajectorySequenceConstraints(
-            (s, a, b, c) -> {
-                if (s > 48) {
-                    return baseVel * 0.6;
-                } else {
-                    return baseVel;
-                }
-            },
-            (s, a, b, c) -> baseAccel,
-            turnVel,
-            turnAccel
-        );
-    }
-    public static TrajectorySequenceConstraints getParkConstraint() {
-        return new TrajectorySequenceConstraints(
-            (s, a, b, c) -> baseVel * 0.6,
-            (s, a, b, c) -> baseAccel,
-            turnVel,
-            turnAccel
-        );
-    }
+//    public static TrajectorySequenceConstraints getPreLoadDropConstraints() {
+//        return new TrajectorySequenceConstraints(
+//            (s, a, b, c) -> {
+//                if (s > 48) {
+//                    return baseVel * 0.6;
+//                } else {
+//                    return baseVel;
+//                }
+//            },
+//            (s, a, b, c) -> baseAccel,
+//            turnVel,
+//            turnAccel
+//        );
+//    }
+//    public static TrajectorySequenceConstraints getParkConstraint() {
+//        return new TrajectorySequenceConstraints(
+//            (s, a, b, c) -> baseVel * 0.6,
+//            (s, a, b, c) -> baseAccel,
+//            turnVel,
+//            turnAccel
+//        );
+//    }
     public static TrajectorySequenceConstraints getBaseConstraints() {
         return new TrajectorySequenceConstraints(baseVel, baseAccel, turnVel, turnAccel);
     }

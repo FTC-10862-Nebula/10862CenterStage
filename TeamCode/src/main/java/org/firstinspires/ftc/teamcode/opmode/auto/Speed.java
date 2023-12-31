@@ -14,6 +14,12 @@ public class Speed {
     public static double slowAccel = baseAccel * 0.8; // value
     public static double slowTurnVel = turnVel * 0.8; // value
     public static double slowTurnAccel = turnAccel * 0.8; // value
+
+    public static double fastVel = baseVel * 1.1; // value
+    public static double fastAccel = baseAccel * 1.1; // value
+    public static double fastTurnVel = turnVel * 1.1; // value
+    public static double fastTurnAccel = turnAccel * 1.1; // value
+
     public static TrajectorySequenceConstraints getPickupConstraints() {
         return new TrajectorySequenceConstraints(
             (s, a, b, c) -> {
@@ -71,5 +77,8 @@ public class Speed {
     }
     public static TrajectorySequenceConstraints getSlowConstraints() {
         return new TrajectorySequenceConstraints(slowVel, slowAccel, slowTurnVel, slowTurnAccel);
+    }
+    public static TrajectorySequenceConstraints getFastConstraints() {
+        return new TrajectorySequenceConstraints(fastVel, fastAccel, fastTurnVel, fastTurnAccel);
     }
 }

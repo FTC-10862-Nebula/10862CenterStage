@@ -61,7 +61,7 @@ public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive
 
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 0); //6,1,0
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(7, 0, 0);//6,0,0
-
+    //May not be right^^
     public static double LATERAL_MULTIPLIER = 1;
 
     public static double VX_WEIGHT = 1;

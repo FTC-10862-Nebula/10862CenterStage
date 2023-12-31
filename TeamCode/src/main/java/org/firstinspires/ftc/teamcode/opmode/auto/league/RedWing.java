@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
+import org.firstinspires.ftc.teamcode.subsystems.AutoDropper;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
@@ -21,6 +22,7 @@ import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.Vision;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
+import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
@@ -29,6 +31,9 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeLe
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRight;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
+
+import java.util.logging.Level;
+
 //@Disabled
 @Autonomous
 @Config
@@ -43,6 +48,7 @@ public class RedWing extends MatchOpMode {
     //    private Shooter shooter;
     private Slide slide;
     private Claw claw;
+    private AutoDropper dropper;
 
     private static Path path;
     private static class Path {
@@ -83,8 +89,8 @@ public class RedWing extends MatchOpMode {
                 switch (position) {
                     case LEFT:
                         return new TrajectorySequenceContainer(
-                                Speed::getBaseConstraints
-//                                new Back(1)
+                                Speed::getBaseConstraints,
+                                new Back(0.001)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
@@ -104,7 +110,7 @@ public class RedWing extends MatchOpMode {
 
         public static GetPixel getPixel;
         public static class GetPixel {
-            public static StrafeRight a = new StrafeRight(15);
+            public static StrafeRight a = new StrafeRight(15);//MOVDE THIS
             public static Forward b = new Forward(5);
 
             static TrajectorySequenceContainer getPixel =
@@ -113,7 +119,7 @@ public class RedWing extends MatchOpMode {
 
         public static DropPixel dropPixel;
         public static class DropPixel {
-            public static Back a = new Back(25);
+            public static Back a = new Back(78);
 
             static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
                 switch (position) {
@@ -152,8 +158,16 @@ public class RedWing extends MatchOpMode {
         claw = new Claw(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
 //        climber.setSetPointCommand(Climber.ClimbEnum.REST);
+        dropper = new AutoDropper(telemetry, hardwareMap, true);
+
+
     }
 
+    @Override
+    public void disabledPeriodic() {
+        vision.setPosition(vision.getPosition());
+        Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
+    }
     public void matchStart() {
         TeamMarkerPipeline.FFPosition position = vision.getPosition();
 
@@ -172,7 +186,7 @@ public class RedWing extends MatchOpMode {
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 Path.DropSpikeMark.getTurnDrop(position)),
                         new ParallelCommandGroup(
-                                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE)
+                                dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP)
                         ),
                         new WaitCommand(1000),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
@@ -186,7 +200,7 @@ public class RedWing extends MatchOpMode {
                                         Path.GetPixel.getPixel),
                                 new DisplacementCommand(25,new SequentialCommandGroup(
                                         new InstantCommand(intake::setFive),
-                                        intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)
+                                        intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)
                                 ))
                         ),
                         new WaitCommand(1000),
@@ -194,7 +208,7 @@ public class RedWing extends MatchOpMode {
                         /**drop pixel**/
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                        new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                        new TrajectorySequenceContainer(Speed::getFastConstraints,
                                                 Path.DropPixel.a)
                                 ),
                                 intake.setSetPointCommand(PowerIntake.IntakePower.STOP),

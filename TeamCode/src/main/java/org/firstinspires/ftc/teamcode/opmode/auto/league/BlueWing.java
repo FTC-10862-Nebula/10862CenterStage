@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.commands.AutoIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
@@ -221,6 +222,7 @@ public class BlueWing extends MatchOpMode {
                                             Path.DropPixel.a),
                                     new DisplacementCommand(14,intake.setSetPointCommand(PowerIntake.IntakePower.STOP)),
                                     //maybe also hAve bot outtake
+//                                    new AutoIntakeCommand(claw, intake)
                                     new DisplacementCommand(20, claw.setBothClaw(Claw.ClawPos.CLOSE_POS))
                             )
 //                            intake.setSetPointCommand(PowerIntake.IntakePower.STOP),

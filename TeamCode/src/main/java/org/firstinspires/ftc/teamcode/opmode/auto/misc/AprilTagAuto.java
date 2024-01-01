@@ -2,22 +2,23 @@ package org.firstinspires.ftc.teamcode.opmode.auto.misc;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.subsystems.vision.aprilTag.AprilTagVision;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 
 @Autonomous
 public class AprilTagAuto extends MatchOpMode {
-    private FFVision FFVision;
+    private AprilTagVision aprilTagVision;
     
     @Override
     public void robotInit() {
-        FFVision = new FFVision(hardwareMap, telemetry);
+        aprilTagVision = new AprilTagVision(hardwareMap, telemetry);
     }
     
     @Override
     public void disabledPeriodic() {
-        FFVision.setPosition(FFVision.getPosition());
-        FFVision.periodic();
+//        aprilTagVision.setPosition(FFVision.getPosition());
+//        aprilTagVision.periodic();
         telemetry.update();
     }
     

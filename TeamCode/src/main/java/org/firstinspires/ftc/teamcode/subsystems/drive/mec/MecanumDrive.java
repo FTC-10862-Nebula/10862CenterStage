@@ -59,21 +59,21 @@ import java.util.List;
 @Config
 public class MecanumDrive extends com.acmerobotics.roadrunner.drive.MecanumDrive {
 
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(15, 0, 0); //6,1,0
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(6, 0, 0);//0,0,0
-
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 0); //6,1,0
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(7, 0, 0);//6,0,0
+    //May not be right^^
     public static double LATERAL_MULTIPLIER = 1;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
 
-    private TrajectorySequenceRunner trajectorySequenceRunner;
+    private final TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
 
-    private TrajectoryFollower follower;
+    private final TrajectoryFollower follower;
 
     private final DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private final List<DcMotorEx> motors;

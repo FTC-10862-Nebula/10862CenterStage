@@ -41,7 +41,7 @@ public class RedWing extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
     //    private AprilTagVision aprilTagVision;
-    private FFVision FFVision;
+    private FFVision vision;
     private PowerIntake intake;
     //    private Climber climber;
     private Arm arm;
@@ -151,7 +151,7 @@ public class RedWing extends MatchOpMode {
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
 //        drivetrain.init();
-        FFVision = new FFVision(hardwareMap, telemetry);
+        vision = new FFVision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
 //        climber = new Climber(telemetry, hardwareMap, true);
@@ -169,7 +169,7 @@ public class RedWing extends MatchOpMode {
         Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
     }
     public void matchStart() {
-        TeamMarkerPipeline.FFPosition position = FFVision.getPosition();
+        TeamMarkerPipeline.FFPosition position = vision.getPosition();
 
         drivetrain.setPoseEstimate(Path.DropSpikeMark.startPose.getPose());
         PoseStorage.trajectoryPose = Path.DropSpikeMark.startPose.getPose();

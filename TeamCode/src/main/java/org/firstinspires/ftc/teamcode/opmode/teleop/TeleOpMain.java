@@ -81,8 +81,8 @@ public class TeleOpMain extends MatchOpMode {
 
         //Intake
         Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
-            .whenPressed(new InstantCommand(intake::setFive))//TODO:setDown
-            .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)))
+            .whenPressed(new InstantCommand(intake::setDown))
+            .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)))
             .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP)
 //            .whenReleased(new ConditionalCommand(
 //                    new SequentialCommandGroup(//On True

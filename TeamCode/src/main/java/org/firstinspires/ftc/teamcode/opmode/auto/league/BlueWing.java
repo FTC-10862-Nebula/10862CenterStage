@@ -58,7 +58,7 @@ public class BlueWing extends MatchOpMode {
             public static class DropSpikeMark {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
                 //^^ Has Wrong Coordinates
-                public static Back a = new Back(36);
+                public static                Back a = new Back(33);
                 static TrajectorySequenceContainer preload =
                         new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
 
@@ -74,17 +74,21 @@ public class BlueWing extends MatchOpMode {
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(-0.5)
+                                    new Forward(-1.5)
 //                                    new Forward(3),
 //                                    new Back(3.5)
                             );
                         default:
-                        case RIGHT:
-                            return new TrajectorySequenceContainer(
-                                    Speed::getBaseConstraints,
-                                    new Turn(90),
-                                    new Forward(18)
+                       case RIGHT:
+                           return new TrajectorySequenceContainer(
+                                   Speed::getBaseConstraints,
+//                                    new StrafeLeft(8)
+                                    new Turn(-90)
+//                                    new Forward(19)
                             );
+//                        case RIGHT:
+
+
                     }
                 }
 
@@ -95,8 +99,8 @@ public class BlueWing extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(25),
-                                    new StrafeLeft(31)
+                                    new Forward(24.5),
+                                    new StrafeLeft(33.5)
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
@@ -104,16 +108,17 @@ public class BlueWing extends MatchOpMode {
                                     new Forward(4),
                                     new StrafeLeft(28),
                                     new Turn(90),
-                                    new Forward(2.5),
-                                    new StrafeLeft(31.99)
+                                    new Forward(0.8),
+                                    new StrafeLeft(36.5)
 
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                new Forward(1),
-                                new StrafeLeft(30)
+                                    new StrafeRight(31),
+                                    new Turn(180),
+                        new Forward(20)
                             );
                     }
                 }
@@ -122,7 +127,7 @@ public class BlueWing extends MatchOpMode {
             public static GetPixel getPixel;
             public static class GetPixel {
 //                public static StrafeLeft a = new StrafeLeft(30.);
-                public static Forward b = new Forward(8);
+                public static Forward b = new Forward(8.1);
 
                 static TrajectorySequenceContainer getPixel =
                         new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
@@ -137,23 +142,23 @@ public class BlueWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(36.)
+                                new StrafeRight(43)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(30)
+                                new StrafeRight(34)
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(24.5)
+                                new StrafeRight(22.5)
                         );
                 }
             }
             public static Back b =  new Back(9);
-            public static Forward c = new Forward(5.5);
+            public static Forward c = new Forward(6);
         }
     }
 
@@ -212,7 +217,7 @@ public class BlueWing extends MatchOpMode {
                                     intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)
                             ))
                         ),
-                        new WaitCommand(1250),
+                        new WaitCommand(1280),
                         //When sensors work, do the conditional command please
 
                         /**drop pixel**/

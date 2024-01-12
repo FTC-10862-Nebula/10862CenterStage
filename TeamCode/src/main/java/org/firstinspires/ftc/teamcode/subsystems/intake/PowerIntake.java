@@ -20,7 +20,7 @@ public class PowerIntake extends SubsystemBase {
         INTAKE(.5, 0.3,true),//0.7 --.75
         STOP(0,0),
         OUTTAKE_PURPLE(0, -0.5),//-0.4
-        AUTO_INTAKE(0.51, 0.67,true),
+        AUTO_INTAKE(0.40, 0.67,true),
         AUTO_OUTTAKE(-0.2, 0);
 
 

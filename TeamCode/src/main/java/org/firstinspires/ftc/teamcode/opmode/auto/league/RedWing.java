@@ -73,7 +73,7 @@ public class RedWing extends MatchOpMode {
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(-0.5)
+                                new Forward(-1)
 //                                    new Forward(3),
 //                                    new Back(3.5)
                         );
@@ -100,10 +100,10 @@ public class RedWing extends MatchOpMode {
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(4),
+                                new Forward(4.5),
                                 new StrafeRight(28),
-                                new Turn(90),
-                                new Forward(2.5),
+                                new Turn(-90),
+                                new Forward(3),
                                 new StrafeRight(31.99)
 
                         );
@@ -112,7 +112,7 @@ public class RedWing extends MatchOpMode {
                         return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(25),
-                            new StrafeLeft(31)
+                            new StrafeLeft(35)
                         );
                 }
             }
@@ -121,7 +121,7 @@ public class RedWing extends MatchOpMode {
         public static Path.GetPixel getPixel;
         public static class GetPixel {
             //                public static StrafeLeft a = new StrafeLeft(30.);
-            public static Forward b = new Forward(8);
+            public static Forward b = new Forward(4);
 
             static TrajectorySequenceContainer getPixel =
                     new TrajectorySequenceContainer(Speed::getBaseConstraints, b);

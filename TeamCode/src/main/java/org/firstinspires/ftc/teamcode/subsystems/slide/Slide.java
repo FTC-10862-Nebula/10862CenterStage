@@ -25,7 +25,7 @@ public class Slide extends SubsystemBase {
     public enum SlideEnum {
         TRANSFER(-5),
 
-        AUTO_LOW(450),
+        AUTO_LOW(1100),
         LOW(1200),
         MID(2200),
         HIGH(2700),

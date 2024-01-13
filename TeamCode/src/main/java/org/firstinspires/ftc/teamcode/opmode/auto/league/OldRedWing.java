@@ -57,7 +57,7 @@ public class RedWing extends MatchOpMode {
         public static class DropSpikeMark {
             public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
             //^^ Has Wrong Coordinates
-            public static Back a = new Back(33);
+            public static Back a = new Back(36);
             static TrajectorySequenceContainer preload =
                     new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
 
@@ -66,14 +66,14 @@ public class RedWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Turn(-90)
-//                                new Forward(18)
+                                new Turn(90),
+                                new Forward(18)
 //                                    new Forward(6)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(-1.5)
+                                new Forward(-1)
 //                                    new Forward(3),
 //                                    new Back(3.5)
                         );
@@ -94,28 +94,25 @@ public class RedWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(31),
-                            new Turn(180),
-                            new Forward(20)
-//                            new Forward(1),
-//                            new StrafeLeft(30)
+                            new Forward(1),
+                            new StrafeLeft(30)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(4),
+                                new Forward(4.5),
                                 new StrafeRight(28),
-                                new Turn(90),
-                                new Forward(0.8),
-                                new StrafeRight(36.5)
+                                new Turn(-90),
+                                new Forward(3),
+                                new StrafeRight(31.99)
 
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Forward(24.5),
-                            new StrafeRight(33.5)
+                            new Forward(25),
+                            new StrafeLeft(35)
                         );
                 }
             }
@@ -124,7 +121,7 @@ public class RedWing extends MatchOpMode {
         public static Path.GetPixel getPixel;
         public static class GetPixel {
             //                public static StrafeLeft a = new StrafeLeft(30.);
-            public static Forward b = new Forward(8.1);
+            public static Forward b = new Forward(4);
 
             static TrajectorySequenceContainer getPixel =
                     new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
@@ -139,23 +136,23 @@ public class RedWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(22.5)
+                                new StrafeRight(36.)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(34)
+                                new StrafeRight(30)
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(43)
+                                new StrafeRight(24.5)
                         );
                 }
             }
             public static Back b =  new Back(9);
-            public static Forward c = new Forward(6);
+            public static Forward c = new Forward(5.5);
         }
     }
 
@@ -215,7 +212,7 @@ public class RedWing extends MatchOpMode {
                                         intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)
                                 ))
                         ),
-                        new WaitCommand(1280),
+                        new WaitCommand(1250),
                         //When sensors work, do the conditional command please
 
                         /**drop pixel**/

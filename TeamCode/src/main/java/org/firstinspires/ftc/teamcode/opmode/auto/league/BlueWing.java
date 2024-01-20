@@ -183,14 +183,15 @@ public class BlueWing extends MatchOpMode {
         Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
     }
     public void matchStart() {
-        TeamMarkerPipeline.FFPosition position = vision.getPosition();
+//        TeamMarkerPipeline.FFPosition position = vision.getPosition();
+        TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.LEFT;
 
         drivetrain.setPoseEstimate(Path.DropSpikeMark.startPose.getPose());
         PoseStorage.trajectoryPose = Path.DropSpikeMark.startPose.getPose();
 
         schedule(
                 new SequentialCommandGroup(
-                        /* YellowPixel */
+                        /* YellowSPixel */
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         Path.DropSpikeMark.preload)

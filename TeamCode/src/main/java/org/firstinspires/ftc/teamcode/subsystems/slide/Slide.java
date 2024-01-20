@@ -145,7 +145,6 @@ public class Slide extends SubsystemBase {
     public Command setSetPointCommand(SlideEnum pos) {
         slidePos = pos;
         return  setSetPointCommand(pos.slidePos);
-//        return new InstantCommand(()->{setSetPoint(pos.slidePos);});
     }
 
     public double getSetPoint() {

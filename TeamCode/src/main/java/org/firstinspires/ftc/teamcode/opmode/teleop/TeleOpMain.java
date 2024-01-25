@@ -9,17 +9,21 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.commands.ClawColorSensorCommand;
 import org.firstinspires.ftc.teamcode.commands.ClimberMoveManual;
+import org.firstinspires.ftc.teamcode.commands.ColorSensorCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.slide.SlideMoveManual;
 import org.firstinspires.ftc.teamcode.commands.drive.teleop.DefaultDriveCommand;
+import org.firstinspires.ftc.teamcode.subsystems.AutoDropper;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.climber.Climber;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
+import org.firstinspires.ftc.teamcode.subsystems.sensor.SensorColor;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -37,10 +41,12 @@ public class TeleOpMain extends MatchOpMode {
     private PowerIntake intake;
     private Arm arm;
     private Claw claw;
+  private AutoDropper dropper;
 //    private Shooter shooter;
 //    private PowerClimber climb;
     private Climber climb;
 //    private CycleTracker cycleTracker;
+    private SensorColor sensorColor;
     public TeleOpMain() {}
 
     @Override
@@ -53,9 +59,12 @@ public class TeleOpMain extends MatchOpMode {
         intake = new PowerIntake(telemetry, hardwareMap, true);
       //  climb = new PowerClimber(telemetry, hardwareMap, true);
         climb = new Climber(telemetry,hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, true);
+        arm = new Arm(telemetry, hardwareMap, false);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, true);
+        slide = new Slide(telemetry, hardwareMap, false);
+        sensorColor = new SensorColor(telemetry, hardwareMap, true);
+   //     dropper = new AutoDropper(telemetry, hardwareMap, false);
+     //   dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP);
     }
 
 
@@ -104,13 +113,13 @@ public class TeleOpMain extends MatchOpMode {
 //                .whenPressed(shooter.shoot());
     
         //Climber
-        Button climbButton  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
-                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB))
-                .whenReleased(climb.setSetPointCommand(Climber.ClimbEnum.REST));
-//        Button climbUp  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
-//                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
-//        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
-//                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
+//        Button climbButton  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+//                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB))
+//                .whenReleased(climb.setSetPointCommand(Climber.ClimbEnum.REST));
+        Button climbUp  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB));
+        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
+                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
         climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getLeftY));
         Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
                 .whenPressed(new InstantCommand(()->climb.resetEncoder()));
@@ -135,6 +144,7 @@ public class TeleOpMain extends MatchOpMode {
 //            .whileHeld(new SlowDriveCommand(drivetrain, driverGamepad));
 //        Button recenterIMU = (new GamepadButton(driverGamepad, GamepadKeys.Button.A))
 //                .whenPressed(new InstantCommand(drivetrain::reInitializeIMU));
+        claw.setDefaultCommand(new ColorSensorCommand(claw, sensorColor));
 
 
         //y - up/dowm
@@ -142,7 +152,10 @@ public class TeleOpMain extends MatchOpMode {
     }
 
     @Override
-    public void matchLoop() {}
+    public void matchLoop() {
+
+    }
+
     @Override
     public void disabledPeriodic() { }
     @Override

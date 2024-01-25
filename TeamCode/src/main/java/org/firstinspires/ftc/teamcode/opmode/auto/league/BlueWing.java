@@ -108,7 +108,7 @@ public class BlueWing extends MatchOpMode {
                                     new Forward(4),
                                     new StrafeLeft(28),
                                     new Turn(90),
-                                    new Forward(0.8),
+                                //    new Forward(0.5),
                                     new StrafeLeft(36.5)
 
                             );
@@ -127,7 +127,7 @@ public class BlueWing extends MatchOpMode {
             public static GetPixel getPixel;
             public static class GetPixel {
 //                public static StrafeLeft a = new StrafeLeft(30.);
-                public static Forward b = new Forward(8.1);
+                public static Forward b = new Forward(7);
 
                 static TrajectorySequenceContainer getPixel =
                         new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
@@ -142,18 +142,19 @@ public class BlueWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(43)
+                                new StrafeRight(44)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(34)
+                                new StrafeRight(28),
+                                new Back(6)
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(22.5)
+                                new StrafeRight(25)
                         );
                 }
             }
@@ -198,8 +199,8 @@ public class BlueWing extends MatchOpMode {
 //                    new DisplacementCommand(14, new InstantCommand(()->intake.setDown())),
 //                    new InstantCommand(()->intake.setDown())
                         ),
-                        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                Path.DropSpikeMark.getTurnDrop(position)),
+                  //      new TrajectorySequenceContainerFollowCommand(drivetrain,
+                  //              Path.DropSpikeMark.getTurnDrop(position)),
                         new ParallelCommandGroup(
                                 dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP)
                         ),
@@ -218,7 +219,7 @@ public class BlueWing extends MatchOpMode {
                                     intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)
                             ))
                         ),
-                        new WaitCommand(1280),
+                        new WaitCommand(340),
                         //When sensors work, do the conditional command please
 
                         /**drop pixel**/
@@ -226,7 +227,8 @@ public class BlueWing extends MatchOpMode {
                             new TrajectorySequenceContainerFollowCommand(drivetrain,
                                     new TrajectorySequenceContainer(Speed::getFastConstraints,
                                             Path.DropPixel.a),
-                                    new DisplacementCommand(14,intake.setSetPointCommand(PowerIntake.IntakePower.STOP)),
+                                    new DisplacementCommand(14,
+                                            intake.setSetPointCommand(PowerIntake.IntakePower.STOP)),
                                     //maybe also hAve bot outtake
 //                                    new AutoIntakeCommand(claw, intake)
                                     new DisplacementCommand(20, claw.setBothClaw(Claw.ClawPos.CLOSE_POS))

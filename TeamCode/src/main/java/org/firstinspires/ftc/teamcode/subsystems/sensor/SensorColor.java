@@ -14,27 +14,31 @@ public class SensorColor extends SubsystemBase {
     private final ColorSensor colorSensorF, colorSensorB;
     private final Telemetry telemetry;
 
-    public SensorColor(HardwareMap hardwareMap , Telemetry tl, boolean isLightOn) {
+    public SensorColor(Telemetry tl, HardwareMap hardwareMap, boolean isLightOn) {
+
         this.colorSensorF = hardwareMap.get(ColorSensor.class, "colorSF");
         this.colorSensorB = hardwareMap.get(ColorSensor.class, "colorSB");
         this.telemetry = tl;
 
-        this.colorSensorF.enableLed(isLightOn);
-        this.colorSensorB.enableLed(isLightOn);
+//        this.colorSensorF.enableLed(false);
+//        this.colorSensorB.enableLed(false);
     }
 
     public void periodic() {
 //        telemetry.addData("Distance (cm)",
 //                String.format(Locale.US, "%.02f", colorSensor.getDistance(DistanceUnit.INCH)));
-        telemetry.addData("\tFAlpha:", colorSensorF.alpha());
-        telemetry.addData("\tFRed:", colorSensorF.red());
-        telemetry.addData("\tFBlue:", colorSensorF.blue());
-        telemetry.addData("\tFGreen:", colorSensorF.green());
-        telemetry.addLine();
-        telemetry.addData("\tBAlpha:", colorSensorB.alpha());
-        telemetry.addData("\tBRed:", colorSensorB.red());
-        telemetry.addData("\tBBlue:", colorSensorB.blue());
-        telemetry.addData("\tBGreen:", colorSensorB.green());
+//        telemetry.addData("\tFAlpha:", colorSensorF.alpha());
+//        telemetry.addData("\tFRed:", colorSensorF.red());
+//        telemetry.addData("\tFBlue:", colorSensorF.blue());
+//        telemetry.addData("\tFGreen:", colorSensorF.green());
+//        telemetry.addLine();
+//        telemetry.addData("\tBAlpha:", colorSensorB.alpha());
+//        telemetry.addData("\tBRed:", colorSensorB.red());
+//        telemetry.addData("\tBBlue:", colorSensorB.blue());
+//        telemetry.addData("\tBGreen:", colorSensorB.green());
+
+        telemetry.addData("grabBackPixel: ", grabbedBackPixel());
+        telemetry.addData("grabFrontPixel: ", grabbedFrontPixel());
 
 
         telemetry.update();
@@ -52,22 +56,22 @@ public class SensorColor extends SubsystemBase {
 
     public boolean grabbedWhitePixel(ColorSensor sensor) {
 //        telemetry.addLine("Got White pixel");
-        return (sensor.blue() > 255 &&sensor.red()> 255 &&sensor.green()> 255);
+        return (sensor.blue() > 2000 &&sensor.red()> 2000 &&sensor.green()> 2000);
         //change to white
     }
     public boolean grabbedPurpleCone(ColorSensor sensor) {
 //        telemetry.addLine("Got Purple Pixel");
-        return (sensor.red() > 165 &&sensor.blue() > 142 &&sensor.green()>218);
-        //change to  purple
+        return (sensor.red() > 1000 &&sensor.blue() > 1500 &&sensor.green()>1000);
+        //change to purple
     }
     public boolean grabbedGreenPixel(ColorSensor sensor) {
 //        telemetry.addLine("Got Green pixel");
-        return (sensor.blue() > 36 &&sensor.red() > 39 &&sensor.green()> 171);
+        return ( sensor.green()> 1000);
         // change to green
     }
     public boolean grabbedYellowPixel(ColorSensor sensor) {
 //        telemetry.addLine("Got Yellow pixel");
-        return (sensor.blue() > 11 &&sensor.red() > 246 &&sensor.green()> 183);
+        return (sensor.blue() > 250 &&sensor.red() > 1000 &&sensor.green()> 1000);
         //change to yellow
     }
     public boolean grabbedBackPixel() {

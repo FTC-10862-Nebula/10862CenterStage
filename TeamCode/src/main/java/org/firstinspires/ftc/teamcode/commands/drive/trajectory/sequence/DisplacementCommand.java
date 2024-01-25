@@ -1,4 +1,4 @@
-Apackage org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence;
+package org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence;
 
 import com.arcrobotics.ftclib.command.Command;
 

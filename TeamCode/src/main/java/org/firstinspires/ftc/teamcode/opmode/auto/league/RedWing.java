@@ -105,8 +105,7 @@ public class RedWing extends MatchOpMode {
                                 Speed::getBaseConstraints,
                                 new Forward(4),
                                 new StrafeRight(28),
-                                new Turn(90),
-                                new Forward(0.8),
+                                new Turn(-90),
                                 new StrafeRight(36.5)
 
                         );

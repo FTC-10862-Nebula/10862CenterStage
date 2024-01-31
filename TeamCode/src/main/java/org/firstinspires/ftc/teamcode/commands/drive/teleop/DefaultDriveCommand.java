@@ -26,27 +26,29 @@ public class DefaultDriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {   //TODO:Test
-            multiplier = 0.3;
+        if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+            multiplier = 0.55;
         } else {
-            multiplier = 1;
+            multiplier = 10;//5.5
         }
-        if(driverGamepad.getButton(GamepadKeys.Button.A)) {   //TODO:Test
+        if(driverGamepad.getButton(GamepadKeys.Button.A)) {
             drive.reInitializeIMU();
         }
         if(isFieldCentric) {
             drive.fieldCentric(
-                    driverGamepad.getLeftY() * multiplier,
-                    driverGamepad.getLeftX() * multiplier,
-                    -driverGamepad.getRightX() * multiplier
-            );
-        } else {
-            drive.mecDrive(
-                    driverGamepad.getLeftY() * multiplier,
-                    driverGamepad.getLeftX() * multiplier,
-                    driverGamepad.getRightX() * multiplier
+                    driverGamepad.getLeftY(),// * multiplier,
+                    driverGamepad.getLeftX(),// * multiplier,
+                    -driverGamepad.getRightX(),// * multiplier,
+                    multiplier
             );
         }
+//        else {
+//            drive.mecDrive(
+//                    driverGamepad.getLeftY() * multiplier,
+//                    driverGamepad.getLeftX() * multiplier,
+//                    driverGamepad.getRightX() * multiplier
+//            );
+//        }
     }
 
 

@@ -61,7 +61,7 @@ public class Drivetrain extends SubsystemBase {
         drive.setMotorPowers(powers[LFVal], powers[LRVal], powers[RFVal], powers[RRVal]);
     }
 
-    public void  fieldCentric(double y, double x, double rx){
+    public void  fieldCentric(double y, double x, double rx, double multiplier){
 //        double theta = -imu.getAngularOrientation().firstAngle;
         double theta = -drive.getExternalHeading();//Ok?
 
@@ -79,13 +79,20 @@ public class Drivetrain extends SubsystemBase {
         powers [RRVal] = (rotY - rotX + rx) / denominator;
 
 
-        if(Math.abs(powers[LFVal])<0.25&Math.abs(powers[LRVal])<0.25&Math.abs(powers[RFVal])<0.25&Math.abs(powers[RRVal])<0.25){
+        if(Math.abs(powers[LFVal])<0.5&
+                Math.abs(powers[LRVal])<0.5&
+                Math.abs(powers[RFVal])<0.5&
+                Math.abs(powers[RRVal])<0.5){
             for (int i = 0; i <= 3; i++) {
-//                powers[i] = squareInput(powers[i]);
-                powers[i] = cubeInput(powers[i]);
+                powers[i] = squareInput(powers[i]);
+//                powers[i] = cubeInput(powers[i]);
             }
         }
-        drive.setMotorPowers(powers[LFVal], powers[LRVal], powers[RFVal], powers[RRVal]);
+        drive.setMotorPowers(powers[LFVal]* multiplier,
+                powers[LRVal]* multiplier,
+                powers[RFVal]* multiplier,
+                powers[RRVal]* multiplier);
+
     }
 
     private double squareInput(double power) {

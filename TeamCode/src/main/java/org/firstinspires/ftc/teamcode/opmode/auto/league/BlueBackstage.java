@@ -45,47 +45,44 @@ public class BlueBackstage extends MatchOpMode {
     private Drivetrain drivetrain;
     //    private AprilTagVision aprilTagVision;
     private FFVision FFVision;
+    private AutoDropper dropper;
     private PowerIntake intake;
     private Climber climber;
     private Arm arm;
-    private AutoDropper dropper;
-//    private Shooter shooter;
+    //    private Shooter shooter;
     private Slide slide;
     private Claw claw;
     
     @Config
         private static class Path {
             public static DropSpikeMark aDropSpikeMark;
-
             public static class DropSpikeMark {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
                 public static Back a = new Back(27);
                 static TrajectorySequenceContainer preload =
-                        new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
-
-                TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.LEFT;
+                    new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
 
                 static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
                             return new TrajectorySequenceContainer(
-                                    Speed::getBaseConstraints,
-                                    new StrafeRight(16),
-                                    new Forward(1.5)
+                                Speed::getBaseConstraints,
+                                new StrafeRight(16),
+                                new Forward(1.5)
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
-                                    Speed::getBaseConstraints,
-                                    new Back(4.5)
+                                Speed::getBaseConstraints,
+                                new Back(4.5)
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
-                                    Speed::getBaseConstraints,
-                                    new Back(5),
-                                    new Forward(0.6),
-                                    new Turn(-90),
-                                    new Back(4)
+                                Speed::getBaseConstraints,
+                                new Back(5),
+                                new Forward(0.6),
+                                new Turn(-90),
+                                new Back(4)
                             );
                     }
                 }
@@ -93,9 +90,9 @@ public class BlueBackstage extends MatchOpMode {
                 static TrajectorySequenceContainer getTurn(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
-                            return new TrajectorySequenceContainer(
+                           return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(0)
+                                  new Back(0.1)
                            );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
@@ -116,9 +113,8 @@ public class BlueBackstage extends MatchOpMode {
             }
 
             public static DropYellowPixel dropYellowPixel;
-
             public static class DropYellowPixel {
-                static TrajectorySequenceContainer getDropPurplePixel(TeamMarkerPipeline.FFPosition position) {
+                static TrajectorySequenceContainer getDropYellowPixel(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
                             return new TrajectorySequenceContainer(
@@ -134,7 +130,6 @@ public class BlueBackstage extends MatchOpMode {
                             );
                     }
                 }
-
                 static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
@@ -166,13 +161,14 @@ public class BlueBackstage extends MatchOpMode {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
+//        drivetrain.init();
         FFVision = new FFVision(hardwareMap, telemetry);
-        intake = new PowerIntake(telemetry, hardwareMap, true);
+        intake = new PowerIntake(telemetry, hardwareMap, false);
         arm = new Arm(telemetry, hardwareMap, true);
-        climber = new Climber(telemetry, hardwareMap, true);
+        climber = new Climber(telemetry, hardwareMap, false);
         claw = new Claw(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
-        dropper = new AutoDropper(telemetry, hardwareMap, true);
+        AutoDropper dropper = new AutoDropper(telemetry, hardwareMap, true);
         climber.setSetPointCommand(Climber.ClimbEnum.REST);
     }
 
@@ -180,6 +176,7 @@ public class BlueBackstage extends MatchOpMode {
     public void disabledPeriodic() {
         Util.logger(this, telemetry, Level.INFO, "Current Position", FFVision.getFinalPosition());
     }
+    @Override
     public void matchStart() {
         TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.LEFT;
 
@@ -189,44 +186,40 @@ public class BlueBackstage extends MatchOpMode {
         schedule(
             new SequentialCommandGroup(
                 /* YellowPixel */
-                new ParallelCommandGroup(
-                        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                Path.DropSpikeMark.preload)
-                ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        Path.DropSpikeMark.getTurnDrop(position)),
-                new ParallelCommandGroup(
-                    dropper.dropperSetPositionCommand(AutoDropper.DropPos.HOLD),
-                    dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP)),
+                    Path.DropSpikeMark.preload),
+                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                    Path.DropSpikeMark.getTurn(position)),
+                dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
                 new WaitCommand(1000),
 
                 /* PurplePixel/Drop */
                 new ParallelCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
-                            Path.DropYellowPixel.dropPurplePixel),
-                    new WaitCommand(500),
+                        Path.DropYellowPixel.dropPurplePixel),
                     claw.setBClaw(Claw.ClawPos.CLOSE_POS)
                 ),
                 new SequentialCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
-                            Path.DropYellowPixel.getDrop(position)),
+                        Path.DropYellowPixel.getDrop(position)),
                     new DisplacementCommand(3.5,
                         new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
                 ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                            Path.DropYellowPixel.d)),
+                        Path.DropYellowPixel.d)),
                 new WaitCommand(500),
                 claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                 new WaitCommand(2000),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                            Path.DropYellowPixel.e)),
-                new ResetCommand(slide,arm, claw),
+                        Path.DropYellowPixel.e)),
+                new ResetCommand(slide, arm, claw),
 
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
                 run(this::stop)
+            )
         );
     }
 }

@@ -45,11 +45,11 @@ public class AutoDropper extends SubsystemBase
         dropper.setPosition(pos);
     }
     public Command dropperSetPositionCommand(DropPos dropPos) {
-        return new InstantCommand(()->{dropperSetPosition(dropPos.dropperPos);});
+        return new InstantCommand(()->dropperSetPosition(dropPos.dropperPos));
     }
-    public Command dropperSetPositionCommand(double pos) {
-        return new InstantCommand(()->{dropperSetPosition(pos);});
-    }
+//    public Command dropperSetPositionCommand(double pos) {
+//        return new InstantCommand(()->{dropperSetPosition(pos);});
+//    }
     public double getDropperPosition(){
         return dropper.getPosition();
     }

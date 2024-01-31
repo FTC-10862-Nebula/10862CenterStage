@@ -57,11 +57,11 @@ public class TeleOpMain extends MatchOpMode {
         claw = new Claw(telemetry, hardwareMap, true);
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         intake = new PowerIntake(telemetry, hardwareMap, true);
-      //  climb = new PowerClimber(telemetry, hardwareMap, true);
-        climb = new Climber(telemetry,hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, false);
+     //   climb = new PowerClimber(telemetry, hardwareMap, true);
+        climb = new Climber(telemetry,hardwareMap, false);
+        arm = new Arm(telemetry, hardwareMap, true);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
-        slide = new Slide(telemetry, hardwareMap, false);
+        slide = new Slide(telemetry, hardwareMap, true);
         sensorColor = new SensorColor(telemetry, hardwareMap, true);
    //     dropper = new AutoDropper(telemetry, hardwareMap, false);
      //   dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP);
@@ -73,13 +73,14 @@ public class TeleOpMain extends MatchOpMode {
         //Claw
         Button closeF = (new GamepadTrigger(operatorGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
                 .whenPressed(claw.setBothClaw(Claw.ClawPos.CLOSE_POS)));
+
         Button closeB= (new GamepadTrigger(operatorGamepad,  GamepadKeys.Trigger.RIGHT_TRIGGER)
                 .whenPressed(claw.setBothClaw(Claw.ClawPos.OPEN_POS)));
 
-//        Button openF = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
+//      Button openF = (new GamepadButton(operatorGamepad, GamepadKeys.Button.LEFT_BUMPER)
 //               .whenPressed(claw.setFClaw(Claw.ClawPos.OPEN_POS)));
-//       Button openB= (new GamepadButton(operatorGamepad,  GamepadKeys.Button.RIGHT_BUMPER)
-//               .whenPressed(claw.setBClaw(Claw.ClawPos.OPEN_POS)));
+        Button openB= (new GamepadButton(operatorGamepad,  GamepadKeys.Button.RIGHT_BUMPER)
+               .whenPressed(claw.setFClaw(Claw.ClawPos.OPEN_POS)));
 
         //Arm
  //       Button armTransfer = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
@@ -92,15 +93,13 @@ public class TeleOpMain extends MatchOpMode {
         Trigger INTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.RIGHT_TRIGGER)
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.INTAKE)))
-            .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP)
-//            .whenReleased(new ConditionalCommand(
-//                    new SequentialCommandGroup(//On True
-//                            new InstantCommand(intake::setUp)
+                .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP))
+                .whenReleased(new InstantCommand(intake::setUp));
 //                    ),
 //                    new InstantCommand(),//On False
 //                    intake::isIntaked//Condition that is tested
 //            )
-        );
+        //       );
         Trigger OUTTAKE = (new GamepadTrigger(driverGamepad, GamepadKeys.Trigger.LEFT_TRIGGER)
             .whenPressed(new InstantCommand(intake::setDown))
             .whileHeld(intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE)))

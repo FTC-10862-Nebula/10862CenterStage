@@ -32,7 +32,6 @@ import java.util.logging.Level;
 public class DropSpikeMarkAuto extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
-//    private AprilTagVision aprilTagVision;
     private FFVision vision;
     private PowerIntake intake;
     private Climber climber;
@@ -113,7 +112,7 @@ public class DropSpikeMarkAuto extends MatchOpMode {
                     new ParallelCommandGroup(
                             dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP)
                     ),
-                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
+//                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
 
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),

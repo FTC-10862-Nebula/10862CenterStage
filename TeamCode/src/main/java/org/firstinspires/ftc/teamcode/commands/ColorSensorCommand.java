@@ -24,7 +24,7 @@ public class ColorSensorCommand extends SequentialCommandGroup {
                     )
                 ),
                 new SequentialCommandGroup(),
-                sensorColor::grabbedBackPixel)
+                sensorColor::grabbedBackPixel).withTimeout(1000)
     );
     }
 }

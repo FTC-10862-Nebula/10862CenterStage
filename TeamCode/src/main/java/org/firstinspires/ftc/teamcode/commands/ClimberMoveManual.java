@@ -18,7 +18,7 @@ public class ClimberMoveManual extends CommandBase {
     public void execute() {
         double position = doubleSupplier.get();
         if (Math.abs(position) > 0.05) {
-            climber.setSetPoint(climber.getSetPoint() + position * -70);
+            climber.setSetPoint(climber.getSetPoint() + position * -80);
         }
     }
 }

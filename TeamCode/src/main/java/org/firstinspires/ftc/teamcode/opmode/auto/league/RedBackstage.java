@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.league;
 
-import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -52,7 +51,7 @@ public class RedBackstage extends MatchOpMode {
             public static DropSpikeMark dropSpikeMark;
             public static class DropSpikeMark {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
-//                public static Forward a = new Forward(27);
+///              public static Forward a = new Forward(27);
                 static TrajectorySequenceContainer preload =
                         new TrajectorySequenceContainer(Speed::getBaseConstraints, new Forward(27));
                 static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
@@ -110,7 +109,7 @@ public class RedBackstage extends MatchOpMode {
             public static DropYellowPixel dropYellowPixel;
 
             public static class DropYellowPixel {
-                static TrajectorySequenceContainer getDropPurplePixel(TeamMarkerPipeline.FFPosition position) {
+                static TrajectorySequenceContainer dropPurplePixel(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
                             return new TrajectorySequenceContainer(

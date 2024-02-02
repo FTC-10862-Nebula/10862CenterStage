@@ -14,14 +14,11 @@ public class SensorColor extends SubsystemBase {
     private final ColorSensor colorSensorF, colorSensorB;
     private final Telemetry telemetry;
 
-    public SensorColor(Telemetry tl, HardwareMap hardwareMap, boolean isLightOn) {
+    public SensorColor(Telemetry tl, HardwareMap hardwareMap) {
 
         this.colorSensorF = hardwareMap.get(ColorSensor.class, "colorSF");
         this.colorSensorB = hardwareMap.get(ColorSensor.class, "colorSB");
         this.telemetry = tl;
-
-//        this.colorSensorF.enableLed(false);
-//        this.colorSensorB.enableLed(false);
     }
 
     public void periodic() {

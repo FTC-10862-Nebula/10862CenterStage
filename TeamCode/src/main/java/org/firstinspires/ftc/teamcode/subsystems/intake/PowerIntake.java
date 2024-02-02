@@ -21,8 +21,8 @@ public class PowerIntake extends SubsystemBase {
         INTAKE(1, 0.3,true),//0.7 --.75
         STOP(0,0),
         OUTTAKE_PURPLE(0, -0.5),//-0.4
-        AUTO_INTAKE(0.40, 0.67,true),
-        AUTO_OUTTAKE(-0.2, 0);
+        AUTO_INTAKE(0.55, 0.67,true),
+        AUTO_OUTTAKE(-0.5, 0);
 
 
         public final double power, rollerPower;
@@ -41,7 +41,7 @@ public class PowerIntake extends SubsystemBase {
     
     public enum IntakePos {
         UP(0.65,0.65),
-        FIVE(.795, .795),
+        FIVE(0.795, .795),
         DOWN(0.856,0.856);
 
         

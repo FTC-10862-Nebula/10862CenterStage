@@ -35,7 +35,7 @@ public class TeamMarkerPipeline extends FFRectMarkerPipeline {
             return FFPosition.RIGHT;
         }
         else{
-            return FFPosition.RIGHT;
+            return FFPosition.LEFT;
         }
     }
 

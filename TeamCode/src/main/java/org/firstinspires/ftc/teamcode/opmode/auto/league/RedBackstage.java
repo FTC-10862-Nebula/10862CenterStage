@@ -35,7 +35,7 @@ import java.util.logging.Level;
 //@Disabled
 @Autonomous
     (preselectTeleOp = "TeleOpMain")
-public class RedBackstage extends MatchOpMode {
+public class   RedBackstage extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
 //    private AprilTagVision aprilTagVision;
@@ -86,7 +86,7 @@ public class RedBackstage extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                        new Back(0));
+                        new Back(0.01));
 
                         case MIDDLE:
                             return new TrajectorySequenceContainer(

@@ -21,8 +21,8 @@ public class PowerIntake extends SubsystemBase {
         INTAKE(1, 0.3,true),//0.7 --.75
         STOP(0,0),
         OUTTAKE_PURPLE(0, -0.5),//-0.4
-        AUTO_INTAKE(0.55, 0.67,true),
-        AUTO_OUTTAKE(-0.5, 0);
+        AUTO_INTAKE(0.45, 0.67,true),
+        AUTO_OUTTAKE(-0.50, 0);
 
 
         public final double power, rollerPower;

@@ -95,17 +95,17 @@ public class RedWing extends MatchOpMode {
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(2.5),
+                                new Forward(2),
                                 new StrafeRight(28),
                                 new Turn(-90),
-                                new StrafeRight(34.5)
+                                new StrafeRight(30.5)
 
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Forward(23.5),
+                            new Forward(21.5),
                             new StrafeRight(31)
                         );
                 }
@@ -114,8 +114,8 @@ public class RedWing extends MatchOpMode {
 
         public static Path.GetPixel getPixel;
         public static class GetPixel {
-            //          public static StrafeLeft a = new StrafeLeft(30.);
-            public static Forward b = new Forward(7);
+           //          public static StrafeLeft a = new StrafeLeft(30.);
+            public static Forward b = new Forward(5.5);
 
             static TrajectorySequenceContainer getPixel =
                     new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
@@ -139,7 +139,7 @@ public class RedWing extends MatchOpMode {
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(40)
+                                new StrafeLeft(38)
                         );
                 }
             }
@@ -214,9 +214,9 @@ public class RedWing extends MatchOpMode {
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
                             new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                     new Back(9))),
-                    new WaitCommand(500),
+                    new WaitCommand(300),
                     claw.setBothClaw(Claw.ClawPos.OPEN_POS),
-                    new WaitCommand(800),
+                    new WaitCommand(500),
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
                             new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                     new Forward(6))),

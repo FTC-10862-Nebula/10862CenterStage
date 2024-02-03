@@ -17,7 +17,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = hardwareMap.get(DcMotorEx.class, "intake");
+        motor = hardwareMap.get(DcMotorEx.class, "BR");
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }
@@ -38,8 +38,8 @@ public class MotorTest extends OpMode {
         else{
             motor.setPower(0);
         }
-//        telemetry.addData("Motor: ", motor.getRate());
-//        telemetry.update();
+        telemetry.addData("Motor: ", motor.getCurrentPosition());
+        telemetry.update();
 
     }
 }

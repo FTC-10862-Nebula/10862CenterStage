@@ -40,7 +40,7 @@ public class TeleOpMain extends MatchOpMode {
     private AutoDropper dropper;
 //    private Shooter shooter;
     private Climber climb;
-    private SensorColor sensorColor;
+   private SensorColor sensorColor;
     public TeleOpMain() {}
 
     @Override
@@ -51,12 +51,12 @@ public class TeleOpMain extends MatchOpMode {
         claw = new Claw(telemetry, hardwareMap, true);
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        climb = new Climber(telemetry,hardwareMap, false);
+        climb = new Climber(telemetry,hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
         sensorColor = new SensorColor(telemetry, hardwareMap);
-        dropper = new AutoDropper(telemetry, hardwareMap, false);
+        dropper = new AutoDropper(telemetry, hardwareMap, true);
         dropper.dropperSetPositionCommand(AutoDropper.DropPos.TELEOP_HOLD);
     }
 

@@ -98,6 +98,67 @@ public class RedBackstageNew extends MatchOpMode {
 
     }
 }
+ public static class DropYellowPixel {
+        static TrajectorySequenceContainer getToBack(TeamMarkerPipeline.FFPosition position) {
+            switch (position) {
+                case LEFT:
+                default:
+                    return new TrajectorySequenceContainer(
+                            Speed::getBaseConstraints,
+                            new Back(30)
+                    );
+                case MIDDLE:
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getBaseConstraints,
+                            new Back(36)
+                    );
+            }
+        }
+        static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
+            switch (position) {
+                case LEFT:
+                default:
+                    return new TrajectorySequenceContainer(
+                            Speed::getBaseConstraints,
+                            new StrafeLeft(10)
+                    );
+                case MIDDLE:
+                    return new TrajectorySequenceContainer(
+                            Speed::getBaseConstraints,
+                            new StrafeRight(30)
+                    );
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getBaseConstraints,
+                            new StrafeRight(24.5)
+                    );
+            }
+        }
+        public static Back b = new Back(9);
+        public static Forward d = new Forward(6);
+
+// static TrajectorySequenceContainer getDropBoard(TeamMarkerPipeline.FFPosition position) {
+//     switch (position) {
+//         case LEFT:
+//         default:
+//             return new TrajectorySequenceContainer(
+//                     Speed::getBaseConstraints,
+//                     new Back(8)
+//             );
+//         case MIDDLE:
+//             return new TrajectorySequenceContainer(
+//                Speed::getBaseConstraints,
+//                     new Back(8.5)
+//             );
+//         case RIGHT:
+//             return new TrajectorySequenceContainer(
+//                     Speed::getBaseConstraints,
+//                     new Back(9)
+//             );
+
+
+ }
 
 
     @Override
@@ -129,11 +190,22 @@ public class RedBackstageNew extends MatchOpMode {
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                 new Back(27))),
+                new WaitCommand(1000),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropSpikeMark.getTurn(position)),
                 new WaitCommand(500),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropSpikeMark.getTurnDrop(position)),
+                new WaitCommand(500),
+                dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
+                new WaitCommand(500),
+                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                        DropYellowPixel.getToBack(position)),
+                new WaitCommand(500),
+                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                        DropYellowPixel.getDrop(position)),
+//                new TrajectorySequenceContainerFollowCommand(drivetrain,
+//                        DropYellowPixel.getDropBoard(position)),
 
 
                 /* Save Pose and end opmode*/

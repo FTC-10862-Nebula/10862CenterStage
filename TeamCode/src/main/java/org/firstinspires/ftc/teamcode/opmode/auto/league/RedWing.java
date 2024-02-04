@@ -71,7 +71,7 @@ public class RedWing extends MatchOpMode {
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Back(0.1)
+                                new Back(4.5)
                         );
                     default:
                     case RIGHT:
@@ -98,7 +98,7 @@ public class RedWing extends MatchOpMode {
                                 new Forward(2),
                                 new StrafeRight(28),
                                 new Turn(-90),
-                                new StrafeRight(30.5)
+                                new StrafeRight(38.5)
 
                         );
                     default:
@@ -115,7 +115,7 @@ public class RedWing extends MatchOpMode {
         public static Path.GetPixel getPixel;
         public static class GetPixel {
            //          public static StrafeLeft a = new StrafeLeft(30.);
-            public static Forward b = new Forward(5.5);
+            public static Forward b = new Forward(7.5);
 
             static TrajectorySequenceContainer getPixel =
                     new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
@@ -128,18 +128,18 @@ public class RedWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(23)
+                                new StrafeLeft(28)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(34)
+                                new StrafeLeft(33)
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeLeft(38)
+                                new StrafeLeft(36.5)
                         );
                 }
             }

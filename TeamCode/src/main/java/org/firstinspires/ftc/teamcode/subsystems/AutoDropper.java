@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class AutoDropper extends SubsystemBase
 {
     public enum DropPos {
-        HOLD(0.52),
-        TELEOP_HOLD(.55),
+        HOLD(0.55),
+        TELEOP_HOLD(.60),
         DROP(0.64);
 
         public final double dropperPos;

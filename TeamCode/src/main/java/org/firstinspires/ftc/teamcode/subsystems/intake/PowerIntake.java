@@ -21,7 +21,7 @@ public class PowerIntake extends SubsystemBase {
         INTAKE(1, 0.3,true),//0.7 --.75
         STOP(0,0),
         OUTTAKE_PURPLE(0, -0.5),//-0.4
-        AUTO_INTAKE(0.45, 0.67,true),
+        AUTO_INTAKE(0.65, 0.67,true),
         AUTO_OUTTAKE(-0.50, 0);
 
 
@@ -112,7 +112,7 @@ public class PowerIntake extends SubsystemBase {
 
 //    @Deprecated //To FInd Alternative or Not Use
     public boolean isIntaked(){//TODO:Needs to have something where it times
-        if(NebulaConstants.Intake.intakeTime.seconds()>2){
+        if(NebulaConstants.Intake.intakeTime.seconds()>3){
 //            return controller.getVelocityError()>100;//Whatever the Number is
         }
         return false;

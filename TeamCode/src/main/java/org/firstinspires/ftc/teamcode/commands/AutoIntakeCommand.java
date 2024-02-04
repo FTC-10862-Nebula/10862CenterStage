@@ -16,7 +16,7 @@ public class AutoIntakeCommand extends SequentialCommandGroup{
                 new WaitUntilCommand(sensorColor::grabbedFrontPixel).withTimeout(3000),
                 claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
                 intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_OUTTAKE),
-                new WaitCommand(3000),
+                new WaitCommand(1000),
                 intake.setSetPointCommand(PowerIntake.IntakePower.STOP)
         );
     }

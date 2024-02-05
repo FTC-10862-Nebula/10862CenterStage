@@ -158,7 +158,7 @@ public class NebulaConstants {
         //        public int pivotDistancePerPulse = 360 / (gear_ratio * pulses_per_rev);// For Internal Encoder
         public static NebulaMotor.IdleMode climberIdleMode = NebulaMotor.IdleMode.Brake;
         public final static NebulaMotor.MotorType climberType = NebulaMotor.MotorType.RPM_117;
-        public static PIDFCoefficients climberPID = new PIDFCoefficients(0.005, 0.015, 0.0,0);
+        public static PIDFCoefficients climberPID = new PIDFCoefficients(0.002, 0.015, 0.0,0);
         //0.005, 0.015
         public static int climberTolerance = 1;
         public static double ks=0,

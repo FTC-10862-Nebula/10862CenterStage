@@ -16,7 +16,7 @@ public class AutoDropper extends SubsystemBase
 {
     public enum DropPos {
         HOLD(0.55),
-        TELEOP_HOLD(.60),
+        TELEOP_HOLD(.62),
         DROP(0.64);
 
         public final double dropperPos;

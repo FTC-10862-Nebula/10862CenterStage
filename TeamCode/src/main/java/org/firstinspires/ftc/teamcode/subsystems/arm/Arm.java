@@ -18,7 +18,7 @@ public class Arm extends SubsystemBase
 {
     public enum ArmPos {
         TRANSFER(0.03,0.03),
-        OUTTAKE(0.42,0.42);
+        OUTTAKE(0.36,0.36);
 
         public final double armRPos, armLPos;
         ArmPos(double armRPos, double armLPos) {

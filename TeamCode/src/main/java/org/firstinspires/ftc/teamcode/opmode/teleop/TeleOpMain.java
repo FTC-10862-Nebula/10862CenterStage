@@ -51,7 +51,7 @@ public class TeleOpMain extends MatchOpMode {
         claw = new Claw(telemetry, hardwareMap, true);
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);  //Works
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        climb = new Climber(telemetry,hardwareMap, true);
+        climb = new Climber(telemetry,hardwareMap, false);
         arm = new Arm(telemetry, hardwareMap, true);
 ////        shooter = new Shooter(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);

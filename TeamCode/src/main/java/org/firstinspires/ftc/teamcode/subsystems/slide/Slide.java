@@ -30,7 +30,7 @@ public class Slide extends SubsystemBase {
         MID(1900),
         HIGH(2300),
 
-        MANUAL(0.0);
+        MANUAL(0.5);
         public final double slidePos;
         SlideEnum(double slidePos) {
             this.slidePos = slidePos;

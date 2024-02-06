@@ -175,6 +175,7 @@ public class BlueWing extends MatchOpMode {
         slide = new Slide(telemetry, hardwareMap, true);
 //        climber.setSetPointCommand(Climber.ClimbEnum.REST);
         dropper = new AutoDropper(telemetry, hardwareMap, true);
+        sensorColor = new SensorColor(telemetry, hardwareMap);
     }
 
     @Override

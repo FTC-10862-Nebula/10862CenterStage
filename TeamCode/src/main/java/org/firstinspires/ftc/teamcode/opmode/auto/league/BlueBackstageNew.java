@@ -56,7 +56,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(4.5)
+                            new Back(5)
                     );
                 default:
                 case RIGHT:
@@ -128,7 +128,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(24.5)
+                            new StrafeLeft(14)
                     );
             }
         }
@@ -139,19 +139,19 @@ public class BlueBackstageNew extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(35),
+                            new StrafeLeft(26),
                             new Back(10)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(30),
+                            new StrafeLeft(31),
                             new Back(10)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(25),
+                            new StrafeLeft(36),
                             new Back(10)
                     );
             }
@@ -203,7 +203,6 @@ public class BlueBackstageNew extends MatchOpMode {
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 DropYellowPixel.getToBack(position)),
-                        new WaitCommand(500),
                         new SequentialCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         DropYellowPixel.getDrop(position)),
@@ -213,7 +212,7 @@ public class BlueBackstageNew extends MatchOpMode {
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(
                                         Speed::getBaseConstraints,new Back(7.5))),
-                        new WaitCommand(300),
+                        new WaitCommand(250),
                         claw.setBClaw(Claw.ClawPos.OPEN_POS),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(

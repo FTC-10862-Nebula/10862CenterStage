@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.commands.AutoIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
+import org.firstinspires.ftc.teamcode.subsystems.sensor.SensorColor;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
@@ -49,6 +51,7 @@ public class BlueWing extends MatchOpMode {
     private Slide slide;
     private Claw claw;
     private AutoDropper dropper;
+    private SensorColor sensorColor;
 
 
     private static Path path;
@@ -56,11 +59,6 @@ public class BlueWing extends MatchOpMode {
         public static DropSpikeMark aDropSpikeMark;
             public static class DropSpikeMark {
                 public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
-                //^^ Has Wrong Coordinates
-                public static                Back a = new Back(33);
-                static TrajectorySequenceContainer preload =
-                        new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
-
                 static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
@@ -73,7 +71,7 @@ public class BlueWing extends MatchOpMode {
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(1.5)
+                                    new Back(0.5)
 //                                    new Forward(3),
 //                                    new Back(3.5)
                             );
@@ -81,89 +79,88 @@ public class BlueWing extends MatchOpMode {
                        case RIGHT:
                            return new TrajectorySequenceContainer(
                                    Speed::getBaseConstraints,
-//                                    new StrafeLeft(8)
-                                    new Turn(-90)
-
-//                                    new Forward(19)
+                                    new Turn(90),
+                                   new Back(2)
                             );
-//                        case RIGHT:
 
 
                     }
                 }
-
-
-                //                public static Back b = new Back(4.5);
                 static TrajectorySequenceContainer getTurn(TeamMarkerPipeline.FFPosition position) {
                     switch (position) {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(24.5),
-                                    new StrafeLeft(32.5)
-                                  //  new Forward(1)
+                                    new StrafeLeft(31.5),
+                                    new Turn(180),
+                                    new Forward(23.7)
+
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(4),
-//                                    new Forward(4),
+                                    new Forward(2),
                                    new StrafeLeft(28),
                                    new Turn(90),
-                                  new Forward(0.5),
-                                    new StrafeLeft(36.5)
+                                    new StrafeLeft(30),
+                                    new Forward(4)
 
                             );
                         default:
                         case RIGHT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new StrafeRight(31),
-                                    new Turn(180),
-                        new Forward(20)
+                                    new Forward(21.5),
+                                    new StrafeLeft(30),
+                                    new Forward(5.4)
                             );
                     }
                 }
             }
-
-            public static GetPixel getPixel;
-            public static class GetPixel {
-//                public static StrafeLeft a = new StrafeLeft(30.);
-                public static Forward b = new Forward(7);
-
-                static TrajectorySequenceContainer getPixel =
-                        new TrajectorySequenceContainer(Speed::getBaseConstraints, b);
-            }
-
-        public static DropPixel dropPixel;
-        public static class DropPixel {
-            public static Back a = new Back(122);
-
             static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
                 switch (position) {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(44)
+                                new StrafeRight(34),
+                                new Forward(2)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(33)
+                                new StrafeRight(31.5)
       //                          new Back(6)
                         );
                     default:
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(23)
+                                new StrafeRight(39.5)
                         );
                 }
             }
-            public static Back b =  new Back(6);
-            public static Forward c = new Forward(6);
+        static TrajectorySequenceContainer getPark(TeamMarkerPipeline.FFPosition position) {
+            switch (position) {
+                case LEFT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeLeft(28)
+                    );
+                case MIDDLE:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeLeft(34.3)
+                    );
+                default:
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeLeft(36.5)
+                    );
+            }
         }
-    }
+        }
+
 
 
     @Override
@@ -187,81 +184,53 @@ public class BlueWing extends MatchOpMode {
     }
     public void matchStart() {
         TeamMarkerPipeline.FFPosition position = vision.getPosition();
-      //  position = TeamMarkerPipeline.FFPosition.LEFT;
 
         drivetrain.setPoseEstimate(Path.DropSpikeMark.startPose.getPose());
         PoseStorage.trajectoryPose = Path.DropSpikeMark.startPose.getPose();
 
-        schedule(
-                new SequentialCommandGroup(
-                        /* YellowSPixel */
-                        new ParallelCommandGroup(
-                                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                        Path.DropSpikeMark.preload)
-
-//                    new DisplacementCommand(14, new InstantCommand(()->intake.setDown())),
-//                    new InstantCommand(()->intake.setDown())
-                        ),
-                       new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                Path.DropSpikeMark.getTurnDrop(position)),
-                        dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
-                        new WaitCommand(1000),
-                        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                Path.DropSpikeMark.getTurn(position)),
-                            //    dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
-
-
-                        /*** get pixel ***/
-                        new ParallelCommandGroup(
-                            claw.setFClaw(Claw.ClawPos.OPEN_POS),
-                            new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                    Path.GetPixel.getPixel),
-                            new DisplacementCommand(25,new SequentialCommandGroup(
-                                    new InstantCommand(intake::setFive),
-                                    intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_INTAKE)
-                            ))
-                        ),
-                        new WaitCommand(2000),
-                        intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_OUTTAKE),
-                        //When sensors work, do the conditional command please
-
-                        /**drop pixel**/
-                        new ParallelCommandGroup(
-                            new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                    new TrajectorySequenceContainer(Speed::getFastConstraints,
-                                            Path.DropPixel.a),
-                                    new DisplacementCommand(14,
-                                            intake.setSetPointCommand(PowerIntake.IntakePower.STOP)),
-                                    //maybe also hAve bot outtake
-//                                    new AutoIntakeCommand(claw, intake)
-                                    new DisplacementCommand(20, claw.setBothClaw(Claw.ClawPos.CLOSE_POS))
-                            )
-//                            intake.setSetPointCommand(PowerIntake.IntakePower.STOP),
-//                            claw.setBothClaw(Claw.ClawPos.CLOSE_POS)
-                        ),
-
+                schedule(
                         new SequentialCommandGroup(
+                                /*** YellowPixel ***/
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                        Path.DropPixel.getDrop(position)),
-                                new DisplacementCommand(3.5,
-                                        new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
-                        ),
-                        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                                        Path.DropPixel.b)),
-                        new WaitCommand(300),
-                        claw.setBothClaw(Claw.ClawPos.OPEN_POS),
-                        new WaitCommand(500),
-                        dropper.dropperSetPositionCommand(AutoDropper.DropPos.HOLD),
-        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                                        Path.DropPixel.c)),
-                        new ResetCommand(slide,arm, claw),
+                                        new TrajectorySequenceContainer(Speed::getFastConstraints, new Back(33))),
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        RedWing.DropSpikeMark.getTurnDrop(position)),
+                                dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
 
-                        /* Save Pose and end opmode*/
-                        run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
-                        run(this::stop)
-                )
-        );
+                                /*** get pixel ***/
+                                new ParallelCommandGroup(
+                                        new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                                RedWing.DropSpikeMark.getTurn(position)),
+                                        new InstantCommand(intake::setFive),
+                                        claw.setFClaw(Claw.ClawPos.OPEN_POS)
+                                ),
+                                new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
+
+                                /**drop pixel**/
+                                new SequentialCommandGroup(
+                                        new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                                RedWing.DropPixel.getDrop(position)),
+                                        new DisplacementCommand(3.5,
+                                                new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
+                                ),
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                                new Back(9))),
+//                new WaitCommand(300),
+                                claw.setBothClaw(Claw.ClawPos.OPEN_POS),
+                                new WaitCommand(500),
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                                new Forward(6))),
+                                new ResetCommand(slide,arm, claw),
+
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        RedWing.DropPixel.getPark(position)),
+
+                                /* Save Pose and end opmode*/
+                                run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
+                                run(this::stop)
+                        )
+                );
     }
 }

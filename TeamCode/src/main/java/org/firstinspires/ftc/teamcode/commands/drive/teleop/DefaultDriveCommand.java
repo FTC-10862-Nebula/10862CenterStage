@@ -12,12 +12,14 @@ public class DefaultDriveCommand extends CommandBase {
 
     protected double multiplier;
     boolean isFieldCentric;
+    double offset = 90;
 
-    public DefaultDriveCommand(Drivetrain drive, GamepadEx driverGamepad, boolean isFieldCentric) {
+    public DefaultDriveCommand(Drivetrain drive,
+                               GamepadEx driverGamepad,
+                               boolean isFieldCentric) {
 
         this.drive = drive;
         this.driverGamepad = driverGamepad;
-
         this.multiplier = 1.0;
         addRequirements(this.drive);
 
@@ -29,17 +31,19 @@ public class DefaultDriveCommand extends CommandBase {
         if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
             multiplier = 0.55;
         } else {
-            multiplier = 10;//5.5
+            multiplier = 12;//5.5
         }
         if(driverGamepad.getButton(GamepadKeys.Button.A)) {
             drive.reInitializeIMU();
+            offset = 0;
         }
         if(isFieldCentric) {
             drive.fieldCentric(
                     driverGamepad.getLeftY(),// * multiplier,
                     driverGamepad.getLeftX(),// * multiplier,
                     -driverGamepad.getRightX(),// * multiplier,
-                    multiplier
+                    multiplier,
+                    offset
             );
         }
 //        else {

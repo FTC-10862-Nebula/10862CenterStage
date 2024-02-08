@@ -61,9 +61,9 @@ public class Drivetrain extends SubsystemBase {
         drive.setMotorPowers(powers[LFVal], powers[LRVal], powers[RFVal], powers[RRVal]);
     }
 
-    public void  fieldCentric(double y, double x, double rx, double multiplier){
+    public void  fieldCentric(double y, double x, double rx, double multiplier, double offset){
 //        double theta = -imu.getAngularOrientation().firstAngle;
-        double theta = -drive.getExternalHeading();//Ok?
+        double theta = -drive.getExternalHeading()+offset;//Ok?
 
         double rotX = x * Math.cos(theta) - y * Math.sin(theta);
         double rotY = x * Math.sin(theta) + y * Math.cos(theta);

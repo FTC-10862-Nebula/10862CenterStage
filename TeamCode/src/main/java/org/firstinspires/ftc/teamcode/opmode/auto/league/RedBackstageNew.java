@@ -113,7 +113,7 @@ public class RedBackstageNew extends MatchOpMode {
              default:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(1)
+                         new StrafeLeft(0.5)
                  );
              case MIDDLE:
                  return new TrajectorySequenceContainer(
@@ -134,7 +134,7 @@ public class RedBackstageNew extends MatchOpMode {
              default:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(43)
+                         new StrafeLeft(40)
                  );
              case MIDDLE:
                  return new TrajectorySequenceContainer(
@@ -204,8 +204,8 @@ public class RedBackstageNew extends MatchOpMode {
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,new Back(7.5))),
-                new WaitCommand(300),
-                claw.setBClaw(Claw.ClawPos.OPEN_POS),
+                new WaitCommand(800),
+                claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints, new Forward(6)

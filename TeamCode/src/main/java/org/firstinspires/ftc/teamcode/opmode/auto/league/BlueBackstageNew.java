@@ -144,7 +144,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(47)
+                            new StrafeLeft(42)
                     );
             }
         }
@@ -204,7 +204,7 @@ public class BlueBackstageNew extends MatchOpMode {
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(
                                         Speed::getBaseConstraints,new Back(7.5))),
-                        new WaitCommand(500),
+                        new WaitCommand(800),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(

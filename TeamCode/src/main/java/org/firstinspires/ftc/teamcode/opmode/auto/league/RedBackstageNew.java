@@ -50,21 +50,21 @@ public class RedBackstageNew extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(16),
-                            new Forward(1.5)
+                            new Back(4.4),
+                            new Turn(90),
+                            new Back(4)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(4.5)
+                            new Back(5)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(4.4),
-                            new Turn(90),
-                            new Back(4)
+                            new StrafeLeft(16.5),
+                            new Forward(1.5)
                     );
             }
         }
@@ -75,21 +75,16 @@ public class RedBackstageNew extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(10),
-                            new Turn(-90)
+                            new StrafeLeft(0.5),
+                            new Forward(7.5),
+                            new Turn(180)
                     );
                 case MIDDLE:
+                case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(10),
                             new Turn(-90)
-                    );
-                case RIGHT:
-                    return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeLeft(0.5),
-                            new Forward(7.5),
-                            new Turn(180)
                     );
             }
         }
@@ -98,16 +93,16 @@ public class RedBackstageNew extends MatchOpMode {
      static TrajectorySequenceContainer getToBack(TeamMarkerPipeline.FFPosition position) {
          switch (position) {
              case LEFT:
+             case MIDDLE:
              default:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new Back(31)
+                         new Back(37)
                  );
-             case MIDDLE:
              case RIGHT:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new Back(37)
+                         new Back(28)
                  );
          }
      }
@@ -118,7 +113,7 @@ public class RedBackstageNew extends MatchOpMode {
              default:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(10)
+                         new StrafeLeft(1)
                  );
              case MIDDLE:
                  return new TrajectorySequenceContainer(
@@ -128,7 +123,7 @@ public class RedBackstageNew extends MatchOpMode {
              case RIGHT:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeRight(24.5)
+                         new StrafeRight(16)
                  );
          }
      }
@@ -139,20 +134,17 @@ public class RedBackstageNew extends MatchOpMode {
              default:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(37),
-                         new Back(10)
+                         new StrafeLeft(43)
                  );
              case MIDDLE:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(32),
-                         new Back(10)
-                 );
+                         new StrafeLeft(31)
+                         );
              case RIGHT:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(27),
-                         new Back(10)
+                         new StrafeLeft(26)
                  );
          }
      }
@@ -199,11 +191,10 @@ public class RedBackstageNew extends MatchOpMode {
                         new WaitCommand(300),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropSpikeMark.getTurnDrop(position)),
-                claw.setBClaw(Claw.ClawPos.CLOSE_POS)
+                claw.setBothClaw(Claw.ClawPos.CLOSE_POS)
                 ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropYellowPixel.getToBack(position)),
-                new WaitCommand(500),
                 new SequentialCommandGroup(
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropYellowPixel.getDrop(position)),

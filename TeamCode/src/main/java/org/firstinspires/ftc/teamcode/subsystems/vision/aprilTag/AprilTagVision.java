@@ -66,7 +66,7 @@ public class AprilTagVision extends SubsystemBase {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(800,600, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(1000,800, OpenCvCameraRotation.UPRIGHT);
 //                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
 

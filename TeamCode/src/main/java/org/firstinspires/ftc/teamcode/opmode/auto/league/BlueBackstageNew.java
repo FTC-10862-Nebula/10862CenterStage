@@ -50,7 +50,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(16),
+                            new StrafeRight(16.5),
                             new Forward(1.5)
                     );
                 case MIDDLE:
@@ -72,13 +72,8 @@ public class BlueBackstageNew extends MatchOpMode {
         static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 case LEFT:
-                default:
-                    return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Back(10),
-                            new Turn(90)
-                    );
                 case MIDDLE:
+                default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(10),
@@ -87,7 +82,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(0.5),
+                            new StrafeRight(0.5),
                             new Forward(7.5),
                             new Turn(180)
                     );
@@ -101,7 +96,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(31)
+                            new Back(29.5)
                     );
                 case MIDDLE:
                 case RIGHT:
@@ -118,7 +113,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(10)
+                            new StrafeLeft(14.5)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
@@ -128,7 +123,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(14)
+                            new StrafeLeft(10)
                     );
             }
         }
@@ -139,20 +134,17 @@ public class BlueBackstageNew extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(26),
-                            new Back(10)
+                            new StrafeLeft(27)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(31),
-                            new Back(10)
+                            new StrafeLeft(31)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(36),
-                            new Back(10)
+                            new StrafeLeft(47)
                     );
             }
         }
@@ -212,8 +204,8 @@ public class BlueBackstageNew extends MatchOpMode {
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(
                                         Speed::getBaseConstraints,new Back(7.5))),
-                        new WaitCommand(250),
-                        claw.setBClaw(Claw.ClawPos.OPEN_POS),
+                        new WaitCommand(500),
+                        claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(
                                         Speed::getBaseConstraints, new Forward(6)

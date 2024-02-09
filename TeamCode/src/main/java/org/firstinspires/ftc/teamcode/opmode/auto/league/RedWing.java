@@ -99,14 +99,14 @@ public class RedWing extends MatchOpMode {
                             new StrafeRight(28),
                             new Turn(-90),
                             new StrafeRight(34.5),
-                            new Forward(2.7)
+                            new Forward(4)
 
                     );
 
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                         Speed::getBaseConstraints,
-                        new Forward(27.5),
+                        new Forward(31),
                         new StrafeRight(29.3)
                     );
             }
@@ -152,7 +152,8 @@ public class RedWing extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeRight(38)
+                        new StrafeRight(38),
+                            new Back(4)
                     );
             }
         }

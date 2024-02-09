@@ -17,8 +17,6 @@ public class TeleOpDrivetrainOnly extends MatchOpMode {
 
     // Gamepad
     private GamepadEx driverGamepad;
-
-
     // Subsystems
     private Drivetrain drivetrain;
 
@@ -28,7 +26,6 @@ public class TeleOpDrivetrainOnly extends MatchOpMode {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry),telemetry);
         drivetrain.init();
     }
-
 
     @Override
     public void configureButtons() {

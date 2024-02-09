@@ -12,7 +12,7 @@ public class DefaultDriveCommand extends CommandBase {
 
     protected double multiplier;
     boolean isFieldCentric;
-    double offset = 90;
+    double offset = 0;
 
     public DefaultDriveCommand(Drivetrain drive,
                                GamepadEx driverGamepad,

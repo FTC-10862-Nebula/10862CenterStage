@@ -70,7 +70,7 @@ public class RedWing extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(0.5)
+                            new Forward(2.5)
                     );
 
                 case RIGHT:
@@ -90,7 +90,7 @@ public class RedWing extends MatchOpMode {
                         Speed::getBaseConstraints,
                         new StrafeLeft(32),
                         new Turn(180),
-                        new Forward(23.6)
+                        new Forward(26.4)
                        // new Forward(5)
                     );
                 case MIDDLE:
@@ -98,16 +98,16 @@ public class RedWing extends MatchOpMode {
                             Speed::getBaseConstraints,
                             new StrafeRight(28),
                             new Turn(-90),
-                            new StrafeRight(34.5),
-                            new Forward(4)
+                            new StrafeRight(32),
+                            new Forward(2.8)
 
                     );
 
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                         Speed::getBaseConstraints,
-                        new Forward(31),
-                        new StrafeRight(29.3)
+                        new Forward(27.8),
+                        new StrafeRight(30.3)
                     );
             }
         }
@@ -120,19 +120,19 @@ public class RedWing extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(27),
-                            new Forward(2)
+                            new StrafeLeft(16.2)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(34)
+                            new StrafeLeft(33)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(40.5)
+                            new StrafeLeft(38),
+                            new Forward(2.5)
                     );
             }
         }
@@ -146,14 +146,13 @@ public class RedWing extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeRight(34.3)
+                        new StrafeRight(34)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeRight(38),
-                            new Back(4)
+                        new StrafeRight(39)
                     );
             }
         }
@@ -215,13 +214,13 @@ public class RedWing extends MatchOpMode {
                 ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                        new Back(9))),
+                        new Back(8.5))),
 //                new WaitCommand(300),
                 claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                 new WaitCommand(800),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                        new Forward(6))),
+                        new Forward(7))),
                 new ResetCommand(slide,arm, claw),
 
                 new TrajectorySequenceContainerFollowCommand(drivetrain,

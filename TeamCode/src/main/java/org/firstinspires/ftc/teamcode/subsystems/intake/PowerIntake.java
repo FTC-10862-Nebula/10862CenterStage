@@ -16,13 +16,12 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 @Config
 public class PowerIntake extends SubsystemBase {
     public enum IntakePower {
-
         OUTTAKE(-0.7, -0.3),
         INTAKE(1, 0.3,true),//0.7 --.75
         STOP(0,0),
         OUTTAKE_PURPLE(0, -0.5),//-0.4
-        AUTO_INTAKE(0.55, 0.,true),//.3
-        AUTO_OUTTAKE(-0.50, 0);
+        AUTO_INTAKE(0.40, 0.67,true),
+        AUTO_OUTTAKE(-0.2, 0);
 
 
         public final double power, rollerPower;
@@ -40,9 +39,9 @@ public class PowerIntake extends SubsystemBase {
     }
     
     public enum IntakePos {
-        UP(0.66,0.66),
-        FIVE(0.796, .796),
-        DOWN(0.856,0.856);
+        UP(0.76,0.76),
+        FIVE(.9, .9),
+        DOWN(0.965,0.965);
 
         
         public final double rPos, lPos;
@@ -112,7 +111,7 @@ public class PowerIntake extends SubsystemBase {
 
 //    @Deprecated //To FInd Alternative or Not Use
     public boolean isIntaked(){//TODO:Needs to have something where it times
-        if(NebulaConstants.Intake.intakeTime.seconds()>6){
+        if(NebulaConstants.Intake.intakeTime.seconds()>2){
 //            return controller.getVelocityError()>100;//Whatever the Number is
         }
         return false;

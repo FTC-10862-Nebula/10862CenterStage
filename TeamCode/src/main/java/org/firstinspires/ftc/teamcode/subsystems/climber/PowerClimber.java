@@ -17,8 +17,8 @@ public class PowerClimber extends SubsystemBase {
     protected NebulaMotor climber;
 
     public enum ClimbPower {
-        UP(1),
-        DOWN(-0.75);
+        UP(-1),
+        DOWN(0.75);
         public final double power;
         ClimbPower(double power) {
             this.power = power;

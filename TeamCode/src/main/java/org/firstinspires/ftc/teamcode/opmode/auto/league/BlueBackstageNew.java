@@ -73,12 +73,12 @@ public class BlueBackstageNew extends MatchOpMode {
             switch (position) {
                 case LEFT:
                 case MIDDLE:
-                default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(10),
                             new Turn(90)
                     );
+                default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
@@ -93,11 +93,11 @@ public class BlueBackstageNew extends MatchOpMode {
         static TrajectorySequenceContainer getToBack(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 case LEFT:
-                default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Back(29.5)
                     );
+                default:
                 case MIDDLE:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -110,9 +110,9 @@ public class BlueBackstageNew extends MatchOpMode {
         static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 case LEFT:
-                default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
+                            new Forward(1.5),
                             new StrafeLeft(14.5)
                     );
                 case MIDDLE:
@@ -120,6 +120,7 @@ public class BlueBackstageNew extends MatchOpMode {
                             Speed::getBaseConstraints,
                             new StrafeLeft(13.5)
                     );
+                default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
@@ -131,7 +132,6 @@ public class BlueBackstageNew extends MatchOpMode {
         static TrajectorySequenceContainer getPark(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 case LEFT:
-                default:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new StrafeLeft(27)
@@ -141,10 +141,11 @@ public class BlueBackstageNew extends MatchOpMode {
                             Speed::getBaseConstraints,
                             new StrafeLeft(31)
                     );
+                default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(42)
+                            new StrafeLeft(36)
                     );
             }
         }
@@ -204,7 +205,7 @@ public class BlueBackstageNew extends MatchOpMode {
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(
                                         Speed::getBaseConstraints,new Back(7.5))),
-                        new WaitCommand(800),
+                        new WaitCommand(900),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(

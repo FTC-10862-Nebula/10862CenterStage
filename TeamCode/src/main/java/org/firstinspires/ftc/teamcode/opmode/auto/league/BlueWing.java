@@ -117,8 +117,8 @@ public class BlueWing extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new StrafeRight(38),
-                                new Forward(2.5)
+                                new StrafeRight(39.5),
+                                new Forward(2)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
@@ -128,7 +128,7 @@ public class BlueWing extends MatchOpMode {
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                  new StrafeRight(20.5)
+                                  new StrafeRight(22.5)
                         );
                 }
             }
@@ -177,8 +177,8 @@ public class BlueWing extends MatchOpMode {
         Util.logger(this, telemetry, Level.INFO, "Current Position", vision.getFinalPosition());
     }
     public void matchStart() {
-  //      TeamMarkerPipeline.FFPosition position = vision.getPosition();
-        TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.MIDDLE;
+        TeamMarkerPipeline.FFPosition position = vision.getPosition();
+        //      TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.MIDDLE;
 
         drivetrain.setPoseEstimate(DropSpikeMark.startPose.getPose());
         PoseStorage.trajectoryPose = DropSpikeMark.startPose.getPose();

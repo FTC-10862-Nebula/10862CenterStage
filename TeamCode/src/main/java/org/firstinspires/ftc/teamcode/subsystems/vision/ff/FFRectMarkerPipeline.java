@@ -49,7 +49,7 @@ public class FFRectMarkerPipeline extends OpenCvPipeline {
          *For all the color spaces go to
          *https://docs.opencv.org/3.4/d8/d01/group__imgproc__color__conversions.html
          */
-        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_BGR2HSV);
+        Imgproc.cvtColor(input, matHSV, Imgproc.COLOR_RGB2HSV);
         //^^Change this for different image
         //COLOR_RGB2HSV
         //CV_CHAIN_CODE

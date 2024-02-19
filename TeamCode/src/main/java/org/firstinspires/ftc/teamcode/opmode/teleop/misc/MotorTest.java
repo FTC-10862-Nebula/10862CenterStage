@@ -17,7 +17,7 @@ public class MotorTest extends OpMode {
      */
     @Override
     public void init() {
-        motor = hardwareMap.get(DcMotorEx.class, "BR");
+        motor = hardwareMap.get(DcMotorEx.class, "climb");
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
     }

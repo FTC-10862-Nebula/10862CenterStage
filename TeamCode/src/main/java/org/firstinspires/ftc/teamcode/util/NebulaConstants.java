@@ -77,7 +77,8 @@ public class NebulaConstants {
     /** Drive **/
     public static Drive drive;
     public static class Drive {//TODO:FIX CONSTANTS
-        public final static String leftFrontM = "FL",
+        public final static String
+                leftFrontM = "FL",
                 leftRearM = "BL",
                 rightRearM = "BR",
                 rightFrontM = "FR";

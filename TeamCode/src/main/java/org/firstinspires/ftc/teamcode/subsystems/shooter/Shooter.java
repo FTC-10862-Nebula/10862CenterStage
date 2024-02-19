@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class Shooter extends SubsystemBase
 {
     public enum ShooterPos {
-        SHOOT(0),
+        SHOOT(1),
         READY(0);
 
         public final double shooterPos;
@@ -43,9 +43,7 @@ public class Shooter extends SubsystemBase
         telemetry.addData("Shooter Pos: ", shooter.getPosition());
     }
 
-    public Command shoot() {
-        return shooterSetPositionCommand(ShooterPos.SHOOT);
-    }
+    public Command shoot() {return shooterSetPositionCommand(ShooterPos.SHOOT);}
     public Command ready() {
         return shooterSetPositionCommand(ShooterPos.READY);
     }

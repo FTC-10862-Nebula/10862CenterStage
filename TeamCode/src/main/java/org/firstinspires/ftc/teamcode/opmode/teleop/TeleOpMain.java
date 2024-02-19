@@ -23,6 +23,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.sensor.SensorColor;
+import org.firstinspires.ftc.teamcode.subsystems.shooter.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
 import org.firstinspires.ftc.teamcode.util.teleop.GamepadTrigger;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -38,7 +39,7 @@ public class TeleOpMain extends MatchOpMode {
     private Arm arm;
     private Claw claw;
     private AutoDropper dropper;
-//    private Shooter shooter;
+    private Shooter shooter;
     private Climber climb;
    private SensorColor sensorColor;
     public TeleOpMain() {}
@@ -53,7 +54,7 @@ public class TeleOpMain extends MatchOpMode {
         intake = new PowerIntake(telemetry, hardwareMap, true);
         climb = new Climber(telemetry,hardwareMap, true);
         arm = new Arm(telemetry, hardwareMap, true);
-////        shooter = new Shooter(telemetry, hardwareMap, true);
+        shooter = new Shooter(telemetry, hardwareMap, true);
         slide = new Slide(telemetry, hardwareMap, true);
         sensorColor = new SensorColor(telemetry, hardwareMap);
         dropper = new AutoDropper(telemetry, hardwareMap, true);
@@ -87,10 +88,13 @@ public class TeleOpMain extends MatchOpMode {
             .whenReleased(intake.setSetPointCommand(PowerIntake.IntakePower.STOP))
             .whenReleased(new InstantCommand(intake::setUp));
 
-        //Shooter
-//        Button shoot = (new GamepadButton(operatorGamepad, Button.RIGHT_BUMPER))
-//                .whenPressed(shooter.shoot());
-    
+      //  Shooter
+        Button Shoot = (new GamepadButton(driverGamepad,  GamepadKeys.Button.RIGHT_BUMPER))
+              .whenPressed(shooter.shoot())
+                .whenReleased(shooter.ready());
+
+
+
         //Climber
 //        Button climbButton  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.CLIMB))
@@ -100,6 +104,8 @@ public class TeleOpMain extends MatchOpMode {
 //        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
         climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getLeftY));
+        Button ClimbShooter = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+                .whenPressed(climb.setSetPointCommand(Climber.ClimbEnum.SHOOTER));
         Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
                 .whenPressed(new InstantCommand(()->climb.resetEncoder()));
 

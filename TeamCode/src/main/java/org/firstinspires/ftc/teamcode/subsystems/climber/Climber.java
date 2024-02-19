@@ -20,6 +20,7 @@ public class Climber extends SubsystemBase {
 
     public enum ClimbEnum {
         CLIMB(1850),
+        SHOOTER(780),
         REST(0),
         MANUAL(10.0);
         public final double climbPos;

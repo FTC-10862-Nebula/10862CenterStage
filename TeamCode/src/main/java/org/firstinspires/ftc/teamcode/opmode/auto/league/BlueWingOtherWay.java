@@ -68,10 +68,14 @@ public class BlueWingOtherWay extends MatchOpMode {
                             new Back(23)
                     );
                 case MIDDLE:
-                case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new Back(30)
+                    );
+                case LEFT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(35)
                     );
             }
         }
@@ -106,8 +110,8 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new Forward(28),
-                            new StrafeLeft(2)
+                            new StrafeRight(6),
+                new Forward(28)
 
                     );
                 case MIDDLE:
@@ -115,8 +119,8 @@ public class BlueWingOtherWay extends MatchOpMode {
                             Speed::getFastConstraints,
                             new Forward(4),
                             new Turn(90),
-                            new StrafeLeft(2),
-                            new Forward(26.5)
+                            new StrafeLeft(4.5),
+                            new Forward(26)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -124,7 +128,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                             new Forward(6),
                             new Turn(90),
                             new Forward(13),
-                            new StrafeLeft(13)
+                            new StrafeLeft(14)
 
                     );
             }
@@ -137,12 +141,12 @@ public class BlueWingOtherWay extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new StrafeRight(36),
-                            new Back(90)
+                            new Back(100)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(31),
+                            new StrafeRight(34.5),
                             new Back(90)
                     );
                 case RIGHT:
@@ -161,19 +165,19 @@ public class BlueWingOtherWay extends MatchOpMode {
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
                         new StrafeLeft(27),
-                        new Back(27)
+                        new Back(17)
                 );
             case MIDDLE:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeLeft(38.5),
+                        new StrafeLeft(36),
                         new Back(25)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeLeft(44.5),
-                        new Back(22)
+                        new StrafeLeft(45.5),
+                        new Back(26)
                 );
         }
     }

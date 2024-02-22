@@ -200,7 +200,7 @@ public class RedBackstageNew extends MatchOpMode {
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         DropYellowPixel.getDrop(position)),
                 new DisplacementCommand(3.5,
-                        new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
+                        new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_CLOSE))
                         ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                         new TrajectorySequenceContainer(

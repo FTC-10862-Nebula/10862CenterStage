@@ -28,6 +28,7 @@ import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.LineTo;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeLeft;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRight;
@@ -60,24 +61,44 @@ public class RedWingOtherWay extends MatchOpMode {
     public static class DropSpikeMark {
         public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
 
+        static TrajectorySequenceContainer getMarker(TeamMarkerPipeline.FFPosition position) {
+            switch (position) {
+                default:
+                case LEFT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(23)
+                    );
+                case MIDDLE:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(30)
+                    );
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(35)
+                    );
+            }
+        }
+
         static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 default:
                 case LEFT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeRight(16.5),
-                            new Forward(1)
+                            Speed::getFastConstraints,
+                            new StrafeRight(16.5)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Back(4)
+                            Speed::getFastConstraints,
+                            new Forward(0.1)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
+                            Speed::getFastConstraints,
                             new Turn(-90),
                             new Back(2)
                     );
@@ -91,28 +112,28 @@ public class RedWingOtherWay extends MatchOpMode {
                 default:
                 case LEFT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Forward(4),
+                            Speed::getFastConstraints,
+                            new Forward(6),
                             new Turn(-90),
-                            new Forward(15),
-                            new StrafeRight(10)
+                            new Forward(13),
+                            new StrafeRight(14)
 
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
+                            Speed::getFastConstraints,
                             new Forward(4),
                             new Turn(-90),
-                            new Forward(23),
-                            new StrafeRight(5)
+                            new StrafeRight(4.5),
+                            new Forward(26)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Forward(26),
-                            new StrafeRight(6)
-                    );
+                            Speed::getFastConstraints,
+                            new StrafeLeft(6),
+                            new Forward(26)
+                            );
             }
         }
 
@@ -121,40 +142,46 @@ public class RedWingOtherWay extends MatchOpMode {
                 default:
                 case LEFT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeLeft(25)
+                            Speed::getFastConstraints,
+                            new StrafeLeft(31),
+                            new Back(90)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeLeft(24)
+                            Speed::getFastConstraints,
+                            new StrafeLeft(34.5),
+                            new Back( 90)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeLeft(18)
+                            Speed::getFastConstraints,
+                            new StrafeLeft(36),
+                            new Back(100)
                     );
             }
         }
     }
+
     static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
         switch (position) {
             default:
             case LEFT:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(30)
+                        Speed::getFastConstraints,
+                        new StrafeRight(45.5),
+                        new Back(26)
                 );
             case MIDDLE:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(20)
+                        Speed::getFastConstraints,
+                        new StrafeRight(36),
+                        new Back(25)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(30),
-                        new Forward(2)
+                        Speed::getFastConstraints,
+                        new StrafeRight(27),
+                        new Back(17)
                 );
         }
     }
@@ -170,7 +197,7 @@ public class RedWingOtherWay extends MatchOpMode {
             case MIDDLE:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeRight(34.3)
+                        new StrafeRight(24.3)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
@@ -211,9 +238,10 @@ public class RedWingOtherWay extends MatchOpMode {
 
         schedule(
                 new SequentialCommandGroup(
+                new SequentialCommandGroup(
                         /*** PurplePixel ***/
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getFastConstraints, new Back(27))),
+                                DropSpikeMark.getMarker(position)),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 DropSpikeMark.getTurnDrop(position)),
                         dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
@@ -222,14 +250,15 @@ public class RedWingOtherWay extends MatchOpMode {
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         DropSpikeMark.getTurn(position)),
-                                new InstantCommand(intake::setFive),
                                 claw.setFClaw(Claw.ClawPos.OPEN_POS)
                         ),
-                        new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                DropSpikeMark.getStrafe(position)),
+                        new InstantCommand(intake::setFive),
                         new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
+
                         /**drop pixel**/
                         new SequentialCommandGroup(
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        DropSpikeMark.getStrafe(position)),
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         getDrop(position)),
                                 new DisplacementCommand(3.5,
@@ -237,10 +266,10 @@ public class RedWingOtherWay extends MatchOpMode {
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                                        new Back(8.5))),
+                                        new Back(9))),
 //                new WaitCommand(300),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
-                        new WaitCommand(800),
+                        new WaitCommand(500),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                         new Forward(6))),
@@ -252,6 +281,7 @@ public class RedWingOtherWay extends MatchOpMode {
                         /* Save Pose and end opmode*/
                         run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
                         run(this::stop)
+                )
                 )
         );
     }

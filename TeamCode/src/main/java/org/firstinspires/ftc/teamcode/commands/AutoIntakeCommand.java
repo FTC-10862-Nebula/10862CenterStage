@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.mec.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.sensor.SensorColor;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeLeft;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 
@@ -26,9 +27,11 @@ public class AutoIntakeCommand extends SequentialCommandGroup{
                 new ParallelCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
                         new TrajectorySequenceContainer(Speed::getFastConstraints,
-        //                    new StrafeLeft(27),
-                            new Back(110)),
-                        new DisplacementCommand(5,
+          //                  new StrafeLeft(27),
+        //                    new Back(120)),
+                                new Forward(0.1)),
+
+        new DisplacementCommand(5,
                             intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_OUTTAKE)))
 //                    intake.setSetPointCommand(PowerIntake.IntakePower.AUTO_OUTTAKE)
                 ),

@@ -59,26 +59,41 @@ public class BlueWingOtherWay extends MatchOpMode {
     public static class DropSpikeMark {
         public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
 
+        static TrajectorySequenceContainer getMarker(TeamMarkerPipeline.FFPosition position) {
+            switch (position) {
+                default:
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(23)
+                    );
+                case MIDDLE:
+                case LEFT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new Back(30)
+                    );
+            }
+        }
         static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 default:
                 case LEFT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
+                            Speed::getFastConstraints,
                             new Turn(90),
-                            new Back(3)
+                            new Back(2)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Back(4)
+                            Speed::getFastConstraints,
+                            new Forward(0.1)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeRight(16.5),
-                            new Forward(1)
+                            Speed::getFastConstraints,
+                            new StrafeRight(16.5)
                     );
 
 
@@ -90,71 +105,75 @@ public class BlueWingOtherWay extends MatchOpMode {
                 default:
                 case LEFT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Forward(26),
-                            new StrafeLeft(6)
+                            Speed::getFastConstraints,
+                            new Forward(28),
+                            new StrafeLeft(2)
 
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new Forward(10),
-                            new Turn(90),
-                            new Forward(17),
-                            new StrafeLeft(10)
-
-                    );
-                case RIGHT:
-                    return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
+                            Speed::getFastConstraints,
                             new Forward(4),
                             new Turn(90),
-                            new Forward(23),
-                            new StrafeLeft(5)
-
-                    );
-            }
-        }
-        static TrajectorySequenceContainer getStrafe(TeamMarkerPipeline.FFPosition position) {
-            switch (position) {
-                default:
-                case LEFT:
-                    return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeRight(25)
-                    );
-                case MIDDLE:
-                    return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeRight(38.5)
+                            new StrafeLeft(2),
+                            new Forward(26.5)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
-                            Speed::getBaseConstraints,
-                            new StrafeRight(18)
+                            Speed::getFastConstraints,
+                            new Forward(6),
+                            new Turn(90),
+                            new Forward(13),
+                            new StrafeLeft(13)
+
                     );
             }
         }
     }
+        static TrajectorySequenceContainer getStrafes(TeamMarkerPipeline.FFPosition position) {
+           switch (position) {
+                default:
+                case LEFT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeRight(36),
+                            new Back(90)
+                    );
+                case MIDDLE:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeRight(31),
+                            new Back(90)
+                    );
+                case RIGHT:
+                    return new TrajectorySequenceContainer(
+                            Speed::getFastConstraints,
+                            new StrafeRight(31),
+                            new Back(90)
+                    );
+            }
+        }
 
     static TrajectorySequenceContainer getDrop(TeamMarkerPipeline.FFPosition position) {
         switch (position) {
             default:
             case LEFT:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(10),
-                        new Forward(2)
+                        Speed::getFastConstraints,
+                        new StrafeLeft(27),
+                        new Back(27)
                 );
             case MIDDLE:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(20)
+                        Speed::getFastConstraints,
+                        new StrafeLeft(38.5),
+                        new Back(25)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
-                        Speed::getBaseConstraints,
-                        new StrafeRight(30)
+                        Speed::getFastConstraints,
+                        new StrafeLeft(44.5),
+                        new Back(22)
                 );
         }
     }
@@ -170,7 +189,7 @@ public class BlueWingOtherWay extends MatchOpMode {
             case MIDDLE:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeLeft(34.3)
+                        new StrafeLeft(24.3)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
@@ -213,7 +232,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                 new SequentialCommandGroup(
                         /*** YellowPixel ***/
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getFastConstraints, new Back(27))),
+                                RedWingOtherWay.DropSpikeMark.getMarker(position)),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 DropSpikeMark.getTurnDrop(position)),
                         dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
@@ -223,15 +242,15 @@ public class BlueWingOtherWay extends MatchOpMode {
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         DropSpikeMark.getTurn(position)),
                                 new InstantCommand(intake::setFive),
-                                claw.setFClaw(Claw.ClawPos.OPEN_POS),
-                                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                         DropSpikeMark.getStrafe(position))
+                                claw.setFClaw(Claw.ClawPos.OPEN_POS)
                         ),
 
                         new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
 
                         /**drop pixel**/
                         new SequentialCommandGroup(
+                                new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                        getStrafes(position)),
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         getDrop(position)),
                                 new DisplacementCommand(3.5,
@@ -247,9 +266,9 @@ public class BlueWingOtherWay extends MatchOpMode {
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                         new Forward(6))),
                         new ResetCommand(slide, arm, claw),
-
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 getPark(position)),
+
 
                         /* Save Pose and end opmode*/
                         run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),

@@ -97,7 +97,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(16.5)
+                            new StrafeLeft(15)
                     );
 
 
@@ -110,25 +110,26 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(6),
-                new Forward(28)
+                            new Forward(27),
+                            new StrafeRight(8.5)
 
-                    );
+
+                            );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new Forward(4),
                             new Turn(90),
                             new StrafeLeft(4.5),
-                            new Forward(26)
+                            new Forward(23.5)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new Forward(6),
                             new Turn(90),
-                            new Forward(13),
-                            new StrafeLeft(14)
+                            new Forward(12.7),
+                            new StrafeLeft(15)
 
                     );
             }
@@ -152,7 +153,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(31),
+                            new StrafeRight(34),
                             new Back(90)
                     );
             }
@@ -176,7 +177,7 @@ public class BlueWingOtherWay extends MatchOpMode {
             case RIGHT:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeLeft(45.5),
+                        new StrafeLeft(46.5),
                         new Back(26)
                 );
         }
@@ -236,7 +237,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                 new SequentialCommandGroup(
                         /*** YellowPixel ***/
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                RedWingOtherWay.DropSpikeMark.getMarker(position)),
+                                DropSpikeMark.getMarker(position)),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 DropSpikeMark.getTurnDrop(position)),
                         dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
@@ -245,10 +246,9 @@ public class BlueWingOtherWay extends MatchOpMode {
                         new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         DropSpikeMark.getTurn(position)),
-                                new InstantCommand(intake::setFive),
                                 claw.setFClaw(Claw.ClawPos.OPEN_POS)
                         ),
-
+                        new InstantCommand(intake::setFive),
                         new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
 
                         /**drop pixel**/
@@ -267,7 +267,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new WaitCommand(800),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
-                                new TrajectorySequenceContainer(Speed::getBaseConstraints,
+                                new TrajectorySequenceContainer(Speed::getFastConstraints,
                                         new Forward(6))),
                         new ResetCommand(slide, arm, claw),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,

@@ -128,7 +128,7 @@ public class BlueWing extends MatchOpMode {
                     case RIGHT:
                         return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                  new StrafeRight(22.5)
+                                  new StrafeRight(23.5)
                         );
                 }
             }

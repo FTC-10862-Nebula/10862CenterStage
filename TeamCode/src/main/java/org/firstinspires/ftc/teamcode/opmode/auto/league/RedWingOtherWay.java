@@ -115,7 +115,7 @@ public class RedWingOtherWay extends MatchOpMode {
                             Speed::getFastConstraints,
                             new Forward(6),
                             new Turn(-90),
-                            new Forward(13),
+                            new Forward(12),
                             new StrafeRight(14)
 
                     );
@@ -125,14 +125,14 @@ public class RedWingOtherWay extends MatchOpMode {
                             new Forward(4),
                             new Turn(-90),
                             new StrafeRight(4.5),
-                            new Forward(26)
+                            new Forward(24)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new StrafeLeft(6),
-                            new Forward(26)
+                            new Forward(28)
                             );
             }
         }
@@ -144,7 +144,7 @@ public class RedWingOtherWay extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new StrafeLeft(31),
-                            new Back(90)
+                            new Back(110)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
@@ -169,18 +169,18 @@ public class RedWingOtherWay extends MatchOpMode {
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
                         new StrafeRight(45.5),
-                        new Back(26)
+                        new Back(28)
                 );
             case MIDDLE:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
                         new StrafeRight(36),
-                        new Back(25)
+                        new Back(28)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
-                        new StrafeRight(27),
+                        new StrafeRight(29),
                         new Back(17)
                 );
         }

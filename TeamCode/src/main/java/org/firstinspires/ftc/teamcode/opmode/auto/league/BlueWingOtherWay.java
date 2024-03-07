@@ -138,6 +138,7 @@ public class BlueWingOtherWay extends MatchOpMode {
         static TrajectorySequenceContainer getStrafes(TeamMarkerPipeline.FFPosition position) {
            switch (position) {
                 default:
+                    //ADD LINETO
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,

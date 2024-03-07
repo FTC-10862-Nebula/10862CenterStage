@@ -72,7 +72,7 @@ public class RedWing extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Forward(2.5)
+                            new Back(1.5)
                     );
 
                 case RIGHT:
@@ -216,11 +216,9 @@ public class RedWing extends MatchOpMode {
                 /*** get pixel ***/
                 new ParallelCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        DropSpikeMark.getTurn(position)),
-                    new InstantCommand(intake::setFive),
-                    claw.setFClaw(Claw.ClawPos.OPEN_POS)
+                        DropSpikeMark.getTurn(position))
                 ),
-                new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
+          //      new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
 
                 /**drop pixel**/
                 new SequentialCommandGroup(
@@ -233,7 +231,7 @@ public class RedWing extends MatchOpMode {
                 ),
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                     new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                        new Back(8.5))),
+                        new Back(10))),
 //                new WaitCommand(300),
                 claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                 new WaitCommand(800),

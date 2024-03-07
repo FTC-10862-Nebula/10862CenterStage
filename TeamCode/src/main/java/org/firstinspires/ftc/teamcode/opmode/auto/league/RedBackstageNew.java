@@ -140,7 +140,8 @@ public class RedBackstageNew extends MatchOpMode {
              case MIDDLE:
                  return new TrajectorySequenceContainer(
                          Speed::getBaseConstraints,
-                         new StrafeLeft(29)
+                         new StrafeLeft(29
+                         )
                          );
              case RIGHT:
                  return new TrajectorySequenceContainer(

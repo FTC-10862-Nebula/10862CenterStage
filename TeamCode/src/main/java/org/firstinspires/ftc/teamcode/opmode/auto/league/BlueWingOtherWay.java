@@ -147,7 +147,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(34.5),
+                            new StrafeRight(34),
                             new Back(90)
                     );
                 case RIGHT:
@@ -262,7 +262,7 @@ public class BlueWingOtherWay extends MatchOpMode {
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                                        new Back(9.5))),
+                                        new Back(11.5))),
 //                new WaitCommand(300),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new WaitCommand(800),

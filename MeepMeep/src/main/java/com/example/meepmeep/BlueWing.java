@@ -8,18 +8,22 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class BlueWing {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
-
+        MeepMeep meepMeep = new MeepMeep(500);
+//MIDDLE AUTO OTHER AUTOS IN BLUEWINGNOTCOMMANDBASED
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(45, 45, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-35, 60, Math.toRadians(270)))
-                                .splineTo(new Vector2d(-30,34), Math.toRadians(45))
+                              //  .forward(8)
                                 .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(-58,35), Math.toRadians(180))
+                                .lineToLinearHeading(new Pose2d(-44,24))
+                                .strafeRight(13)
+                                .back(17)
                                 .forward(110)
-                                .strafeLeft(25)
+                                .strafeLeft(50)
+                                .forward(10)
+
                                 .build()
                 );
 

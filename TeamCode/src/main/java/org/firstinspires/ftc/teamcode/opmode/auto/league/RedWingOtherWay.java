@@ -72,7 +72,7 @@ public class RedWingOtherWay extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new Back(30)
+                            new Back(32)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -122,7 +122,7 @@ public class RedWingOtherWay extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new Forward(4),
+                            new Forward(7),
                             new Turn(-90),
                             new StrafeRight(4.5),
                             new Forward(24)
@@ -149,7 +149,7 @@ public class RedWingOtherWay extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(34.5),
+                            new StrafeLeft(34),
                             new Back( 90)
                     );
                 case RIGHT:
@@ -175,7 +175,7 @@ public class RedWingOtherWay extends MatchOpMode {
                 return new TrajectorySequenceContainer(
                         Speed::getFastConstraints,
                         new StrafeRight(36),
-                        new Back(28)
+                        new Back(26)
                 );
             case RIGHT:
                 return new TrajectorySequenceContainer(
@@ -266,7 +266,7 @@ public class RedWingOtherWay extends MatchOpMode {
                         ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
-                                        new Back(9))),
+                                        new Back(11))),
 //                new WaitCommand(300),
                         claw.setBothClaw(Claw.ClawPos.OPEN_POS),
                         new WaitCommand(500),

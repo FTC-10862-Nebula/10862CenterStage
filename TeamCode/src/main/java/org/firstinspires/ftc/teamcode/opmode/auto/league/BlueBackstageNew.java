@@ -104,7 +104,7 @@ public class BlueBackstageNew extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(37)
+                            new Back(38)
                     );
             }
         }

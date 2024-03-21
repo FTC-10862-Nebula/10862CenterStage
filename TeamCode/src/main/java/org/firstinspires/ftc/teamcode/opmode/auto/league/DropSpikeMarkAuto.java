@@ -62,7 +62,7 @@ public class DropSpikeMarkAuto extends MatchOpMode {
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                 Speed::getBaseConstraints,
-                                new Forward(1)
+                                new Forward(3)
                             );
                         default:
                         case RIGHT:

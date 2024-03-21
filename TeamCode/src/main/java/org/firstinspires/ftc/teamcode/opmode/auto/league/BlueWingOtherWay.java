@@ -253,14 +253,15 @@ public class BlueWingOtherWay extends MatchOpMode {
                         new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
 
                         /**drop pixel**/
-                        new SequentialCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         getStrafes(position)),
+                                new ParallelCommandGroup(
                                 new TrajectorySequenceContainerFollowCommand(drivetrain,
                                         getDrop(position)),
                                 new DisplacementCommand(3.5,
                                         new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
-                        ),
+                        )
+                ),
                         new TrajectorySequenceContainerFollowCommand(drivetrain,
                                 new TrajectorySequenceContainer(Speed::getBaseConstraints,
                                         new Back(11.5))),
@@ -278,7 +279,6 @@ public class BlueWingOtherWay extends MatchOpMode {
                         /* Save Pose and end opmode*/
                         run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
                         run(this::stop)
-                )
         );
     }
 }

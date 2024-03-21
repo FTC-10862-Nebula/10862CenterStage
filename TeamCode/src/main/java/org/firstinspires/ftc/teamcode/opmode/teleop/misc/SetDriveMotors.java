@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 //@Disabled
+@Disabled
 @Config
 @TeleOp
 public class SetDriveMotors extends MatchOpMode {

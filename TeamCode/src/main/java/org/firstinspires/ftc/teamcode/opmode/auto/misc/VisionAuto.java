@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.misc;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
+@Disabled
 @Autonomous
 public class VisionAuto extends MatchOpMode {
     private FFVision FFVision;

@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.AutoIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
@@ -38,7 +39,7 @@ import org.opencv.video.SparsePyrLKOpticalFlow;
 
 import java.util.logging.Level;
 
-//@Disabled
+@Disabled
 @Autonomous
 @Config
 public class RedWingOtherWay extends MatchOpMode {

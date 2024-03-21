@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.league;
 
-import static org.firstinspires.ftc.teamcode.opmode.auto.league.RedWing.DropPixel.getPark;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
@@ -32,6 +32,7 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRi
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
 import java.util.logging.Level;
+@Disabled
 @Autonomous(preselectTeleOp = "TeleOpMain")
 public class BlueBackstageNew extends MatchOpMode {
     // Subsystems

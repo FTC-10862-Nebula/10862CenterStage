@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.league;
 
-import static org.firstinspires.ftc.teamcode.opmode.auto.league.RedWing.DropPixel.getPark;
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;

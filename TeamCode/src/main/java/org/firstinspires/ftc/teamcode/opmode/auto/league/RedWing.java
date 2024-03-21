@@ -54,11 +54,10 @@ public class RedWing extends MatchOpMode {
     private SensorColor sensorColor;
 
 
-    public static DropSpikeMark aDropSpikeMark;
-
-    public static class DropSpikeMark {
+//    public static DropSpikeMark aDropSpikeMark;
+//
+//    public static class DropSpikeMark {
         public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
-
         //^^ Has Wrong Coordinates
         static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
@@ -66,20 +65,20 @@ public class RedWing extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(31),
+                            new Back(37.5),
                             new Turn(90),
                             new Back(3)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(30)
+                            new Back(35.1)
                     );
 
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(30),
+                            new Back(37.5),
                             new Turn(-90),
                             new Back(3)
                     );
@@ -92,50 +91,48 @@ public class RedWing extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeLeft(31.5)
-                            //new Turn(180),
-                           // new Forward(23)
-                            // new Forward(5)
+                            new Forward(1.3),
+                            new StrafeLeft(31.7)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new StrafeRight(29.5),
-                            new Turn(90),
-                            new StrafeRight(33)
+                            new Turn(-90),
+                            new StrafeRight(34.7)
 
                     );
-
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(3),
-                            new StrafeRight(33)
+                            new StrafeRight(33.8)
                     );
             }
         }
-    }
+//    }
 
-    public static DropPixel dropPixel;
-
-    public static class DropPixel {
         static TrajectorySequenceContainer getBack(TeamMarkerPipeline.FFPosition position) {
             switch (position) {
                 default:
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getFastConstraints,
+                                //97
                                 new Turn(180),
                                 new Back(97)
                         );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new Back(120)
+                            //120
+//                            new Turn(-90),
+                            new Back(130)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
+                            //93
                             new Back(93)
                     );
             }
@@ -147,20 +144,20 @@ public class RedWing extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(23.5),
+                            new StrafeLeft(29),
                             new Back(7.5)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(33),
+                            new StrafeLeft(38),
                             new Back(7.5)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(39.5),
+                            new StrafeLeft(45),
                             new Back(7.5)
                     );
             }
@@ -171,25 +168,25 @@ public class RedWing extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(26.5),
-                            new Back(10)
+                            new StrafeRight(26),
+                            new Back(12)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new StrafeRight(34),
-                            new Back(5)
+                            new Back(10)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(39),
-                           new Back(10)
+                            new StrafeRight(40),
+                           new Back(12.5)
                     );
             }
         }
-    }
+
 
 
     @Override
@@ -218,31 +215,31 @@ public class RedWing extends MatchOpMode {
       TeamMarkerPipeline.FFPosition position = vision.getPosition();
       //  TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.RIGHT;
 
-        drivetrain.setPoseEstimate(DropSpikeMark.startPose.getPose());
-        PoseStorage.trajectoryPose = DropSpikeMark.startPose.getPose();
+        drivetrain.setPoseEstimate(startPose.getPose());
+        PoseStorage.trajectoryPose = startPose.getPose();
 
         schedule(
             new SequentialCommandGroup(
                 /*** YellowPixel ***/
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                       DropSpikeMark.getTurnDrop(position)),
+                       getTurnDrop(position)),
                     dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
 
                 /*** get pixel ***/
                 new ParallelCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        DropSpikeMark.getTurn(position))
+                        getTurn(position))
                 ),
           //      new AutoIntakeCommand(claw, intake, sensorColor, drivetrain),
 
                 /**drop pixel**/
                 new SequentialCommandGroup(
                     new TrajectorySequenceContainerFollowCommand(drivetrain,
-                            DropPixel.getBack(position)) ,
+                            getBack(position)),
                     new ParallelCommandGroup(
-                    new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        DropPixel.getDrop(position)),
-                    new DisplacementCommand(3.5,
+                        new TrajectorySequenceContainerFollowCommand(drivetrain,
+                            getDrop(position)),
+                        new DisplacementCommand(3.5,
                         new SlideCommand(slide, arm, claw, Slide.SlideEnum.AUTO_LOW))
                     )
                 ),
@@ -258,7 +255,7 @@ public class RedWing extends MatchOpMode {
                         ),
 
                 new TrajectorySequenceContainerFollowCommand(drivetrain,
-                    DropPixel.getPark(position)),
+                    getPark(position)),
 
                 /* Save Pose and end opmode*/
                 run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),

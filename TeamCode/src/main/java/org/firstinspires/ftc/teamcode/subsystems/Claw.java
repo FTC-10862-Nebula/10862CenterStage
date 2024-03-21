@@ -43,7 +43,7 @@ public class Claw extends SubsystemBase
             NebulaConstants.Claw.minAngle,
             NebulaConstants.Claw.maxAngle,
             isEnabled);
-        setBothClaw(ClawPos.OPEN_POS);
+        setBothClaw(ClawPos.CLOSE_POS);
 
         this.telemetry = tl;
     }

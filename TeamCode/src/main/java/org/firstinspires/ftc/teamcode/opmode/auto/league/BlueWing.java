@@ -62,7 +62,7 @@ public class BlueWing extends MatchOpMode {
                         case LEFT:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Back(30),
+                                    new Back(33),
                                     new Turn(90),
                                     new Back(3.6)
                                     );
@@ -75,7 +75,7 @@ public class BlueWing extends MatchOpMode {
                        case RIGHT:
                            return new TrajectorySequenceContainer(
                                    Speed::getBaseConstraints,
-                                   new Back(31),
+                                   new Back(33),
                                    new Turn(-90)
 //                                   new Back(.1)
                             );
@@ -90,7 +90,7 @@ public class BlueWing extends MatchOpMode {
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
                                     new Forward(3),
-                                    new StrafeLeft(33)
+                                    new StrafeLeft(32)
                             );
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
@@ -116,20 +116,20 @@ public class BlueWing extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             //change to 93 today
-                            new Back(30)
+                            new Back(93)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             //change to 120 today
-                            new Back(34)
+                            new Back(120)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             new Turn(180),
                             //change to 97 today
-                            new Back(30)
+                            new Back(97)
                     );
             }
         }

@@ -29,6 +29,8 @@ import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.LineToConstantHeading;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.LineToLinearHeading;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeLeft;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRight;
@@ -76,7 +78,9 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new Back(35)
+                            //new Back(35)
+                new LineToConstantHeading(23,24)
+
                     );
             }
         }
@@ -129,8 +133,8 @@ public class BlueWingOtherWay extends MatchOpMode {
                             Speed::getFastConstraints,
                             new Forward(6),
                             new Turn(90),
-                            new Forward(12.4),
-                            new StrafeLeft(15)
+                            new Forward(12.4)
+                     //       new StrafeLeft(15)
 
                     );
             }
@@ -143,18 +147,22 @@ public class BlueWingOtherWay extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(34.5),
+                            new LineToConstantHeading(34,50),
+                        //    ***TUNE
+                         //   new StrafeRight(34.5),
                             new Back(100)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(34),
+                         new LineToConstantHeading(36,70),
+                         //   new StrafeRight(34),
                             new Back(90)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
+                            new LineToConstantHeading(38,90),
                             new StrafeRight(34),
                             new Back(90)
                     );

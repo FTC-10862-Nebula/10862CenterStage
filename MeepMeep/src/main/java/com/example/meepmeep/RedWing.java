@@ -15,9 +15,9 @@ public class RedWing {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-34,-60, Math.toRadians(90)))
-                                .splineTo(new Vector2d(-30,-34), Math.toRadians(45))
+                                .splineTo(new Vector2d(-32,-34), Math.toRadians(45))
                                 .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(-58,-34), Math.toRadians(180))
+                                .splineToSplineHeading(new Pose2d(-60,-35), Math.toRadians(180))
                                 .forward(110)
                                 .strafeRight(25)
                                 .build()

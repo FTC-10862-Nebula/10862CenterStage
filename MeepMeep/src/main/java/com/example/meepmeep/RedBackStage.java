@@ -11,17 +11,17 @@ import java.util.Vector;
 
 public class RedBackStage {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(600);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(10, -65, Math.toRadians(90)))
-                                .splineTo(new Vector2d(22, -34), Math.toRadians(45))
+                                .splineTo(new Vector2d(56, -40), Math.toRadians(0))
                                 //Drop Pixel
                                 .setReversed(true)
-                                .splineToLinearHeading(new Pose2d(56, -40), Math.toRadians(-180))
+                                .splineToLinearHeading(new Pose2d(22, -30), Math.toRadians(180))
                                 //Drop Pixel on  backboard
                                 .splineTo(new Vector2d(0, -12), Math.toRadians(360))
                                 .setReversed(false)

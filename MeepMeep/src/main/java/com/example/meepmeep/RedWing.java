@@ -8,18 +8,32 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class RedWing {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(600);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(new Pose2d(-34,-60, Math.toRadians(90)))
-                                .splineTo(new Vector2d(-30,-34), Math.toRadians(45))
+                                .splineToSplineHeading(new Pose2d(-56,-30), Math.toRadians(180))
                                 .setReversed(true)
-                                .splineToSplineHeading(new Pose2d(-58,-34), Math.toRadians(180))
-                                .forward(110)
-                                .strafeRight(25)
+                                .lineToConstantHeading(new Vector2d(-60,-36))
+                                .waitSeconds(1)
+                                .lineToConstantHeading(new Vector2d(-40, -58))
+                                .forward(90)
+                                .strafeLeft(25)
+                                .waitSeconds(1)
+                                . strafeRight(25)
+                                .back(90)
+                                .lineToConstantHeading(new Vector2d(-60,-36))
+                                .waitSeconds(1)
+                                .lineToConstantHeading(new Vector2d(-40,-58))
+                                .forward(90)
+                                .strafeLeft(25)
+                                .waitSeconds(1)
+                                . strafeRight(25)
+
+
                                 .build()
                 );
 

@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.StrafeRi
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Turn;
 import java.util.logging.Level;
-@Disabled
+//@Disabled
 @Autonomous(preselectTeleOp = "TeleOpMain")
 public class RedBackstageNew extends MatchOpMode {
     // Subsystems

@@ -41,7 +41,7 @@ public class PowerIntake extends SubsystemBase {
     public enum IntakePos {
         UP(0.76,0.76),
         FIVE(.9, .9),
-        DOWN(0.965,0.965);
+        DOWN(0.925,0.925);
 
         
         public final double rPos, lPos;

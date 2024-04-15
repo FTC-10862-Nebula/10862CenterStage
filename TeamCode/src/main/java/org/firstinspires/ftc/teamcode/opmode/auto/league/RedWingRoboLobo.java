@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.opmode.auto.league;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.AutoIntakeCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
 import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
@@ -21,8 +19,8 @@ import org.firstinspires.ftc.teamcode.subsystems.drive.mec.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.intake.PowerIntake;
 import org.firstinspires.ftc.teamcode.subsystems.sensor.SensorColor;
 import org.firstinspires.ftc.teamcode.subsystems.slide.Slide;
-import org.firstinspires.ftc.teamcode.subsystems.vision.ff.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
+import org.firstinspires.ftc.teamcode.subsystems.vision.ff.TeamMarkerPipeline;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
@@ -39,7 +37,7 @@ import java.util.logging.Level;
 //@Disabled
 @Autonomous
 @Config
-public class RedWing extends MatchOpMode {
+public class RedWingRoboLobo extends MatchOpMode {
     // Subsystems
     private Drivetrain drivetrain;
     //    private AprilTagVision aprilTagVision;
@@ -72,7 +70,7 @@ public class RedWing extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(31.1)
+                            new Back(31.5)
                     );
 
                 case RIGHT:
@@ -92,21 +90,23 @@ public class RedWing extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(1.3),
-                            new StrafeLeft(25.6)
+                            new StrafeRight(41)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new StrafeRight(26),
-                            new Turn(-90),
-                            new StrafeRight(30.8)
+                                new Forward(29),
+                                new Turn (-89)
+//                            new StrafeRight(26),
+//                            new Turn(-90),
+//                            new StrafeRight(30.8)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(3),
-                            new StrafeRight(26.9)
+                            new StrafeLeft(41)
                     );
             }
         }
@@ -127,7 +127,7 @@ public class RedWing extends MatchOpMode {
                             Speed::getFastConstraints,
                             //120
 //                            new Turn(-90),
-                            new Back(120)
+                            new Back(94)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -144,20 +144,20 @@ public class RedWing extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeLeft(28.5),
+                            new StrafeRight(41),
                             new Back(7.8)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeLeft(33),
+                            new StrafeRight(37),
                             new Back(7.8)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeLeft(44.),
+                            new StrafeRight(33),
                             new Back(7.9)
                     );
             }
@@ -168,20 +168,20 @@ public class RedWing extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(26)
+                            new StrafeLeft(26)
 //                            new Back(12)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(28)
+                            new StrafeLeft(30)
 //                            new Back(10)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(43)
+                            new StrafeLeft(43)
 //                           new Back(12.5)
                     );
             }
@@ -194,7 +194,7 @@ public class RedWing extends MatchOpMode {
         drivetrain = new Drivetrain(new MecanumDrive(hardwareMap, telemetry), telemetry);
         vision = new FFVision(hardwareMap, telemetry);
         intake = new PowerIntake(telemetry, hardwareMap, true);
-        arm = new Arm(telemetry, hardwareMap, true);
+        arm = new Arm(telemetry, hardwareMap,true);
 //        climber = new Climber(telemetry, hardwareMap, true);
 //        climber.setSetPointCommand(Climber.ClimbEnum.REST);
         claw = new Claw(telemetry, hardwareMap, true);
@@ -217,8 +217,11 @@ public class RedWing extends MatchOpMode {
 
         drivetrain.setPoseEstimate(startPose.getPose());
         PoseStorage.trajectoryPose = startPose.getPose();
+        claw.setBothClaw(Claw.ClawPos.CLOSE_POS);
 
         schedule(
+                claw.setBothClaw(Claw.ClawPos.CLOSE_POS),
+
             new SequentialCommandGroup(
                 /*** YellowPixel ***/
                 new TrajectorySequenceContainerFollowCommand(drivetrain,

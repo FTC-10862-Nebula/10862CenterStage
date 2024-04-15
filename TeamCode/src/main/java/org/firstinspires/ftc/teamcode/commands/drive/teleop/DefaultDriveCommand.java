@@ -28,10 +28,10 @@ public class DefaultDriveCommand extends CommandBase {
 
     @Override
     public void execute() {
-        if(driverGamepad.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+        if(driverGamepad.getButton(GamepadKeys.Button.RIGHT_BUMPER)) {
             multiplier = 0.55;
         } else {
-            multiplier = 12;//5.5
+            multiplier = 10;//5.5
         }
         if(driverGamepad.getButton(GamepadKeys.Button.A)) {
             drive.reInitializeIMU();

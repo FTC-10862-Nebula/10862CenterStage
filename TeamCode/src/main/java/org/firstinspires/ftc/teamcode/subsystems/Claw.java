@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.util.nebulaHardware.NebulaServo;
 public class Claw extends SubsystemBase
 {
     public enum ClawPos {
-        CLOSE_POS(0.18,0.71),
+        CLOSE_POS(0.175,0.715),
 //        AUTO_CLOSE (0.5),
 //        INTAKE_OPEN(0.13,0),
         OPEN_POS(0.30,0.61);
@@ -43,8 +43,9 @@ public class Claw extends SubsystemBase
             NebulaConstants.Claw.minAngle,
             NebulaConstants.Claw.maxAngle,
             isEnabled);
-        setBothClaw(ClawPos.CLOSE_POS);
-
+//        setBothClaw(ClawPos.CLOSE_POS);
+        clawB.setPosition(ClawPos.CLOSE_POS.clawPosB);
+        clawF.setPosition(ClawPos.CLOSE_POS.clawPosF);
         this.telemetry = tl;
     }
 

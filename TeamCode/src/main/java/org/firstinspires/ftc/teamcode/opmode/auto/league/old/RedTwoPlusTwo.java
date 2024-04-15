@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.auto.league;
+package org.firstinspires.ftc.teamcode.opmode.auto.league.old;
 
 
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
+import org.firstinspires.ftc.teamcode.opmode.auto.league.RedBackstageNew;
 import org.firstinspires.ftc.teamcode.subsystems.AutoDropper;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.arm.Arm;

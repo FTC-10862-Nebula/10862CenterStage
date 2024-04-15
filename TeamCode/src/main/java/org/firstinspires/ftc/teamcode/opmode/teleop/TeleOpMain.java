@@ -104,10 +104,10 @@ public class TeleOpMain extends MatchOpMode {
 //        Button climbDown  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_DOWN))
 //                .whileHeld(climb.setSetPointCommand(Climber.ClimbEnum.REST));
         climb.setDefaultCommand(new ClimberMoveManual(climb, operatorGamepad::getLeftY));
-        Button ClimbShooter = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
-                .whenPressed(climb.setSetPointCommand(Climber.ClimbEnum.SHOOTER));
-        Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
-                .whenPressed(new InstantCommand(()->climb.resetEncoder()));
+//        Button ClimbShooter = (new GamepadButton(operatorGamepad, GamepadKeys.Button.DPAD_UP))
+//                .whenPressed(climb.setSetPointCommand(Climber.ClimbEnum.SHOOTER));
+//        Button resetClimb  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.BACK))
+//                .whenPressed(new InstantCommand(()->climb.resetEncoder()));
 
         //Slide
         Button slideRest  = (new GamepadButton(operatorGamepad, GamepadKeys.Button.A))

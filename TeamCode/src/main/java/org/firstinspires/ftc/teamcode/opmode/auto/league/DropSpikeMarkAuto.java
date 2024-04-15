@@ -3,8 +3,12 @@ package org.firstinspires.ftc.teamcode.opmode.auto.league;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.commands.arm.position.ResetCommand;
+import org.firstinspires.ftc.teamcode.commands.arm.position.SlideCommand;
+import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.DisplacementCommand;
 import org.firstinspires.ftc.teamcode.commands.drive.trajectory.sequence.TrajectorySequenceContainerFollowCommand;
 import org.firstinspires.ftc.teamcode.opmode.auto.Speed;
 import org.firstinspires.ftc.teamcode.subsystems.AutoDropper;
@@ -21,6 +25,7 @@ import org.firstinspires.ftc.teamcode.subsystems.vision.ff.FFVision;
 import org.firstinspires.ftc.teamcode.util.PoseStorage;
 import org.firstinspires.ftc.teamcode.util.misc.Util;
 import org.firstinspires.ftc.teamcode.util.teleop.MatchOpMode;
+import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Back;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Forward;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.Pose2dContainer;
 import org.firstinspires.ftc.teamcode.util.trajectorysequence.container.TrajectorySequenceContainer;
@@ -41,38 +46,31 @@ public class DropSpikeMarkAuto extends MatchOpMode {
     private Claw claw;
 
     private AutoDropper dropper;
-    @Config
-    private static class RedBackstageNewConstants {
-        public static Path path;
-        public static class Path {
-            public static DropSpikeMark aDropSpikeMark;
-            public static class DropSpikeMark {
-                public static Pose2dContainer startPose = new Pose2dContainer(10, -65, (90));
-                public static Forward a = new Forward(-33.5);
-                static TrajectorySequenceContainer preload =
-                    new TrajectorySequenceContainer(Speed::getBaseConstraints, a);
-                
-                static TrajectorySequenceContainer getTurn(TeamMarkerPipeline.FFPosition position) {
-                    switch (position) {
-                        case LEFT:
-                            return new TrajectorySequenceContainer(
-                                Speed::getBaseConstraints,
-                                new Turn(90)
-                            );
-                        case MIDDLE:
-                            return new TrajectorySequenceContainer(
-                                Speed::getBaseConstraints,
-                                new Forward(3)
-                            );
-                        default:
-                        case RIGHT:
-                            return new TrajectorySequenceContainer(
-                                Speed::getBaseConstraints,
-                                new Turn(-90)
-                            );
-                    }
-                }
-            }
+    public static Pose2dContainer startPose = new Pose2dContainer(10, 65, 270);
+    //^^ Has Wrong Coordinates
+    static TrajectorySequenceContainer getTurnDrop(TeamMarkerPipeline.FFPosition position) {
+        switch (position) {
+            default:
+            case LEFT:
+                return new TrajectorySequenceContainer(
+                        Speed::getBaseConstraints,
+                        new Back(37.5),
+                        new Turn(90),
+                        new Back(2.7)
+                );
+            case MIDDLE:
+                return new TrajectorySequenceContainer(
+                        Speed::getBaseConstraints,
+                        new Back(31.)
+                );
+
+            case RIGHT:
+                return new TrajectorySequenceContainer(
+                        Speed::getBaseConstraints,
+                        new Back(37.5),
+                        new Turn(-90),
+                        new Back(3)
+                );
         }
     }
 
@@ -98,26 +96,23 @@ public class DropSpikeMarkAuto extends MatchOpMode {
 
     public void matchStart() {
         TeamMarkerPipeline.FFPosition position = vision.getPosition();
+        //  TeamMarkerPipeline.FFPosition position = TeamMarkerPipeline.FFPosition.RIGHT;
 
-        drivetrain.setPoseEstimate(RedBackstageNewConstants.Path.DropSpikeMark.startPose.getPose());
-        PoseStorage.trajectoryPose = RedBackstageNewConstants.Path.DropSpikeMark.startPose.getPose();
+        drivetrain.setPoseEstimate(startPose.getPose());
+        PoseStorage.trajectoryPose = startPose.getPose();
 
         schedule(
-            new SequentialCommandGroup( //TODO:TEST!
-                /* YellowPixel */
-                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                        RedBackstageNewConstants.Path.DropSpikeMark.preload),
-                new TrajectorySequenceContainerFollowCommand(drivetrain,
-                    RedBackstageNewConstants.Path.DropSpikeMark.getTurn(position)),
-                    new ParallelCommandGroup(
-                            dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP)
-                    ),
-//                intake.setSetPointCommand(PowerIntake.IntakePower.OUTTAKE_PURPLE),
+                new SequentialCommandGroup(
+                        /*** YellowPixel ***/
+                        new TrajectorySequenceContainerFollowCommand(drivetrain,
+                                getTurnDrop(position)),
+                        dropper.dropperSetPositionCommand(AutoDropper.DropPos.DROP),
 
-                /* Save Pose and end opmode*/
-                run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
-                run(this::stop)
-            )
+
+                        /* Save Pose and end opmode*/
+                        run(() -> PoseStorage.currentPose = drivetrain.getPoseEstimate()),
+                        run(this::stop)
+                )
         );
     }
 }

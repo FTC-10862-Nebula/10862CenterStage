@@ -70,7 +70,7 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(31.5)
+                            new Back(31)
                     );
 
                 case RIGHT:
@@ -95,7 +95,7 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                                new Forward(29),
+                                new Forward(26.5),
                                 new Turn (-89)
 //                            new StrafeRight(26),
 //                            new Turn(-90),
@@ -127,7 +127,7 @@ public class RedWingRoboLobo extends MatchOpMode {
                             Speed::getFastConstraints,
                             //120
 //                            new Turn(-90),
-                            new Back(94)
+                            new Back(90.5)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -150,14 +150,14 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeRight(37),
-                            new Back(7.8)
+                            new StrafeRight(33),
+                            new Back(6)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeRight(33),
+                            new StrafeRight(29),
                             new Back(7.9)
                     );
             }
@@ -174,14 +174,14 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(30)
+                            new StrafeLeft(32)
 //                            new Back(10)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(43)
+                            new StrafeLeft(43.5)
 //                           new Back(12.5)
                     );
             }

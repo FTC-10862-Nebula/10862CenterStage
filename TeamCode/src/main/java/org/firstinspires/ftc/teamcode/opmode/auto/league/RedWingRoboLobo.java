@@ -63,23 +63,23 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(37.5),
+                            new Back(35.5),
                             new Turn(90),
-                            new Back(2.7)
+                            new Back(2)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(31)
+                            new Back(30.5)
                     );
 
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Back(37.5),
+                            new Back(33.5),
                             new Turn(-90),
-                            new Back(3)
-                    );
+                            new Back(2)
+                            );
             }
         }
 
@@ -90,12 +90,12 @@ public class RedWingRoboLobo extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
                             new Forward(1.3),
-                            new StrafeRight(41)
+                            new StrafeRight(38)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                                new Forward(26.5),
+                                new Forward(27.2),
                                 new Turn (-89)
 //                            new StrafeRight(26),
 //                            new Turn(-90),
@@ -105,8 +105,8 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getBaseConstraints,
-                            new Forward(3),
-                            new StrafeLeft(41)
+                            new Forward(2.2),
+                            new StrafeLeft(39)
                     );
             }
         }
@@ -120,20 +120,20 @@ public class RedWingRoboLobo extends MatchOpMode {
                                 Speed::getFastConstraints,
                                 //97
                                 new Turn(176.6),
-                                new Back(96)
+                                new Back(92)
                         );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             //120
 //                            new Turn(-90),
-                            new Back(90.5)
+                            new Back(91)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             //93
-                            new Back(93)
+                            new Back(92.5)
                     );
             }
         }
@@ -144,21 +144,21 @@ public class RedWingRoboLobo extends MatchOpMode {
                 default:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeRight(41),
-                            new Back(7.8)
+                            new StrafeRight(38.5),
+                            new Back(6)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeRight(33),
-                            new Back(6)
+                            new StrafeRight(34),
+                            new Back(6.3)
 
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getSlowConstraints,
-                            new StrafeRight(29),
-                            new Back(7.9)
+                            new StrafeRight(30),
+                            new Back(5)
                     );
             }
         }
@@ -168,21 +168,21 @@ public class RedWingRoboLobo extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(26)
+                            new StrafeLeft(41)
 //                            new Back(12)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(32)
+                            new StrafeLeft(33)
 //                            new Back(10)
                     );
                 default:
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeLeft(43.5)
-//                           new Back(12.5)
+                            new StrafeLeft(33.5)
+ //                          new Back(12.5)
                     );
             }
         }

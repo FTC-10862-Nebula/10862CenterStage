@@ -97,13 +97,8 @@ public class BlueWingRoboLobos extends MatchOpMode {
                         case MIDDLE:
                             return new TrajectorySequenceContainer(
                                     Speed::getBaseConstraints,
-                                    new Forward(28),
+                                    new Forward(26.8),
                                     new Turn(92)
-//                                    new StrafeRight(29)
-//                                    new Forward(1),
-//                                    new StrafeLeft(26),
-//                                    new Turn(90),
-//                                    new StrafeLeft(30.8)
 
                             );
                         case RIGHT:
@@ -127,7 +122,7 @@ public class BlueWingRoboLobos extends MatchOpMode {
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
                             //change to 120 today
-                            new Back(92)
+                            new Back(92.5)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
@@ -145,14 +140,14 @@ public class BlueWingRoboLobos extends MatchOpMode {
                     case LEFT:
                         return new TrajectorySequenceContainer(
                                 Speed::getSlowConstraints,
-                                new StrafeLeft(30),
+                                new StrafeLeft(29.5),
                                 new Back(7)
                         );
                     case MIDDLE:
                         return new TrajectorySequenceContainer(
                                 Speed::getSlowConstraints,
-                                new StrafeLeft(37),
-                                new Back(7.5)
+                                new StrafeLeft(38.5),
+                                new Back(6)
                         );
                     case RIGHT:
                         return new TrajectorySequenceContainer(
@@ -168,20 +163,20 @@ public class BlueWingRoboLobos extends MatchOpMode {
                 case LEFT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(34)
+                            new StrafeRight(32.3)
 //                            new Back(10)
                     );
                 case MIDDLE:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(30)
+                            new StrafeRight(35)
 //                            new Back(10)
                     );
                 case RIGHT:
                     return new TrajectorySequenceContainer(
                             Speed::getFastConstraints,
-                            new StrafeRight(43)
-//                            new Back(10)
+                            new StrafeRight(44.5),
+                           new Back(8)
                     );
             }
         }

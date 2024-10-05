@@ -165,7 +165,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void setPoseEstimate(Pose2d pose) {
-        drive.setPoseEstimate(pose);
+            drive.setPoseEstimate(pose);
     }
 
     public void update() {
